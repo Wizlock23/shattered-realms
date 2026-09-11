@@ -1,6 +1,6 @@
 {
-  "version": "0.16.6",
-  "build": "0166",
+  "version": "0.16.7",
+  "build": "0167",
   "released": "2026-09-11",
-  "cachePolicy": "auto-refresh"
+  "cachePolicy": "self-contained-battle-recovery"
 }
