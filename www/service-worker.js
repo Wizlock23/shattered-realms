@@ -1,4 +1,4 @@
-const CACHE_NAME='shattered-realms-v0.9.4';
+const CACHE_NAME='shattered-realms-v0.9.5';
 const CORE = [
   './', './index.html', './manifest.webmanifest',
   './css/app.css', './js/sound.js', './js/mobile-shell.js', './js/app.js', './js/pwa-install.js',
