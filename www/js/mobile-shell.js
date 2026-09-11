@@ -1,5 +1,5 @@
 (() => {
-  const VERSION = '0.13.4';
+  const VERSION = '0.13.5';
   const STATE_KEY = 'sr_v050_state';
   const isCapacitor = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
   const standaloneMQ = window.matchMedia('(display-mode: standalone)');

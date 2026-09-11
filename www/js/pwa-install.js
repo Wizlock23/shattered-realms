@@ -1,5 +1,5 @@
 (() => {
-  const BUILD = '0.13.4';
+  const BUILD = '0.13.5';
   const SW_URL = `./service-worker.js?v=${BUILD.replace(/\./g,'')}`;
   const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true || document.body.classList.contains('sr-native');
   const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
