@@ -1,5 +1,5 @@
 (() => {
-  const VERSION = '0.13.2';
+  const VERSION = '0.13.3';
   const STATE_KEY = 'sr_v050_state'; // intentionally preserved for prototype migration compatibility
   const isNative = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
   document.documentElement.dataset.srVersion = VERSION;
@@ -30,7 +30,9 @@
   function resetSave(){ localStorage.removeItem(STATE_KEY); location.reload(); }
   window.SRMobile = { VERSION, STATE_KEY, isNative, currentSave, exportSave, importSave, resetSave };
 
-  window.addEventListener('error', (e) => {
-    try { localStorage.setItem('sr_v080_last_error', JSON.stringify({message:e.message, source:e.filename, line:e.lineno, col:e.colno, at:new Date().toISOString()})); } catch {}
-  });
+  function storeDiagnostic(kind, detail){
+    try { localStorage.setItem('sr_last_error', JSON.stringify({version:VERSION, kind, ...detail, at:new Date().toISOString()})); } catch {}
+  }
+  window.addEventListener('error', (e) => storeDiagnostic('error',{message:e.message, source:e.filename, line:e.lineno, col:e.colno}));
+  window.addEventListener('unhandledrejection', (e) => storeDiagnostic('unhandledrejection',{message:String(e.reason?.message||e.reason||'Unknown promise rejection')}));
 })();

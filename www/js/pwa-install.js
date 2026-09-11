@@ -27,7 +27,9 @@
   window.addEventListener('appinstalled', () => { const b=document.getElementById('srPwaBanner'); if(b)b.remove(); });
   window.addEventListener('DOMContentLoaded', () => {
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
-      navigator.serviceWorker.register('./service-worker.js').catch(err=>console.warn('Service worker registration failed',err));
+      const hadController=!!navigator.serviceWorker.controller; let refreshing=false;
+      if(hadController){navigator.serviceWorker.addEventListener('controllerchange',()=>{if(refreshing)return;refreshing=true;location.reload()},{once:true});}
+      navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'}).then(reg=>reg.update().catch(()=>{})).catch(err=>console.warn('Service worker registration failed',err));
     }
     // iOS has no beforeinstallprompt event.
     if (isIOS) setTimeout(addBanner, 900);

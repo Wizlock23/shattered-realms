@@ -1,7 +1,8 @@
 /* Shattered Realms v0.13.0 — post-match progression and retention loop */
 (()=>{
   const $=id=>document.getElementById(id);
-  let lastHandledKey='';
+  const handledMatchIds=new Set();
+  function trustedBattleMessage(e){const fr=$('battleFrame');if(!e?.data||e.data.type!=='sr-match-result'||!fr?.contentWindow||e.source!==fr.contentWindow)return false;const own=location.origin;if(own&&own!=='null'&&e.origin&&e.origin!==own)return false;return true}
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function rewardQuest(q){
     if(!q||q.claimed||q.p<q.max)return null;
@@ -20,7 +21,7 @@
     $('sr13Replay').onclick=()=>{modal.classList.remove('show');setTimeout(()=>$('launchBattle')?.click(),100)};
     return modal;
   }
-  function closeBattle(){const m=$('battleModal');if(m)m.classList.remove('show');const fr=$('battleFrame');if(fr)fr.src='about:blank'}
+  function closeBattle(){if(typeof closeBattleModal==='function'){closeBattleModal();return}const m=$('battleModal');if(m)m.classList.remove('show');const fr=$('battleFrame');if(fr){fr.onload=null;fr.src='about:blank'}}
   function progressRow(label,value,max,caption){const pct=Math.max(0,Math.min(100,max?value/max*100:0));return `<div class="sr13-progress-row"><div><b>${esc(label)}</b><span>${esc(caption)}</span></div><div class="bar"><span style="width:${pct}%"></span></div></div>`}
   function showPracticeResult(m,rewards,xpGain){
     const modal=ensureModal();closeBattle();
@@ -32,7 +33,7 @@
     modal.classList.toggle('loss',!m.won);modal.classList.add('show');try{window.SRAudio?.play('reward')}catch{}
   }
   function applyResult(m){
-    const key=[m.mode,m.encounterId,m.won,m.round,m.playerHp,Date.now()>>9].join('|');if(lastHandledKey===key)return;lastHandledKey=key;
+    const key=m.matchId||[m.mode,m.encounterId,m.won,m.round,m.playerHp,m.enemyHp].join('|');if(handledMatchIds.has(key)||(typeof hasProcessedResult==='function'&&hasProcessedResult('match',key)))return;handledMatchIds.add(key);if(typeof markProcessedResult==='function')markProcessedResult('match',key);
     S.accountXp=Number(S.accountXp||0);S.totalMatches=Number(S.totalMatches||0)+1;S.wins=Number(S.wins||0)+(m.won?1:0);S.winStreak=m.won?Number(S.winStreak||0)+1:0;
     const xpGain=m.won?40:25;S.accountXp+=xpGain;
     const rewards=[`+${xpGain} Account XP`];
@@ -44,6 +45,6 @@
     save();try{renderCurrencies();renderHome();renderRewards()}catch{}
     if(m.mode==='practice')showPracticeResult(m,rewards,xpGain);else setTimeout(()=>{const b=$('resultBonus');if(b){const line=`Account progress: +${xpGain} XP${rewards.filter(x=>x.startsWith('Quest')).length?' • '+rewards.filter(x=>x.startsWith('Quest')).join(' • '):''}`;b.textContent=b.textContent?`${b.textContent} • ${line}`:line}},120);
   }
-  window.addEventListener('message',e=>{const m=e.data;if(!m||m.type!=='sr-match-result')return;applyResult(m)});
+  window.addEventListener('message',e=>{if(!trustedBattleMessage(e))return;applyResult(e.data)});
   window.addEventListener('load',()=>{ensureModal();document.documentElement.dataset.engagement='v0130'});
 })();

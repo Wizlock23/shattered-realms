@@ -2,7 +2,7 @@
   "id": "./",
   "name": "The Shattered Realms",
   "short_name": "Shattered Realms",
-  "description": "A digital-first collectible card game set in Eryndor \u2014 New Player Experience Alpha.",
+  "description": "A digital-first collectible strategy card game set in Eryndor.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
