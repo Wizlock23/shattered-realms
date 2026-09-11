@@ -1,10 +1,11 @@
-const CACHE_NAME='shattered-realms-v0.9.3';
+const CACHE_NAME='shattered-realms-v0.9.4';
 const CORE = [
   './', './index.html', './manifest.webmanifest',
   './css/app.css', './js/sound.js', './js/mobile-shell.js', './js/app.js', './js/pwa-install.js',
   './css/premium-v091.css', './css/battle-v091.css', './js/premium-v091.js',
   './css/concept-v092.css', './css/battle-v092.css', './js/concept-v092.js', './assets/ui/eryndor-map-concept-v092.jpg',
   './css/showcase-v093.css', './js/showcase-v093.js', './assets/ui/eryndor-hero-clean-v093.jpg',
+  './css/target-v094.css', './js/target-v094.js', './css/battle-v094.css', './js/battle-v094.js', './assets/ui/home-hero-target-v094.jpg',
   './assets/ui/eryndor-hero-v091.jpg', './assets/ui/eryndor-map-v091.jpg', './assets/ui/collection-hero-v091.jpg',
   './assets/ui/decks-hero-v091.jpg', './assets/ui/play-hero-v091.jpg', './assets/ui/progress-hero-v091.jpg', './assets/ui/store-hero-v091.jpg',
   './battle/index.html',
