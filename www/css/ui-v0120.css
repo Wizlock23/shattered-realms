@@ -68,7 +68,7 @@ body:not([data-sr110-view="home"]) .sr110-homehud{display:none}body:not([data-sr
 .battle-modal{padding:0!important;background:#020713!important;z-index:200!important}.battle-modal .modal-card{width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;margin:0!important;border:0!important;border-radius:0!important;padding:0!important;background:#020713!important}.battle-modal .modal-card>div:first-child{display:none!important}.battle-frame{width:100%!important;height:100dvh!important;border:0!important;display:block!important}
 
 /* Desktop side/top navigation */
-@media(min-width:901px){
+@media(min-width:901px) and (pointer:fine) and (hover:hover){
   .sr110-bottom-nav{position:sticky!important;top:0!important;bottom:auto!important;height:74px!important;padding:0 22px!important;border-top:0!important;border-bottom:1px solid rgba(230,187,103,.32)!important}.sr110-bottom-nav .brand{display:flex!important;align-items:center!important;gap:8px!important;position:absolute;left:24px;top:10px}.sr110-bottom-nav .nav{max-width:720px;margin:auto;grid-template-columns:repeat(7,1fr)!important}.sr110-bottom-nav .nav button[data-view="rewards"],.sr110-bottom-nav .nav button[data-view="shop"]{display:flex!important}.sr110-bottom-nav .nav button{height:58px!important}.sr110-bottom-nav .nav button>span{font-size:18px}.sr110-bottom-nav .nav button>small{font-size:11px}.sr110-topbar{top:74px!important}.sr110-content{padding-bottom:40px!important}.sr110-home-art{aspect-ratio:941/420}}
 
 /* Phone exact proportions */
@@ -281,4 +281,102 @@ body:not([data-sr110-view="home"]) .sr110-homehud{display:none}body:not([data-sr
   body[data-sr110-view="decks"] .sr110-content,body[data-sr110-view="play"] .sr110-content{padding:6px 7px calc(84px + env(safe-area-inset-bottom))!important}
   .sr110-deck-layout .cardgrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px!important}
   .sr110-play-grid .mode{border-radius:8px!important;border-color:rgba(230,187,103,.62)!important;background:linear-gradient(180deg,#091a31,#04101f)!important}
+}
+
+
+/* ============================================================
+   v0.13.2 PORTRAIT / LANDSCAPE CONSISTENCY HOTFIX
+   Phones must never inherit desktop columns when rotated.
+   ============================================================ */
+
+/* Portrait phones: Adventure is ALWAYS one full-width column. */
+@media (max-width:900px) and (orientation:portrait){
+  body[data-sr110-view="adventure"] #view-adventure{
+    display:block!important;
+    min-height:0!important;
+  }
+  body[data-sr110-view="adventure"] .sr110-chapter-tabs{
+    width:100%!important;
+    margin:0 0 6px!important;
+  }
+  body[data-sr110-view="adventure"] .sr110-adventure-stage{
+    display:flex!important;
+    flex-direction:column!important;
+    width:100%!important;
+    min-width:0!important;
+    grid-template-columns:none!important;
+    grid-template-rows:none!important;
+    gap:7px!important;
+  }
+  body[data-sr110-view="adventure"] .sr110-worldmap{
+    display:block!important;
+    grid-column:1!important;
+    width:100%!important;
+    height:auto!important;
+    min-width:0!important;
+    min-height:0!important;
+    aspect-ratio:1200/964!important;
+    flex:0 0 auto!important;
+    background-size:cover!important;
+    background-position:center!important;
+  }
+  body[data-sr110-view="adventure"] .sr110-encounter{
+    position:relative!important;
+    grid-column:1!important;
+    top:auto!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    flex:0 0 auto!important;
+  }
+}
+
+/* Touch phones in landscape: keep the phone shell, not desktop/tablet chrome. */
+@media (orientation:landscape) and (max-height:600px) and (pointer:coarse){
+  .sr110-bottom-nav{
+    position:fixed!important;
+    left:0!important;right:0!important;bottom:0!important;top:auto!important;
+    width:auto!important;
+    height:calc(70px + env(safe-area-inset-bottom))!important;
+    padding:0 5px env(safe-area-inset-bottom)!important;
+    border-top:1px solid rgba(230,187,103,.58)!important;
+    border-bottom:0!important;
+  }
+  .sr110-bottom-nav .brand,.sr110-bottom-nav .sr110-legacy-profile{display:none!important}
+  .sr110-bottom-nav .nav{
+    display:grid!important;
+    grid-template-columns:repeat(5,1fr)!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+  }
+  .sr110-bottom-nav .nav button[data-view="rewards"],
+  .sr110-bottom-nav .nav button[data-view="shop"]{display:none!important}
+  .sr110-topbar{top:0!important}
+  .sr110-content{padding-bottom:calc(76px + env(safe-area-inset-bottom))!important}
+
+  /* Adventure may use two columns in landscape, but both remain inside the phone viewport. */
+  body[data-sr110-view="adventure"] #view-adventure{min-height:0!important}
+  body[data-sr110-view="adventure"] .sr110-adventure-stage{
+    display:grid!important;
+    grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr)!important;
+    grid-template-rows:auto!important;
+    gap:8px!important;
+    width:100%!important;
+    min-width:0!important;
+  }
+  body[data-sr110-view="adventure"] .sr110-worldmap{
+    width:100%!important;
+    height:auto!important;
+    min-width:0!important;
+    aspect-ratio:1200/964!important;
+  }
+  body[data-sr110-view="adventure"] .sr110-encounter{
+    position:relative!important;
+    grid-column:1!important;
+    top:auto!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+  }
 }
