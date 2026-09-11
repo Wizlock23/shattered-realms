@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" name="viewport"/>
-<meta content="#080b12" name="theme-color"/>
+<meta content="#030914" name="theme-color"/>
 <meta content="The Shattered Realms — a digital-first collectible card game set in Eryndor." name="description"/>
 <meta content="Shattered Realms" name="apple-mobile-web-app-title"/>
 <link href="manifest.webmanifest" rel="manifest"/>
@@ -12,103 +11,123 @@
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
 <meta content="telephone=no" name="format-detection"/>
-<title>The Shattered Realms — Reference Match v0.10.1</title>
+<title>The Shattered Realms — Visual Fidelity v0.12.0</title>
 <link href="css/app.css" rel="stylesheet"/>
-<link href="css/ui-v0101.css" rel="stylesheet"/>
-</head><body>
-<div class="app">
-<aside class="sidebar"><div class="brand"><span class="brand-shard">◇</span><span class="brand-title">SHATTERED REALMS</span><small>BEYOND SIGHT LIES PURPOSE</small></div><div class="nav" id="nav">
-<button class="active" data-view="home"><span>⌂</span>Home</button><button data-view="adventure"><span>✧</span>Adventure</button><button data-view="collection"><span>▦</span>Collection</button><button data-view="decks"><span>♜</span>Decks</button><button data-view="play"><span>⚔</span>Play</button><button data-view="rewards"><span>✦</span>Progress</button><button data-view="shop"><span>◇</span>Store</button></div>
-<div class="profile"><b>Shardbearer</b><div class="small muted" id="profileLine">Choose a starter faction</div><div class="currencies"><span class="currency">◈ <b id="goldSide">0</b> Gold</span><span class="currency">✧ <b id="dustSide">0</b> Dust</span></div></div></aside>
-<main class="main"><div class="topbar"><b id="viewTitle">Home</b><div class="topbar-actions"><button class="help-btn audio-btn" id="audioToggle" type="button" aria-label="Toggle sound">🔊</button><button class="help-btn" id="openHelp" type="button">? Help</button><div class="currencies"><span class="currency">◈ <b id="goldTop">0</b></span><span class="currency">✧ <b id="dustTop">0</b></span><span class="currency">▣ <b id="packsTop">0</b> Packs</span></div></div></div>
-<div class="content">
-<section class="view active" id="view-home">
-<div class="sr-home-hero panel hero" id="homeHero">
-  <div class="sr-home-brand">
-    <div class="sr-brand-kicker">THE</div>
-    <div class="sr-logo-text">SHATTERED REALMS</div>
-    <div class="sr-brand-tag">BEYOND SIGHT LIES PURPOSE</div>
+<link href="css/ui-v0120.css" rel="stylesheet"/>
+</head><body class="sr110">
+<div class="app sr110-app">
+<aside class="sidebar sr110-bottom-nav">
+  <div class="brand"><span class="brand-shard">◇</span><span class="brand-title">SHATTERED REALMS</span><small>BEYOND SIGHT LIES PURPOSE</small></div>
+  <div class="nav" id="nav">
+    <button class="active" data-view="home"><span data-sr110-icon="home"></span><small>Home</small></button>
+    <button data-view="adventure"><span data-sr110-icon="adventure"></span><small>Adventure</small></button>
+    <button data-view="collection"><span data-sr110-icon="collection"></span><small>Collection</small></button>
+    <button data-view="decks"><span data-sr110-icon="decks"></span><small>Decks</small></button>
+    <button data-view="play"><span data-sr110-icon="play"></span><small>Play</small></button>
+    <button data-view="rewards"><span data-sr110-icon="rewards"></span><small>Progress</small></button>
+    <button data-view="shop"><span data-sr110-icon="shop"></span><small>Store</small></button>
   </div>
-  <div class="sr-home-continue">
-    <div class="small gold">PVE ADVENTURE • CHAPTER ONE</div>
-    <h1>Continue your journey through Eryndor.</h1>
-    <p class="muted">The Worldshards are stirring. Build your collection, bind a Leader, and decide what the broken realms become.</p>
-    <div class="hero-actions">
-      <button class="btn primary sr-cta" data-go="adventure">Continue Journey <span>›</span></button>
-      <button class="btn" data-go="collection">View Collection</button>
+  <div class="profile sr110-legacy-profile"><b>Shardbearer</b><div class="small muted" id="profileLine">Choose a starter faction</div><div class="currencies"><span>Gold <b id="goldSide">0</b></span><span>Dust <b id="dustSide">0</b></span></div></div>
+</aside>
+<main class="main sr110-main">
+<header class="topbar sr110-topbar">
+  <div class="sr110-homehud">
+    <div class="sr110-profileblock">
+      <div class="sr110-avatar"><img id="sr110Avatar" src="assets/leaders/alfar.webp" alt="Leader portrait"></div>
+      <div class="sr110-playercopy"><b id="sr110PlayerName">AChambers</b><div><span id="sr110Level">Lv. 7</span><span class="sr110-xp"><i id="sr110XpFill"></i></span></div></div>
+    </div>
+    <div class="sr110-wallet">
+      <button class="sr110-currency" data-go="shop" type="button"><span data-sr110-icon="coin"></span><b id="goldTop">0</b><em>+</em></button>
+      <button class="sr110-currency" data-go="shop" type="button"><span data-sr110-icon="dust"></span><b id="dustTop">0</b><em>+</em></button>
+      <button class="sr110-square" id="sr110Mail" type="button" aria-label="Inbox"><span data-sr110-icon="mail"></span></button>
+      <button class="sr110-square" id="openHelp" type="button" aria-label="Help and settings"><span data-sr110-icon="gear"></span></button>
+      <button class="sr110-square sr110-audio" id="audioToggle" type="button" aria-label="Toggle sound">♪</button>
+      <span id="packsTop" hidden>0</span>
     </div>
   </div>
-</div>
-<div class="sr-home-tiles">
-  <button class="sr-destination" data-go="adventure"><span class="sr-dest-icon">✧</span><b>Adventure</b><small>Explore Eryndor</small></button>
-  <button class="sr-destination" data-go="collection"><span class="sr-dest-icon">▦</span><b>Collection</b><small>Discover cards</small></button>
-  <button class="sr-destination" data-go="decks"><span class="sr-dest-icon">♜</span><b>Decks</b><small>Craft your strategy</small></button>
-  <button class="sr-destination" data-go="play"><span class="sr-dest-icon">⚔</span><b>Play</b><small>Enter battle</small></button>
-</div>
-<div class="sr-feature-event panel">
-  <div class="sr-event-art"></div>
-  <div class="sr-event-copy"><div class="small gold">FEATURED EVENT</div><h2>Trial of the Shards</h2><p class="muted">Unique challenges, bonus faction mastery, and additional Aether Cache rewards.</p><button class="btn" data-go="rewards">View Progress</button></div>
-  <div class="sr-event-rewards"><div class="small gold">YOUR COLLECTION</div><strong id="collectionCount">0/108</strong><span class="muted">unique cards discovered</span></div>
-</div>
-<div class="sr-home-lower">
-  <div class="panel"><h2>Daily Quests</h2><div id="homeQuests"></div></div>
-  <div class="panel"><h2>Faction Mastery</h2><div id="homeMastery"></div></div>
-  <div class="panel sr-home-cache"><h2>Aether Cache</h2><p class="muted">Earn packs through play or craft exactly what you need with Shard Dust.</p><button class="btn primary" id="openHomePack">Open Earned Pack</button><button class="btn" data-go="shop">Store & Crafting</button></div>
-</div>
-
-</section>
-<section class="view" id="view-adventure">
-<div class="sr-page-hero sr-adventure-hero">
-  <div><div class="small gold">PVE ADVENTURE • CHAPTER ONE</div><h1>The Shattered Path</h1><p>Travel across Eryndor. Learn each faction. Earn guaranteed rewards. Face encounters that break normal PvP rules.</p></div>
-</div>
-<div class="chapter-progress" id="chapterProgress"></div>
-<div class="sr-adventure-stage">
-  <div class="worldmap sr-concept-map" id="worldMap">
-    <div class="map-title sr-map-caption"><div class="small gold">ERYNDOR</div><h2>Worldshard Trail</h2><div class="small muted">Choose an unlocked path.</div></div>
-    <div id="routeLayer"></div><div id="nodeLayer"></div>
+  <div class="sr110-pagehud">
+    <button class="sr110-back" id="sr110Back" type="button"><span data-sr110-icon="back"></span></button>
+    <b id="viewTitle">Home</b>
+    <div class="sr110-pagewallet">
+      <span><span data-sr110-icon="coin"></span><b id="sr110GoldMirror">0</b></span>
+      <span><span data-sr110-icon="dust"></span><b id="sr110DustMirror">0</b></span>
+      <button data-go="shop" type="button">+</button>
+    </div>
   </div>
-  <div class="panel encounter-card sr-encounter-detail" id="encounterPanel"></div>
-</div>
-<div class="sr-adventure-tools">
-  <div class="panel sr-deck-selector"><div><div class="small gold">ADVENTURE DECK</div><h2>Choose your deck</h2></div><select id="adventureDeckSelect"></select></div>
-  <div class="panel"><div class="small gold">CHAPTER PROGRESS</div><h2>Rewards</h2><div class="rewardline" id="chapterRewards"></div></div>
-  <div class="panel sr-boss-note"><div class="small gold">DIGITAL-ONLY BOSS RULES</div><h2>Bosses bend the rules.</h2><p class="muted">Worldshard creatures can carry encounter powers such as Shardquake, phase changes, and unusual Health totals.</p></div>
-</div>
+</header>
+<div class="content sr110-content">
+<section class="view active" id="view-home">
+  <section class="sr110-home-card" id="homeHero">
+    <div class="sr110-home-art"></div>
+    <div class="sr110-chapter-card">
+      <div class="sr110-chapter-main">
+        <div class="small gold">PVE ADVENTURE • CHAPTER ONE</div>
+        <h1>The Shattered Path</h1>
+        <p>Travel across Eryndor, learn each faction, earn guaranteed rewards, and face encounters that can break normal PvP rules.</p>
+        <button class="sr110-blue-cta" data-go="adventure" type="button">CONTINUE JOURNEY <span>›</span></button>
+      </div>
+      <div class="sr110-chapter-progress-card">
+        <div class="small gold">CHAPTER ONE</div>
+        <strong>The First Shard</strong>
+        <div class="sr110-diamonds" id="sr110HomeDiamonds"></div>
+        <small id="sr110HomeProgress">0 / 7 paths completed</small>
+      </div>
+    </div>
+  </section>
+  <section class="sr110-home-destinations">
+    <button class="sr110-destination sr110-dest-adventure" data-go="adventure" type="button"><span data-sr110-icon="adventure"></span><b>Adventure</b><small>EXPLORE ERYNDOR<br>FACE NEW PATHS</small><em>›</em></button>
+    <button class="sr110-destination sr110-dest-collection" data-go="collection" type="button"><span data-sr110-icon="collection"></span><b>Collection</b><small>DISCOVER CARDS<br>BUILD POSSIBILITIES</small><em>›</em></button>
+    <button class="sr110-destination sr110-dest-decks" data-go="decks" type="button"><span data-sr110-icon="decks"></span><b>Decks</b><small>CRAFT YOUR STRATEGY<br>BRING YOUR VISION</small><em>›</em></button>
+    <button class="sr110-destination sr110-dest-play" data-go="play" type="button"><span data-sr110-icon="play"></span><b>Play</b><small>CHALLENGE OTHERS<br>PROVE YOUR SKILL</small><em>›</em></button>
+  </section>
+  <section class="sr110-featured">
+    <div class="sr110-feature-art"></div>
+    <div class="sr110-feature-copy"><div class="small gold">FEATURED EVENT</div><h2>Trial of the Shards</h2><p>Unique challenges. Limited-time rewards. Test your legend while growing your collection and faction mastery.</p><b>◷ Ends in 4d 12h</b></div>
+    <div class="sr110-feature-rewards"><div class="small gold">POSSIBLE REWARDS</div><div><span data-sr110-icon="coin"></span><span data-sr110-icon="dust"></span><span data-sr110-icon="adventure"></span><span data-sr110-icon="chest"></span></div><small><b id="collectionCount">0/108</b> cards discovered</small></div>
+  </section>
+  <section class="sr110-home-hidden-data">
+    <div id="homeQuests"></div><div id="homeMastery"></div><div class="bar"><span id="collectionMilestone"></span></div><button id="openHomePack" type="button">Open pack</button>
+  </section>
 </section>
+
+<section class="view" id="view-adventure">
+  <div class="sr110-chapter-tabs"><button class="active" type="button">CHAPTER 1</button><button disabled>CHAPTER 2</button><button disabled>CHAPTER 3</button><button disabled>CHAPTER 4</button></div>
+  <div class="chapter-progress" id="chapterProgress"></div>
+  <div class="sr-adventure-stage sr110-adventure-stage">
+    <div class="worldmap sr110-worldmap" id="worldMap"><div id="routeLayer"></div><div id="nodeLayer"></div></div>
+    <div class="panel encounter-card sr110-encounter" id="encounterPanel"></div>
+  </div>
+  <div class="sr110-adventure-deck"><div class="small gold">ADVENTURE DECK</div><select id="adventureDeckSelect"></select></div>
+  <div class="sr110-adventure-rewards"><div class="small gold">CHAPTER REWARDS</div><div class="rewardline" id="chapterRewards"></div></div>
+</section>
+
 <section class="view" id="view-collection">
-<div class="sr-page-hero sr-collection-hero deck-head">
-  <div><div class="small gold">DISCOVER • COLLECT • BELONG</div><h1>Collection</h1><p>Build your arsenal from across the realms. Six factions. Endless strategies.</p></div>
-  <button class="btn gold" data-go="shop">Acquire Cards</button>
-</div>
-<div class="sr-faction-tabs" id="collectionFactionTabs"></div>
-<div class="filters sr-collection-filters">
-  <input id="cardSearch" placeholder="Search cards"/>
-  <select id="factionFilter"><option value="All">All factions</option></select>
-  <select id="typeFilter"><option value="All">All types</option><option>Creature</option><option>Tactic</option><option>Relic</option></select>
-  <select id="rarityFilter"><option value="All">All rarities</option><option>Common</option><option>Rare</option><option>Epic</option><option>Legendary</option></select>
-  <select id="ownedFilter"><option value="All">All cards</option><option value="Owned">Owned</option><option value="Missing">Missing</option></select>
-</div>
-<div class="collection-layout sr-collection-layout"><div class="cardgrid" id="collectionGrid"></div><aside class="panel detail" id="cardDetail"></aside></div>
+  <div class="sr110-collection-tools"><div class="sr110-search"><span data-sr110-icon="search"></span><input id="cardSearch" placeholder="Search cards, abilities, or keywords..."/></div><button class="sr110-filter" id="sr110FilterButton" type="button"><span data-sr110-icon="filter"></span></button></div>
+  <div class="sr110-faction-tabs" id="collectionFactionTabs"></div>
+  <div class="filters sr110-hidden-filters"><select id="factionFilter"><option value="All">All factions</option></select><select id="typeFilter"><option value="All">All types</option><option>Creature</option><option>Tactic</option><option>Relic</option></select><select id="rarityFilter"><option value="All">All rarities</option><option>Common</option><option>Rare</option><option>Epic</option><option>Legendary</option></select><select id="ownedFilter"><option value="All">All cards</option><option value="Owned">Owned</option><option value="Missing">Missing</option></select></div>
+  <div class="sr110-collection-stage">
+    <aside class="panel detail sr110-feature-card" id="cardDetail"></aside>
+    <div class="cardgrid sr110-card-carousel" id="collectionGrid"></div>
+  </div>
+  <div class="sr110-collection-footer"><span>Cards Collected <b id="sr110CollectionCount">0 / 108</b></span><select id="sr110RarityMirror"><option>Rarity</option></select></div>
 </section>
+
 <section class="view" id="view-decks">
-<div class="sr-page-hero sr-decks-hero deck-head">
-  <div><div class="small gold">CRAFT YOUR STRATEGY</div><h1>Deck Builder</h1><p>30 cards • max 3 copies • one faction • one Shardbound Leader</p></div>
-  <button class="btn primary" id="saveDeck">Save Deck</button>
-</div>
-<div class="filters sr-deck-controls"><select id="deckFaction"></select><input id="deckName" placeholder="Deck name" value="My Deck"/><span class="tag" id="deckStatus">0/30</span></div>
-<div class="deck-layout sr-deck-layout"><div><div class="cardgrid" id="deckPool"></div></div><aside class="panel decklist"><div id="leaderDeck"></div><div class="sr-deck-count"><div><div class="small gold">CURRENT DECK</div><h2>Cards</h2></div><b id="deckCount">0/30</b></div><div id="deckRows"></div><h3>Energy Curve</h3><div class="curve" id="curve"></div><p class="small muted">Only cards you own can be added. Build around your Leader and keep a playable Energy curve.</p></aside></div>
+  <div class="sr110-section-title"><div><div class="small gold">CRAFT YOUR STRATEGY</div><h1>Deck Builder</h1><p>30 cards • max 3 copies • one faction • one Shardbound Leader</p></div><button class="btn primary" id="saveDeck">Save Deck</button></div>
+  <div class="filters sr110-deck-controls"><select id="deckFaction"></select><input id="deckName" placeholder="Deck name" value="My Deck"/><span class="tag" id="deckStatus">0/30</span></div>
+  <div class="deck-layout sr110-deck-layout"><div><div class="cardgrid" id="deckPool"></div></div><aside class="panel decklist"><div id="leaderDeck"></div><div class="sr110-deck-count"><b id="deckCount">0/30</b></div><div id="deckRows"></div><h3>Energy Curve</h3><div class="curve" id="curve"></div></aside></div>
 </section>
+
 <section class="view" id="view-play">
-<div class="sr-page-hero sr-play-hero"><div><div class="small gold">BATTLE FOR ERYNDOR</div><h1>Play</h1><p>Bring your saved deck into battle. Practice against AI now; online modes come later.</p></div></div>
-<div class="sr-play-grid">
-  <div class="mode sr-mode-live"><span class="tag live">PLAYABLE NOW</span><strong>Practice vs AI</strong><p class="muted">Test decks, learn matchups, and improve without rank pressure.</p><label>Your deck</label><select id="playDeckSelect"></select><label>Opponent</label><select id="opponentSelect"></select><button class="btn primary sr-cta" id="launchBattle">Enter Battle</button></div>
-  <div class="mode"><span class="tag">ADVENTURE</span><strong>Chapter One</strong><p class="muted">Story encounters, faction trials, objectives and the Worldshard Behemoth.</p><button class="btn" data-go="adventure">Continue Adventure</button></div>
-  <div class="mode"><span class="tag">COMING LATER</span><strong>Casual & Ranked PvP</strong><p class="muted">Matchmaking, seasons, ranks, competitive deck stats and cosmetic rewards.</p><button class="btn" disabled>Online services required</button></div>
-</div>
-<div class="panel sr-selected-deck"><div class="small gold">SELECTED DECK</div><div id="playDeckInfo"></div></div>
+  <div class="sr110-section-title"><div><div class="small gold">BATTLE FOR ERYNDOR</div><h1>Play</h1><p>Practice against AI today. Online modes can layer onto this shell later.</p></div></div>
+  <div class="sr110-play-grid"><div class="mode sr110-play-primary"><span class="tag live">PLAYABLE NOW</span><strong>Practice vs AI</strong><p>Test decks and learn matchups without rank pressure.</p><label>Your deck</label><select id="playDeckSelect"></select><label>Opponent</label><select id="opponentSelect"></select><button class="btn primary" id="launchBattle">ENTER BATTLE</button></div><div class="mode"><span class="tag">ADVENTURE</span><strong>Chapter One</strong><p>Continue your story through The Shattered Path.</p><button class="btn" data-go="adventure">CONTINUE ADVENTURE</button></div><div class="mode"><span class="tag">COMING LATER</span><strong>Ranked PvP</strong><p>Seasons, matchmaking, and competitive rewards.</p><button class="btn" disabled>ONLINE SERVICES REQUIRED</button></div></div>
+  <div class="panel sr110-selected-deck"><div class="small gold">SELECTED DECK</div><div id="playDeckInfo"></div></div>
 </section>
-<section class="view" id="view-rewards"><h1>Progression</h1><p class="muted">The goal: playing should always move your collection forward, even if you lose.</p><h2 style="margin-top:18px">Faction Mastery</h2><div class="mastery-grid" id="masteryGrid"></div><div class="grid cols2" style="margin-top:14px"><div class="panel"><h2>Daily / Weekly Quests</h2><div id="questList"></div></div><div class="panel"><h2>Account Rewards</h2><div class="quest"><div><b>Level 4</b><div class="small muted">Complete 2 more matches</div><div class="bar"><span style="width:60%"></span></div></div><span class="tag">+200 Gold</span></div><div class="quest"><div><b>Next Collection Milestone</b><div class="small muted">Own 30 unique cards</div><div class="bar"><span id="collectionMilestone" style="width:0%"></span></div></div><span class="tag">Rare Wildcard</span></div></div></div></section>
-<section class="view" id="view-shop"><h1>Digital Store &amp; Acquisition</h1><p class="muted">Gameplay cards can be earned without paying. Spending should accelerate collection or buy cosmetics—not create exclusive power.</p><div class="grid cols3" style="margin-top:15px"><div class="panel" style="display:grid;justify-items:center"><div class="pack" style="--pack:#7654cb"><div><div style="font-size:28px">✦</div><b>Aether Cache</b><div class="small muted">5 digital cards<br/>Rare+ guaranteed</div></div></div><div class="hero-actions"><button class="btn primary" id="openEarnedPack">Open 1 Pack</button><button class="btn" id="buyGoldPack">100 Gold</button></div></div><div class="panel"><h2>Craft Exactly What You Need</h2><p class="muted">Duplicates beyond three convert to Shard Dust. Missing cards can be crafted directly from Collection.</p><div class="quest"><div><b>Common</b></div><span>40 Dust</span></div><div class="quest"><div><b>Rare</b></div><span>100 Dust</span></div><div class="quest"><div><b>Epic</b></div><span>250 Dust</span></div><div class="quest"><div><b>Legendary</b></div><span>600 Dust</span></div></div><div class="panel"><h2>Cosmetics</h2><p class="muted">Best long-term monetization lane: Leader skins, Ascension animations, card backs, battlefield themes, animated frames and alternate art.</p><button class="btn" disabled="">Cosmetic Store Concept</button><p class="small muted" style="margin-top:10px">No card should be permanently exclusive to real-money spending.</p></div></div><div class="panel" style="margin-top:15px"><h2>Latest Pack</h2><div class="pack-results" id="packResults"><p class="muted">Open a pack to preview the acquisition loop.</p></div></div></section>
+
+<section class="view" id="view-rewards"><div class="sr110-section-title"><div><div class="small gold">GROW YOUR LEGEND</div><h1>Progression</h1></div></div><div class="mastery-grid" id="masteryGrid"></div><div class="panel"><h2>Daily / Weekly Quests</h2><div id="questList"></div></div></section>
+
+<section class="view" id="view-shop"><div class="sr110-section-title"><div><div class="small gold">EXPAND YOUR COLLECTION</div><h1>Store & Crafting</h1></div></div><div class="grid cols3"><div class="panel"><h2>Aether Cache</h2><button class="btn primary" id="openEarnedPack">Open 1 Pack</button><button class="btn" id="buyGoldPack">100 Gold</button></div><div class="panel"><h2>Crafting</h2><p>Use Shard Dust to craft missing cards directly from Collection.</p></div><div class="panel"><h2>Cosmetics</h2><p>Leader skins, card backs, battlefield themes and alternate art.</p></div></div><div class="panel"><h2>Latest Pack</h2><div class="pack-results" id="packResults"></div></div></section>
+
 </div></main></div>
 <div class="modal" id="starterModal"><div class="modal-card starter-modal-card"><div class="small gold">YOUR FIRST ALLEGIANCE</div><h1>Choose your first faction</h1><p class="muted">Every faction can eventually be collected. This choice simply gives you your first complete 30-card deck and Leader.</p><div class="starter-actions"><button class="btn" id="recommendFaction" type="button">Not sure? Recommend one</button></div><div class="starter-grid" id="starterGrid"></div><p class="small muted" style="margin-top:14px">You can build decks for other factions as your collection grows.</p></div></div>
 <div class="modal battle-modal" id="battleModal"><div class="modal-card"><div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 8px"><b>Battle • Eryndor Arena</b><button class="btn" id="closeBattle">Close</button></div><iframe class="battle-frame" id="battleFrame" title="Shattered Realms battle prototype"></iframe></div></div>
@@ -130,5 +149,5 @@
 <script src="js/pwa-install.js"></script>
 <script src="js/mobile-shell.js"></script>
 <script src="js/app.js"></script>
-<script src="js/ui-v0101.js"></script>
+<script src="js/ui-v0120.js"></script>
 </body></html>

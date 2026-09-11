@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>The Shattered Realms — Core Battle v0.5.3 Targeting Fix</title>
+<title>The Shattered Realms — Reference Battle v0.11.0</title>
 
 <style>
 :root{
@@ -170,12 +170,12 @@ body:before{background-image:linear-gradient(180deg,rgba(4,7,12,.70),rgba(4,7,12
 
 </style>
 
-<link rel="stylesheet" href="../css/battle-v0101.css"/>
+<link rel="stylesheet" href="../css/battle-v0120.css"/>
 </head>
 <body>
 <div class="app" id="app">
   <div class="top">
-    <div class="brand"><h1>THE SHATTERED REALMS</h1><p>Campaign Battle v0.6.0 • Reference Match v0.10.1 — Adventure Systems</p></div>
+    <div class="brand"><h1>THE SHATTERED REALMS</h1><p>Campaign Battle v0.6.0 • Showcase UI — Adventure Systems</p></div>
     <div style="display:flex;gap:6px"><button id="battleAudio" type="button" aria-label="Toggle sound">🔊</button><button id="resetBtn" type="button">New Match</button></div>
   </div>
 
@@ -332,5 +332,5 @@ const ba=$('battleAudio');function syncBattleAudio(){if(ba)ba.textContent=window
 for(const name of Object.keys(factions)){for(const id of ['playerFaction','enemyFaction']){const o=document.createElement('option');o.value=name;o.textContent=name;$(id).appendChild(o)}}$('playerFaction').value='Mercians';$('enemyFaction').value='Orks';
 })();
 </script>
-<script src="../js/battle-v0101.js"></script>
+<script src="../js/battle-v0120.js"></script>
 </body></html>

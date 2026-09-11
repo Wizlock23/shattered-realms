@@ -1,16 +1,14 @@
-const CACHE_NAME='shattered-realms-v0.10.1';
+const CACHE_NAME='shattered-realms-v0.12.0';
 const CORE = [
-  './', './index.html', './manifest.webmanifest',
-  './css/app.css', './css/ui-v0101.css', './js/ui-v0101.js',
-  './js/sound.js', './js/mobile-shell.js', './js/app.js', './js/pwa-install.js',
-  './battle/index.html', './css/battle-v0101.css', './js/battle-v0101.js',
-  './icons/apple-touch-icon.png', './icons/icon-192.png', './icons/icon-512.png',
-  './assets/ui/home-hero-target-v094.jpg', './assets/ui/eryndor-map-concept-v092.jpg',
-  './assets/ui/collection-hero-v091.jpg', './assets/ui/decks-hero-v091.jpg', './assets/ui/play-hero-v091.jpg',
-  './assets/ui/eryndor-hero-clean-v093.jpg',
-  './assets/worldshard-behemoth.png', './assets/intro/worldshard.png',
-  './assets/leaders/alfar.webp', './assets/leaders/dwarves.webp', './assets/leaders/mercians.webp',
-  './assets/leaders/mahirim.webp', './assets/leaders/mirdain.webp', './assets/leaders/orks.webp'
+  './','./index.html','./manifest.webmanifest','./battle/index.html',
+  './css/app.css','./css/ui-v0120.css','./css/battle-v0110.css',
+  './js/sound.js','./js/pwa-install.js','./js/mobile-shell.js','./js/app.js','./js/ui-v0120.js',
+  './assets/ui/reference-v0120/adventure-tile.png', './assets/ui/reference-v0120/collection-tile.png', './assets/ui/reference-v0120/decks-tile.png', './assets/ui/reference-v0120/play-tile.png', './assets/ui/reference-v0120/featured-event.png','./js/battle-v0110.js',
+  './icons/apple-touch-icon.png','./icons/icon-192.png','./icons/icon-512.png',
+  './assets/ui/home-hero-target-v094.jpg','./assets/ui/eryndor-map-concept-v092.jpg',
+  './assets/ui/collection-hero-v091.jpg','./assets/ui/decks-hero-v091.jpg','./assets/ui/play-hero-v091.jpg','./assets/ui/eryndor-hero-v091.jpg',
+  './assets/intro/worldshard.png','./assets/worldshard-behemoth.png',
+  './assets/leaders/alfar.webp','./assets/leaders/dwarves.webp','./assets/leaders/mercians.webp','./assets/leaders/mahirim.webp','./assets/leaders/mirdain.webp','./assets/leaders/orks.webp'
 ];
 
 self.addEventListener('install', event => {
