@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>The Shattered Realms — Battle v0.16.1</title>
+<link rel="stylesheet" href="../css/battle-v0161.css?v=0161"/>
+</head>
+<body>
+<div class="battle-shell">
+  <div class="battle-topbar" aria-label="Battle controls">
+    <button id="battleBack" type="button" class="icon-btn" aria-label="Back">‹</button>
+    <div class="battle-brand"><span>THE SHATTERED REALMS</span><b>BATTLE</b><small>v0.16.1</small></div>
+    <button id="battleHelp" type="button" class="icon-btn" aria-label="Battle help">?</button>
+  </div>
+
+  <section class="setup" id="setup">
+    <div class="setup-logo">THE SHATTERED REALMS</div>
+    <h1>Enter the Battlefield</h1>
+    <p>Choose your faction and opponent.</p>
+    <label>Your faction<select id="playerFaction"></select></label>
+    <label>Opponent<select id="enemyFaction"></select></label>
+    <button class="primary" id="startBtn" type="button">Start Match</button>
+  </section>
+
+  <div id="game" class="hidden battle-game">
+    <div class="battle-scene" aria-hidden="true"><div class="scene-crest"></div><div class="scene-title">THE SHATTERED REALMS</div><div class="scene-sub">A BRIGHTER TOMORROW</div></div>
+
+    <section class="leader-hud enemy-hud" id="enemyLeaderPanel">
+      <div class="leader">
+        <div class="leader-portrait-wrap"><img class="leader-portrait" id="enemyPortrait" alt=""><div class="sigil" id="enemySigil"></div></div>
+        <div class="leader-info"><b id="enemyLeader"></b><div class="small" id="enemyPassive"></div><div class="resonance" id="enemyResonance"></div></div>
+      </div>
+      <div class="hp" id="enemyHp"></div><div class="healthbar"><span id="enemyHpBar"></span></div>
+      <div class="hud-counts"><div class="count-chip"><small>HAND</small><b id="enemyHandVisual">0</b></div><div class="count-chip"><small>DECK</small><b id="enemyDeckVisual">0</b></div></div>
+      <div class="small hidden-data" id="enemyDeck"></div>
+      <div class="boss-phase hidden" id="bossPhaseBadge">PHASE 2 • FRACTURED CORE</div>
+    </section>
+
+    <section class="field-zone enemy-zone">
+      <div class="zone-label"><span>OPPONENT FIELD</span><i></i></div>
+      <div class="slots" id="enemyField"></div>
+      <div class="relic-slot"><div class="relic" id="enemyRelic"></div></div>
+    </section>
+
+    <section class="turn-banner center">
+      <b id="turnLabel"></b><div class="energy" id="roundLabel"></div><div class="status" id="status" aria-live="polite"></div>
+    </section>
+
+    <section class="field-zone player-zone">
+      <div class="zone-label"><i></i><span>YOUR FIELD</span></div>
+      <div class="slots" id="playerField"></div>
+      <div class="relic-slot"><div class="relic" id="playerRelic"></div></div>
+    </section>
+
+    <section class="leader-hud player-hud" id="playerLeaderPanel">
+      <div class="leader">
+        <div class="leader-portrait-wrap"><img class="leader-portrait" id="playerPortrait" alt=""><div class="sigil" id="playerSigil"></div></div>
+        <div class="leader-info"><b id="playerLeader"></b><div class="small" id="playerPassive"></div><div class="resonance" id="playerResonance"></div><button class="leader-btn hidden" id="leaderAscendBtn" type="button">✦ Ascend Leader</button></div>
+      </div>
+      <div class="hp" id="playerHp"></div><div class="healthbar"><span id="playerHpBar"></span></div>
+      <div class="hud-counts"><div class="count-chip"><small>HAND</small><b id="playerHandVisual">0</b></div><div class="count-chip"><small>DECK</small><b id="playerDeckVisual">0</b></div></div>
+      <div class="energy hidden-data" id="playerEnergy"></div><div class="small hidden-data" id="playerDeck"></div>
+    </section>
+
+    <section class="hand-zone">
+      <div class="mulligan-note" id="mulliganNote"><b>CHOOSE YOUR OPENING HAND</b><span>Tap any cards you want to replace.</span></div>
+      <div class="hand" id="hand"></div>
+    </section>
+
+    <div class="battle-controls">
+      <div class="energy-cluster"><div class="energy-orb"><span id="energyNow">0</span><small>/<span id="energyMax">0</span></small></div><div class="mana-pips" id="manaPips"></div></div>
+      <div class="main-action"><button class="mulligan-action" id="mulliganBtn" type="button">Confirm Mulligan</button><button class="end-action" id="endTurnBtn" type="button">End Turn</button></div>
+      <button class="log-btn" id="battleLogBtn" type="button" aria-label="Battle log">☰</button>
+    </div>
+  </div>
+</div>
+
+<div id="targetPanel" class="target-panel hidden"><h3 id="targetTitle">Choose a target</h3><div class="target-list" id="targetList"></div><button id="cancelTarget" type="button">Cancel</button></div>
+
+<div id="battleHelpSheet" class="battle-sheet hidden" role="dialog" aria-modal="true" aria-label="Battle help">
+  <div class="sheet-card"><div class="sheet-kicker">BATTLE GUIDE</div><h2>Control the battlefield</h2><div class="sheet-row"><b>Win</b><span>Reduce the enemy Leader to 0 Health.</span></div><div class="sheet-row"><b>Frontline</b><span>Ready enemy creatures protect their Leader.</span></div><div class="sheet-row"><b>Cards</b><span>Tap the ⓘ button to inspect a card before making a move.</span></div><div class="sheet-actions"><button id="battleAudio" type="button">🔊 Sound</button><button id="resetBtn" type="button">New Match</button><button id="battleHelpClose" type="button">Close</button></div></div>
+</div>
+
+<div id="battleLogSheet" class="battle-sheet hidden" role="dialog" aria-modal="true" aria-label="Battle log"><div class="sheet-card"><div class="sheet-kicker">BATTLE LOG</div><h2>Recent actions</h2><div class="log" id="log"></div><button id="battleLogClose" type="button">Close</button></div></div>
+
+<div id="ascensionFx" class="ascension-fx hidden"><div class="burst"></div><div class="ascension-copy"><span>SHARDBOUND ASCENSION</span><b id="ascensionFxName"></b></div></div>
+<div id="tutorialCoach" class="tutorial-coach hidden"><div class="tutorial-card"><div class="tutorial-kicker">SHARDBEARER GUIDANCE</div><h2 id="tutorialTitle">Learn the Battlefield</h2><p id="tutorialText"></p><div class="tutorial-dots" id="tutorialDots"></div><button class="gold" id="tutorialNext" type="button">Next</button></div></div>
+<div id="impactFx" class="impact-fx" aria-hidden="true"></div>
+<div id="combatFxLayer" class="combat-fx-layer" aria-hidden="true"></div>
+<div id="cardPreview" class="card-preview hidden" role="dialog" aria-modal="true" aria-label="Card details"><div class="card-preview-sheet"><div class="preview-art" id="previewArt"></div><div class="preview-head"><div><div class="preview-meta" id="previewMeta"></div><h2 id="previewName"></h2></div><div class="preview-cost" id="previewCost"></div></div><div class="preview-stats" id="previewStats"></div><p class="preview-rules" id="previewRules"></p><button type="button" class="preview-close" id="previewClose">Close</button></div></div>
+<script src="../js/sound.js"></script>
+<script src="../js/game-data-v0133.js"></script>
+<script src="../js/battle-core-v0161.js?v=0161"></script>
+<script src="../js/battle-v0161.js?v=0161"></script>
+<script src="../js/battle-engagement-v0130.js"></script>
+</body>
+</html>
