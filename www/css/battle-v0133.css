@@ -259,3 +259,12 @@ body{background:#020713!important}.sr110-battle-header,.sr110-battle-dock,.sr110
   .sr110-battle-dock #endTurnBtn{min-height:44px!important;font-size:12px!important}
   .target-panel button,.sr110-battle-guide button{min-height:40px!important}
 }
+
+/* v0.13.4 installed-PWA viewport stability. The battle iframe inherits the
+   standalone viewport; prefer svh/dvh-safe sizing and never exceed its frame. */
+html,body{max-width:100%;overflow-x:hidden}
+@supports(height:100svh){
+  @media(max-width:700px), (pointer:coarse) and (hover:none) and (max-width:1366px){
+    html,body,#game{min-height:100svh!important}
+  }
+}

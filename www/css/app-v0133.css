@@ -539,3 +539,61 @@ button,[role="button"],select,input{touch-action:manipulation}
   .sr110-bottom-nav .nav button{min-height:54px!important}
   .sr110-bottom-nav .nav button>small{font-size:10px!important}
 }
+
+/* ============================================================
+   v0.13.4 iOS standalone PWA consistency
+   Safari and Home Screen app share one visual shell. The JS sets
+   --sr-app-height/width from visualViewport so standalone mode does
+   not stretch/collapse layouts differently from Safari chrome.
+   ============================================================ */
+html.sr-standalone,
+html.sr-standalone body{
+  width:100%!important;
+  min-width:0!important;
+  min-height:var(--sr-app-height,100dvh)!important;
+  max-width:100%!important;
+  overflow-x:hidden!important;
+  background:#020610!important;
+}
+html.sr-standalone body{overscroll-behavior-x:none!important}
+html.sr-standalone .sr110-app,
+html.sr-standalone .sr110-main{width:100%!important;max-width:100%!important;min-width:0!important}
+
+@media(max-width:900px), (pointer:coarse) and (hover:none) and (max-width:1366px){
+  html.sr-standalone body[data-sr110-view="home"] #view-home{
+    min-height:calc(var(--sr-app-height,100dvh) - 78px - env(safe-area-inset-bottom))!important;
+    height:auto!important;
+  }
+  html.sr-standalone body[data-sr110-view="adventure"] #view-adventure{
+    min-height:calc(var(--sr-app-height,100dvh) - 48px - env(safe-area-inset-top) - 84px - env(safe-area-inset-bottom))!important;
+  }
+  html.sr-standalone .sr110-content{width:100%!important;max-width:100%!important;min-width:0!important}
+  html.sr-standalone .sr110-home-card,
+  html.sr-standalone .sr110-home-destinations,
+  html.sr-standalone .sr110-featured,
+  html.sr-standalone .sr110-adventure-stage,
+  html.sr-standalone .sr110-worldmap,
+  html.sr-standalone .sr110-encounter,
+  html.sr-standalone .sr110-collection-stage,
+  html.sr-standalone .sr110-deck-layout,
+  html.sr-standalone .sr110-play-grid{max-width:100%!important;min-width:0!important}
+}
+
+@media(max-width:600px) and (orientation:portrait){
+  html.sr-standalone .sr110-topbar{
+    padding-top:max(4px,env(safe-area-inset-top))!important;
+  }
+  html.sr-standalone body[data-sr110-view="home"] .sr110-topbar{
+    padding-top:max(4px,env(safe-area-inset-top))!important;
+  }
+  html.sr-standalone .sr110-bottom-nav{
+    padding-bottom:max(env(safe-area-inset-bottom),2px)!important;
+  }
+}
+
+@media(orientation:landscape) and (max-height:600px) and (pointer:coarse){
+  html.sr-standalone body[data-sr110-view="home"] #view-home{
+    min-height:calc(var(--sr-app-height,100dvh) - 70px - env(safe-area-inset-bottom))!important;
+  }
+  html.sr-standalone .sr110-content{min-height:0!important}
+}

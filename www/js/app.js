@@ -2,7 +2,7 @@
 const FACTIONS=window.SRGameData.FACTIONS; const LEADER_ART={"Alfar":"assets/leaders/alfar.webp","Dwarves":"assets/leaders/dwarves.webp","Mercians":"assets/leaders/mercians.webp","Mahirim":"assets/leaders/mahirim.webp","Mirdain":"assets/leaders/mirdain.webp","Orks":"assets/leaders/orks.webp"};
 const allCards=Object.values(FACTIONS).flatMap(f=>f.cards);
 const CARD_ART=Object.fromEntries(allCards.map(c=>[c.id,`assets/card-art/${c.id}.jpg`]));
-const BATTLE_URL='battle/index.html?v=0133';
+const BATTLE_URL='battle/index.html?v=0134';
 const STORAGE='sr_v050_state'; const dustCost={Common:40,Rare:100,Epic:250,Legendary:600}; const dustDuplicate={Common:10,Rare:30,Epic:80,Legendary:200};
 const $=id=>document.getElementById(id);
 const audioBtn=document.getElementById('audioToggle');

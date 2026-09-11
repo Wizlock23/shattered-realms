@@ -1,8 +1,10 @@
-const CACHE_NAME='shattered-realms-v0.13.3';
+const CACHE_NAME='shattered-realms-v0.13.4';
+const BUILD='0134';
+const V = p => `${p}?v=${BUILD}`;
 const CORE = [
   './','./index.html','./manifest.webmanifest','./battle/index.html',
-  './css/app-v0133.css','./css/battle-v0133.css',
-  './js/sound.js','./js/pwa-install.js','./js/mobile-shell.js','./js/game-data-v0133.js','./js/app.js','./js/ui-v0120.js','./js/engagement-v0130.js','./js/battle-core-v0133.js','./js/battle-v0120.js','./js/battle-engagement-v0130.js',
+  V('./css/app-v0133.css'),V('./css/battle-v0133.css'),
+  V('./js/sound.js'),V('./js/pwa-install.js'),V('./js/mobile-shell.js'),V('./js/game-data-v0133.js'),V('./js/app.js'),V('./js/ui-v0120.js'),V('./js/engagement-v0130.js'),V('./js/battle-core-v0133.js'),V('./js/battle-v0120.js'),V('./js/battle-engagement-v0130.js'),
   './assets/ui/reference-v0120/adventure-tile.png','./assets/ui/reference-v0120/collection-tile.png','./assets/ui/reference-v0120/decks-tile.png','./assets/ui/reference-v0120/play-tile.png','./assets/ui/reference-v0120/featured-event.png',
   './icons/apple-touch-icon.png','./icons/icon-192.png','./icons/icon-512.png',
   './assets/ui/home-hero-target-v094.jpg','./assets/ui/eryndor-map-concept-v092.jpg',
@@ -15,11 +17,15 @@ self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
     await Promise.all(CORE.map(async url => {
-      try { await cache.add(url); }
+      try { await cache.add(new Request(url,{cache:'reload'})); }
       catch (e) { console.warn('PWA cache skip', url, e); }
     }));
     await self.skipWaiting();
   })());
+});
+
+self.addEventListener('message',event=>{
+  if(event.data?.type==='SKIP_WAITING') self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
@@ -39,8 +45,12 @@ async function cacheFresh(req, res){
 }
 
 async function networkFirst(req, fallback){
-  try { return await cacheFresh(req, await fetch(req)); }
-  catch { return (await caches.match(req)) || (fallback ? await caches.match(fallback) : null) || new Response('Shattered Realms is offline and this asset was not cached yet.', {status:503, headers:{'Content-Type':'text/plain'}}); }
+  try {
+    const freshReq = new Request(req,{cache:'no-store'});
+    return await cacheFresh(req, await fetch(freshReq));
+  } catch {
+    return (await caches.match(req)) || (fallback ? await caches.match(fallback) : null) || new Response('Shattered Realms is offline and this asset was not cached yet.', {status:503, headers:{'Content-Type':'text/plain'}});
+  }
 }
 
 self.addEventListener('fetch', event => {
@@ -49,8 +59,6 @@ self.addEventListener('fetch', event => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  // HTML/navigation and executable styles/scripts are network-first so a freshly
-  // deployed GitHub Pages build cannot remain visually stuck on an older bundle.
   const isCode = /\.(?:js|css|html|webmanifest)$/.test(url.pathname);
   if (req.mode === 'navigate') {
     const fallback = /\/battle\/index\.html$/.test(url.pathname) ? './battle/index.html' : './index.html';
@@ -62,11 +70,10 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Large artwork stays cache-first with background refresh for fast PWA loads.
   event.respondWith((async () => {
     const cached = await caches.match(req);
     if (cached) {
-      event.waitUntil(fetch(req).then(res => cacheFresh(req,res)).catch(()=>{}));
+      event.waitUntil(fetch(new Request(req,{cache:'no-store'})).then(res => cacheFresh(req,res)).catch(()=>{}));
       return cached;
     }
     try { return await cacheFresh(req, await fetch(req)); }

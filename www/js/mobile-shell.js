@@ -1,15 +1,50 @@
 (() => {
-  const VERSION = '0.13.3';
-  const STATE_KEY = 'sr_v050_state'; // intentionally preserved for prototype migration compatibility
-  const isNative = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
+  const VERSION = '0.13.4';
+  const STATE_KEY = 'sr_v050_state';
+  const isCapacitor = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
+  const standaloneMQ = window.matchMedia('(display-mode: standalone)');
+  const isIOSStandalone = window.navigator.standalone === true;
+  const isStandalone = () => standaloneMQ.matches || isIOSStandalone || isCapacitor;
+
   document.documentElement.dataset.srVersion = VERSION;
+
+  function syncRuntimeClass(){
+    const standalone = isStandalone();
+    document.documentElement.classList.toggle('sr-standalone', standalone);
+    document.documentElement.classList.toggle('sr-browser', !standalone);
+    document.body?.classList.toggle('sr-standalone', standalone);
+    document.body?.classList.toggle('sr-native', isCapacitor);
+    document.documentElement.dataset.srRuntime = isCapacitor ? 'native' : (standalone ? 'standalone' : 'browser');
+  }
+
+  function syncViewport(){
+    const vv = window.visualViewport;
+    const width = Math.round(vv?.width || window.innerWidth || document.documentElement.clientWidth || 0);
+    const height = Math.round(vv?.height || window.innerHeight || document.documentElement.clientHeight || 0);
+    document.documentElement.style.setProperty('--sr-app-width', `${width}px`);
+    document.documentElement.style.setProperty('--sr-app-height', `${height}px`);
+    document.documentElement.style.setProperty('--sr-vh', `${height * 0.01}px`);
+    document.documentElement.dataset.srOrientation = width > height ? 'landscape' : 'portrait';
+    document.documentElement.dataset.srViewport = `${width}x${height}`;
+  }
+
+  function syncRuntime(){ syncRuntimeClass(); syncViewport(); }
+
+  if (standaloneMQ.addEventListener) standaloneMQ.addEventListener('change', syncRuntime);
+  else if (standaloneMQ.addListener) standaloneMQ.addListener(syncRuntime);
+  window.addEventListener('resize', syncViewport, {passive:true});
+  window.addEventListener('orientationchange', () => setTimeout(syncRuntime, 80), {passive:true});
+  window.addEventListener('pageshow', () => setTimeout(syncRuntime, 0));
+  window.visualViewport?.addEventListener('resize', syncViewport, {passive:true});
+  window.visualViewport?.addEventListener('scroll', syncViewport, {passive:true});
+
   window.addEventListener('DOMContentLoaded', () => {
-    document.body.classList.toggle('sr-native', isNative);
+    syncRuntime();
     const debug = new URLSearchParams(location.search).get('debug') === '1';
     document.body.classList.toggle('sr-debug', debug);
     const badge = document.createElement('div');
     badge.className = 'sr-native-badge';
-    badge.textContent = `SR v${VERSION} • ${isNative ? 'native' : 'web'} • local save`;
+    badge.textContent = `SR v${VERSION} • ${document.documentElement.dataset.srRuntime} • ${document.documentElement.dataset.srViewport} • local save`;
     document.body.appendChild(badge);
   });
 
@@ -28,7 +63,7 @@
     location.reload();
   }
   function resetSave(){ localStorage.removeItem(STATE_KEY); location.reload(); }
-  window.SRMobile = { VERSION, STATE_KEY, isNative, currentSave, exportSave, importSave, resetSave };
+  window.SRMobile = { VERSION, STATE_KEY, isNative:isCapacitor, isStandalone, currentSave, exportSave, importSave, resetSave, syncViewport };
 
   function storeDiagnostic(kind, detail){
     try { localStorage.setItem('sr_last_error', JSON.stringify({version:VERSION, kind, ...detail, at:new Date().toISOString()})); } catch {}
