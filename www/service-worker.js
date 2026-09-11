@@ -1,12 +1,13 @@
-const APP_VERSION='0.16.4';
-const CACHE_NAME='shattered-realms-v0.16.4';
+const APP_VERSION='0.16.5';
+const CACHE_NAME='shattered-realms-v0.16.5';
 const CORE = [
-  './','./index.html','./build.json','./manifest.webmanifest','./battle/index.html','./battle/index-v0164.html',
-  './css/app-v0164.css','./css/battle-v0164.css',
-  './js/sound.js','./js/pwa-install.js','./js/pwa-install-v0164.js','./js/mobile-shell.js','./js/game-data-v0133.js','./js/app.js','./js/ui-v0120.js','./js/engagement-v0130.js','./js/battle-core-v0164.js','./js/battle-v0164.js','./js/battle-engagement-v0130.js',
+  './','./index.html','./build.json','./manifest.webmanifest','./battle/index.html','./battle/index-v0165.html',
+  './css/app-v0165.css','./css/battle-v0165.css',
+  './js/sound.js','./js/pwa-install.js','./js/pwa-install-v0165.js','./js/mobile-shell.js','./js/game-data-v0133.js','./js/app.js','./js/ui-v0120.js','./js/engagement-v0130.js','./js/battle-core-v0165.js','./js/battle-v0165.js','./js/battle-engagement-v0130.js',
   './assets/ui/reference-v0120/adventure-tile.png','./assets/ui/reference-v0120/collection-tile.png','./assets/ui/reference-v0120/decks-tile.png','./assets/ui/reference-v0120/play-tile.png','./assets/ui/reference-v0120/featured-event.png',
   './icons/apple-touch-icon.png','./icons/icon-192.png','./icons/icon-512.png',
   './assets/ui/home-hero-target-v094.jpg','./assets/ui/eryndor-map-concept-v092.jpg','./assets/ui/battle-arena-v0163.jpg',
+  './assets/ui/battle-bg-v0165-1.jpg','./assets/ui/battle-bg-v0165-2.jpg','./assets/ui/battle-bg-v0165-3.jpg','./assets/ui/battle-bg-v0165-4.jpg',
   './assets/ui/collection-hero-v091.jpg','./assets/ui/decks-hero-v091.jpg','./assets/ui/play-hero-v091.jpg','./assets/ui/eryndor-hero-v091.jpg',
   './assets/intro/eryndor.webp','./assets/intro/worldshard.webp','./assets/intro/alfar.webp','./assets/worldshard-behemoth.png',
   './assets/leaders/alfar.webp','./assets/leaders/dwarves.webp','./assets/leaders/mercians.webp','./assets/leaders/mahirim.webp','./assets/leaders/mirdain.webp','./assets/leaders/orks.webp'
@@ -58,7 +59,7 @@ self.addEventListener('fetch', event => {
   const isCode=/\.(?:js|css|html|json|webmanifest)$/.test(url.pathname);
 
   if(req.mode==='navigate'){
-    const fallback=url.pathname.includes('/battle/')?'./battle/index-v0164.html':'./index.html';
+    const fallback=url.pathname.includes('/battle/')?'./battle/index-v0165.html':'./index.html';
     event.respondWith(networkFirstFresh(req,fallback));
     return;
   }
