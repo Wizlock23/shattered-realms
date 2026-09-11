@@ -1,8 +1,8 @@
-const CACHE_NAME='shattered-realms-v0.13.7';
+const CACHE_NAME='shattered-realms-v0.13.8';
 const CORE = [
   './','./index.html','./manifest.webmanifest','./battle/index.html',
   './css/app-v0136.css','./css/battle-v0137.css',
-  './js/sound.js','./js/pwa-install.js','./js/mobile-shell.js','./js/game-data-v0133.js','./js/app.js','./js/ui-v0120.js','./js/engagement-v0130.js','./js/battle-core-v0137.js','./js/battle-v0120.js','./js/battle-engagement-v0130.js',
+  './js/sound.js','./js/pwa-install.js','./js/mobile-shell.js','./js/game-data-v0133.js','./js/app.js','./js/ui-v0120.js','./js/engagement-v0130.js','./js/battle-core-v0138.js','./js/battle-v0120.js','./js/battle-engagement-v0130.js',
   './assets/ui/reference-v0120/adventure-tile.png','./assets/ui/reference-v0120/collection-tile.png','./assets/ui/reference-v0120/decks-tile.png','./assets/ui/reference-v0120/play-tile.png','./assets/ui/reference-v0120/featured-event.png',
   './icons/apple-touch-icon.png','./icons/icon-192.png','./icons/icon-512.png',
   './assets/ui/home-hero-target-v094.jpg','./assets/ui/eryndor-map-concept-v092.jpg',
