@@ -76,3 +76,18 @@ body{background:radial-gradient(circle at 50% -10%,rgba(42,82,134,.24),transpare
 .mastery{background:linear-gradient(145deg,rgba(15,25,40,.96),rgba(7,12,20,.98));border-color:color-mix(in srgb,var(--fc) 34%,#39475c)}
 @media(max-width:700px){.card-art{height:118px}.card-name{font-size:13px}.card-body{padding:8px}.feature{height:185px}.hero{min-height:245px}.worldmap{background-position:center top}.detail-art{height:240px}}
 @media(max-width:420px){.card-art{height:110px}.card-stats span{min-width:38px;padding:2px 5px;font-size:10px}.faction-mark{width:27px;height:27px}.card .cost{width:29px;height:29px}.cardgrid{gap:8px}}
+
+
+/* v0.8.4 — mobile UX + Mahirim vertical slice */
+@media(max-width:800px){
+  .sidebar{position:fixed;left:0;right:0;bottom:0;top:auto;height:auto;z-index:60;padding:6px 8px calc(6px + env(safe-area-inset-bottom));border:0;border-top:1px solid #31415a;background:linear-gradient(180deg,rgba(8,16,27,.96),rgba(5,10,18,.99));box-shadow:0 -10px 35px rgba(0,0,0,.4);backdrop-filter:blur(18px)}
+  .nav{grid-template-columns:repeat(7,1fr);gap:2px}.nav button{min-height:50px;padding:5px 1px;border-radius:8px;font-size:9px;line-height:1.05}.nav span{font-size:17px;margin-bottom:2px}
+  .main{padding-bottom:calc(70px + env(safe-area-inset-bottom))}.topbar{top:0;height:54px}.content{padding:10px 10px 16px}
+  .hero{min-height:230px;padding:17px}.hero h1{font-size:30px}.hero-actions .btn{flex:1 1 46%;min-height:45px}
+  .cardgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.card-art{height:132px}.card{border-radius:13px}.card-body{padding:9px}.card-name{font-size:13px}
+  .filters{position:sticky;top:54px;z-index:12;background:rgba(5,10,17,.94);padding:8px 0;margin-bottom:10px;backdrop-filter:blur(12px)}.filters input{min-width:0;flex:1 1 100%}.filters select{flex:1 1 45%;min-width:0}
+  .collection-layout,.deck-layout{display:block}.detail,.decklist{margin-top:12px}.detail-art{height:270px}.deckrow{min-height:44px}.deckrow button{width:36px;height:36px}
+  .battle-modal{padding:0}.battle-modal .modal-card{width:100vw;height:100dvh;max-height:none;border:0;border-radius:0;padding:0}.battle-modal .modal-card>div:first-child{height:48px;padding:0 10px;background:#07111f}.battle-frame{border-radius:0;height:calc(100dvh - 48px)}
+  .toast{left:12px;right:12px;bottom:calc(80px + env(safe-area-inset-bottom));text-align:center}
+}
+@media(max-width:420px){.card-art{height:124px}.detail-art{height:250px}.topbar-actions .help-btn{min-height:38px}.feature{height:170px}}

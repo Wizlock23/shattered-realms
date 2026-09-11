@@ -1,4 +1,4 @@
-const CACHE_NAME = 'shattered-realms-v0.8.3';
+const CACHE_NAME = 'shattered-realms-v0.8.4';
 const CORE = [
   './', './index.html', './manifest.webmanifest',
   './css/app.css', './js/mobile-shell.js', './js/app.js', './js/pwa-install.js',
@@ -7,7 +7,8 @@ const CORE = [
   './assets/campaign-ui-concept.png', './assets/faction-board.png', './assets/worldshard-behemoth.png',
   './assets/intro/eryndor.png', './assets/intro/factions.png', './assets/intro/worldshard.png', './assets/intro/alfar.png',
   './assets/ui/home-banner.jpg', './assets/ui/card-art-style-guide.jpg', './assets/ui/app-showcase.jpg',
-  './assets/leaders/alfar.webp', './assets/leaders/dwarves.webp', './assets/leaders/mercians.webp', './assets/leaders/mahirim.webp', './assets/leaders/mirdain.webp', './assets/leaders/orks.webp'
+  './assets/leaders/alfar.webp', './assets/leaders/dwarves.webp', './assets/leaders/mercians.webp', './assets/leaders/mahirim.webp', './assets/leaders/mirdain.webp', './assets/leaders/orks.webp',
+  './assets/card-art/mahirim_0.jpg', './assets/card-art/mahirim_1.jpg', './assets/card-art/mahirim_2.jpg', './assets/card-art/mahirim_3.jpg', './assets/card-art/mahirim_4.jpg', './assets/card-art/mahirim_5.jpg', './assets/card-art/mahirim_6.jpg', './assets/card-art/mahirim_7.jpg', './assets/card-art/mahirim_8.jpg', './assets/card-art/mahirim_9.jpg'
 ];
 
 self.addEventListener('install', event => {
