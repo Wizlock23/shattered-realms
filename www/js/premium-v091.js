@@ -1,0 +1,1 @@
+(()=>{document.documentElement.dataset.ui='v091';document.body.classList.add('sr-premium-v091');const t=document.querySelector('#viewTitle');const sync=()=>{if(t)t.dataset.build='v0.9.1'};sync();window.addEventListener('hashchange',sync);})();

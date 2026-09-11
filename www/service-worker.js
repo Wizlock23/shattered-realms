@@ -1,7 +1,10 @@
-const CACHE_NAME = 'shattered-realms-v0.9.0';
+const CACHE_NAME = 'shattered-realms-v0.9.1';
 const CORE = [
   './', './index.html', './manifest.webmanifest',
   './css/app.css', './js/sound.js', './js/mobile-shell.js', './js/app.js', './js/pwa-install.js',
+  './css/premium-v091.css', './css/battle-v091.css', './js/premium-v091.js',
+  './assets/ui/eryndor-hero-v091.jpg', './assets/ui/eryndor-map-v091.jpg', './assets/ui/collection-hero-v091.jpg',
+  './assets/ui/decks-hero-v091.jpg', './assets/ui/play-hero-v091.jpg', './assets/ui/progress-hero-v091.jpg', './assets/ui/store-hero-v091.jpg',
   './battle/index.html',
   './icons/apple-touch-icon.png', './icons/icon-192.png', './icons/icon-512.png',
   './assets/campaign-ui-concept.png', './assets/faction-board.png', './assets/worldshard-behemoth.png',
