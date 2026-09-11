@@ -1,11 +1,11 @@
-const CACHE_NAME='shattered-realms-v0.16.2';
+const CACHE_NAME='shattered-realms-v0.16.3';
 const CORE = [
-  './','./index.html','./manifest.webmanifest','./battle/index.html','./battle/index-v0162.html',
-  './css/app-v0162.css','./css/battle-v0162.css',
-  './js/sound.js','./js/pwa-install.js','./js/mobile-shell.js','./js/game-data-v0133.js','./js/app.js','./js/ui-v0120.js','./js/engagement-v0130.js','./js/battle-core-v0162.js','./js/battle-v0162.js','./js/battle-engagement-v0130.js',
+  './','./index.html','./manifest.webmanifest','./battle/index.html','./battle/index-v0163.html',
+  './css/app-v0163.css','./css/battle-v0163.css',
+  './js/sound.js','./js/pwa-install.js','./js/mobile-shell.js','./js/game-data-v0133.js','./js/app.js','./js/ui-v0120.js','./js/engagement-v0130.js','./js/battle-core-v0163.js','./js/battle-v0163.js','./js/battle-engagement-v0130.js',
   './assets/ui/reference-v0120/adventure-tile.png','./assets/ui/reference-v0120/collection-tile.png','./assets/ui/reference-v0120/decks-tile.png','./assets/ui/reference-v0120/play-tile.png','./assets/ui/reference-v0120/featured-event.png',
   './icons/apple-touch-icon.png','./icons/icon-192.png','./icons/icon-512.png',
-  './assets/ui/home-hero-target-v094.jpg','./assets/ui/eryndor-map-concept-v092.jpg','./assets/ui/battle-arena-v0162.jpg',
+  './assets/ui/home-hero-target-v094.jpg','./assets/ui/eryndor-map-concept-v092.jpg','./assets/ui/battle-arena-v0163.jpg',
   './assets/ui/collection-hero-v091.jpg','./assets/ui/decks-hero-v091.jpg','./assets/ui/play-hero-v091.jpg','./assets/ui/eryndor-hero-v091.jpg',
   './assets/intro/eryndor.webp','./assets/intro/worldshard.webp','./assets/intro/alfar.webp','./assets/worldshard-behemoth.png',
   './assets/leaders/alfar.webp','./assets/leaders/dwarves.webp','./assets/leaders/mercians.webp','./assets/leaders/mahirim.webp','./assets/leaders/mirdain.webp','./assets/leaders/orks.webp'
@@ -53,7 +53,7 @@ self.addEventListener('fetch', event => {
   // deployed GitHub Pages build cannot remain visually stuck on an older bundle.
   const isCode = /\.(?:js|css|html|webmanifest)$/.test(url.pathname);
   if (req.mode === 'navigate') {
-    const fallback = url.pathname.includes('/battle/') ? './battle/index-v0162.html' : './index.html';
+    const fallback = url.pathname.includes('/battle/') ? './battle/index-v0163.html' : './index.html';
     event.respondWith(networkFirst(req, fallback));
     return;
   }
