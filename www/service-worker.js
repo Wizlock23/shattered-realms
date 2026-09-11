@@ -1,8 +1,8 @@
-const CACHE_NAME='shattered-realms-v0.13.8';
+const CACHE_NAME='shattered-realms-v0.13.9';
 const CORE = [
-  './','./index.html','./manifest.webmanifest','./battle/index.html',
-  './css/app-v0136.css','./css/battle-v0137.css',
-  './js/sound.js','./js/pwa-install.js','./js/mobile-shell.js','./js/game-data-v0133.js','./js/app.js','./js/ui-v0120.js','./js/engagement-v0130.js','./js/battle-core-v0138.js','./js/battle-v0120.js','./js/battle-engagement-v0130.js',
+  './','./index.html','./manifest.webmanifest','./battle/index.html','./battle/index-v0139.html',
+  './css/app-v0136.css','./css/battle-v0139.css',
+  './js/sound.js','./js/pwa-install.js','./js/mobile-shell.js','./js/game-data-v0133.js','./js/app.js','./js/ui-v0120.js','./js/engagement-v0130.js','./js/battle-core-v0139.js','./js/battle-v0120.js','./js/battle-engagement-v0130.js',
   './assets/ui/reference-v0120/adventure-tile.png','./assets/ui/reference-v0120/collection-tile.png','./assets/ui/reference-v0120/decks-tile.png','./assets/ui/reference-v0120/play-tile.png','./assets/ui/reference-v0120/featured-event.png',
   './icons/apple-touch-icon.png','./icons/icon-192.png','./icons/icon-512.png',
   './assets/ui/home-hero-target-v094.jpg','./assets/ui/eryndor-map-concept-v092.jpg',
@@ -53,7 +53,7 @@ self.addEventListener('fetch', event => {
   // deployed GitHub Pages build cannot remain visually stuck on an older bundle.
   const isCode = /\.(?:js|css|html|webmanifest)$/.test(url.pathname);
   if (req.mode === 'navigate') {
-    const fallback = /\/battle\/index\.html$/.test(url.pathname) ? './battle/index.html' : './index.html';
+    const fallback = url.pathname.includes('/battle/') ? './battle/index-v0139.html' : './index.html';
     event.respondWith(networkFirst(req, fallback));
     return;
   }
