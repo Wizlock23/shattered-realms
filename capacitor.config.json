@@ -1,0 +1,8 @@
+{
+  "appId": "com.shatteredrealms.game",
+  "appName": "Shattered Realms",
+  "webDir": "www",
+  "server": {
+    "iosScheme": "capacitor"
+  }
+}
