@@ -1,4 +1,4 @@
-const CACHE_NAME='shattered-realms-v0.13.0';
+const CACHE_NAME='shattered-realms-v0.13.1';
 const CORE = [
   './','./index.html','./manifest.webmanifest','./battle/index.html',
   './css/app.css','./css/ui-v0120.css','./css/engagement-v0130.css','./css/battle-v0110.css','./css/battle-v0120.css','./css/battle-engagement-v0130.css',

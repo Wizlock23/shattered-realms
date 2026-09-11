@@ -72,7 +72,7 @@ body:not([data-sr110-view="home"]) .sr110-homehud{display:none}body:not([data-sr
   .sr110-bottom-nav{position:sticky!important;top:0!important;bottom:auto!important;height:74px!important;padding:0 22px!important;border-top:0!important;border-bottom:1px solid rgba(230,187,103,.32)!important}.sr110-bottom-nav .brand{display:flex!important;align-items:center!important;gap:8px!important;position:absolute;left:24px;top:10px}.sr110-bottom-nav .nav{max-width:720px;margin:auto;grid-template-columns:repeat(7,1fr)!important}.sr110-bottom-nav .nav button[data-view="rewards"],.sr110-bottom-nav .nav button[data-view="shop"]{display:flex!important}.sr110-bottom-nav .nav button{height:58px!important}.sr110-bottom-nav .nav button>span{font-size:18px}.sr110-bottom-nav .nav button>small{font-size:11px}.sr110-topbar{top:74px!important}.sr110-content{padding-bottom:40px!important}.sr110-home-art{aspect-ratio:941/420}}
 
 /* Phone exact proportions */
-@media(max-width:900px){
+@media(max-width:900px), (max-height:600px) and (pointer:coarse){
   html,body{min-height:100dvh!important}
   body.sr110{padding:0!important}
   .sr110-content{padding:6px 7px calc(94px + env(safe-area-inset-bottom))!important}
@@ -97,7 +97,7 @@ body:not([data-sr110-view="home"]) .sr110-homehud{display:none}body:not([data-sr
    Measured against the approved four-phone reference artwork.
    ============================================================ */
 
-@media(max-width:900px){
+@media(max-width:900px), (max-height:600px) and (pointer:coarse){
   /* Home fills the viewport like the approved render instead of collapsing vertically. */
   body[data-sr110-view="home"] .sr110-topbar{
     position:absolute!important;
