@@ -35,7 +35,7 @@
     const avatar=$('sr110Avatar'); if(avatar)avatar.src=leaderArt[fac]||leaderArt.Alfar;
     const player=$('sr110PlayerName'); if(player)player.textContent=s.playerName||'AChambers';
     const mastery=Object.values(s.mastery||{}).reduce((a,b)=>a+(+b||0),0), clears=Object.values(s.adventure?.completed||{}).filter(Boolean).length;
-    const lvl=Math.max(7,Math.round(6+mastery*1.2+clears*.8)), xp=Math.max(20,Math.min(94,Math.round(((mastery*17)+(clears*13))%100||36)));
+    const accountXp=Number(s.accountXp||0), derivedLvl=Math.round(6+mastery*1.2+clears*.8), lvl=Math.max(7+Math.floor(accountXp/100),derivedLvl), xp=accountXp>0?(accountXp%100):Math.max(20,Math.min(94,Math.round(((mastery*17)+(clears*13))%100||36)));
     if($('sr110Level'))$('sr110Level').textContent=`Lv. ${lvl}`;if($('sr110XpFill'))$('sr110XpFill').style.width=xp+'%';
     if($('sr110GoldMirror'))$('sr110GoldMirror').textContent=n(s.gold);if($('sr110DustMirror'))$('sr110DustMirror').textContent=n(s.dust);
     if($('viewTitle'))$('viewTitle').textContent=viewName(view);
