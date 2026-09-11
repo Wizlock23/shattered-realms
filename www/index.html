@@ -12,9 +12,10 @@
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
 <meta content="telephone=no" name="format-detection"/>
-<title>The Shattered Realms — Premium UI v0.9.1</title>
+<title>The Shattered Realms — Concept Match v0.9.2</title>
 <link href="css/app.css" rel="stylesheet"/>
 <link href="css/premium-v091.css" rel="stylesheet"/>
+<link href="css/concept-v092.css" rel="stylesheet"/>
 </head><body>
 <div class="app">
 <aside class="sidebar"><div class="brand"><span class="brand-shard">◇</span><span class="brand-title">SHATTERED REALMS</span><small>BEYOND SIGHT LIES PURPOSE</small></div><div class="nav" id="nav">
@@ -22,18 +23,96 @@
 <div class="profile"><b>Shardbearer</b><div class="small muted" id="profileLine">Choose a starter faction</div><div class="currencies"><span class="currency">◈ <b id="goldSide">0</b> Gold</span><span class="currency">✧ <b id="dustSide">0</b> Dust</span></div></div></aside>
 <main class="main"><div class="topbar"><b id="viewTitle">Home</b><div class="topbar-actions"><button class="help-btn audio-btn" id="audioToggle" type="button" aria-label="Toggle sound">🔊</button><button class="help-btn" id="openHelp" type="button">? Help</button><div class="currencies"><span class="currency">◈ <b id="goldTop">0</b></span><span class="currency">✧ <b id="dustTop">0</b></span><span class="currency">▣ <b id="packsTop">0</b> Packs</span></div></div></div>
 <div class="content">
-<section class="view active" id="view-home"><div class="panel hero" id="homeHero"><div class="hero-copy"><div class="small gold">THE SHATTERED REALMS • PREMIUM UI • 108-CARD CORE • v0.9.1</div><h1>Build your deck. Bind a Leader. Shape Eryndor.</h1><p class="muted">Collect cards through play, craft what you need, build 30-card faction decks, then bring your Shardbound Leader into battle.</p><div class="hero-actions"><button class="btn primary" data-go="adventure">Continue Adventure</button><button class="btn" data-go="decks">Build a Deck</button><button class="btn gold" id="openHomePack">Open Earned Pack</button></div></div></div>
-<div class="grid cols3" style="margin-top:14px"><div class="panel"><h2>Daily Quests</h2><div id="homeQuests"></div></div><div class="panel"><h2>Faction Mastery</h2><p class="muted small">Playing a faction unlocks cards, cosmetics and alternate Leader treatments.</p><div id="homeMastery"></div></div><div class="panel"><h2>Collection</h2><div id="collectionCount" style="font:700 42px Georgia,serif">0/108</div><p class="muted">Unique gameplay cards discovered.</p><button class="btn" data-go="collection">View Collection</button></div></div>
-<h2 style="margin-top:20px">Featured Factions</h2><div class="grid cols2"><div class="feature" style="background-image:url('assets/card-art/alfar_4.jpg')"><div><b>Alfar • Masters of the Veil</b><p class="small muted">Control, manipulation and dangerous knowledge.</p></div></div><div class="feature" style="background-image:url('assets/card-art/mahirim_5.jpg')"><div><b>Mahirim • Strength in the Pack</b><p class="small muted">Aggression, synergy and relentless movement.</p></div></div></div></section>
-<section class="view" id="view-adventure"><div><div class="small gold">PVE ADVENTURE • CHAPTER ONE</div><h1>The Shattered Path</h1><p class="muted">Travel across Eryndor, learn each faction, earn guaranteed rewards, and face encounters that can break normal PvP rules.</p></div><div class="chapter-progress" id="chapterProgress"></div><div class="adventure-head"><div class="worldmap" id="worldMap"><div class="map-title"><div class="small gold">ERYNDOR</div><h2>Worldshard Trail</h2><div class="small muted">Complete encounters to open the next path.</div></div><div id="routeLayer"></div><div id="nodeLayer"></div></div><div class="panel encounter-card" id="encounterPanel"></div></div><div class="grid cols3"><div class="panel"><h2>Adventure Deck</h2><p class="muted">Use any legal saved 30-card deck. Chapter rewards immediately enter your digital collection.</p><select id="adventureDeckSelect"></select></div><div class="panel"><h2>Chapter Rewards</h2><p class="muted">First-clear rewards include Gold, Shard Dust, Aether Caches, and guaranteed cards. Encounters remain replayable after completion.</p><div class="rewardline" id="chapterRewards"></div></div><div class="panel"><h2>Digital-Only Boss Rules</h2><p class="muted">PvE bosses can use mechanics that do not need to obey standard deck or Leader rules.</p><div class="boss-rule">Example: <b>Shardquake</b> pulses every third round, damaging your Leader and every creature you control.</div></div></div></section>
-<section class="view" id="view-collection"><div class="deck-head"><div><h1>Collection</h1><p class="muted">Every gameplay card can be earned or crafted. Maximum 3 playable copies.</p></div><button class="btn gold" data-go="shop">Acquire Cards</button></div><div class="filters"><input id="cardSearch" placeholder="Search cards"/><select id="factionFilter"><option value="All">All factions</option></select><select id="typeFilter"><option value="All">All types</option><option>Creature</option><option>Tactic</option><option>Relic</option></select><select id="rarityFilter"><option value="All">All rarities</option><option>Common</option><option>Rare</option><option>Epic</option><option>Legendary</option></select><select id="ownedFilter"><option value="All">All cards</option><option value="Owned">Owned</option><option value="Missing">Missing</option></select></div><div class="collection-layout"><div class="cardgrid" id="collectionGrid"></div><aside class="panel detail" id="cardDetail"></aside></div></section>
-<section class="view" id="view-decks"><div class="deck-head"><div><h1>Deck Builder</h1><p class="muted">30 cards • max 3 copies • one faction • one Shardbound Leader</p></div><button class="btn primary" id="saveDeck">Save Deck</button></div><div class="filters"><select id="deckFaction"></select><input id="deckName" placeholder="Deck name" value="My Deck"/><span class="tag" id="deckStatus">0/30</span></div><div class="deck-layout"><div><div class="cardgrid" id="deckPool"></div></div><aside class="panel decklist"><div id="leaderDeck"></div><div class="deck-head" style="margin-top:12px"><h2>Deck</h2><b id="deckCount">0/30</b></div><div id="deckRows"></div><h3 style="margin-top:12px">Energy Curve</h3><div class="curve" id="curve"></div><p class="small muted">Only cards you own can be added. Extra copies beyond 3 are automatically converted into Shard Dust when acquired.</p></aside></div></section>
-<section class="view" id="view-play"><div><h1>Play</h1><p class="muted">App-first modes. No physical-card requirement.</p></div><div class="grid cols3" style="margin-top:14px"><div class="mode"><span class="tag live">PLAYABLE PROTOTYPE</span><strong>Practice vs AI</strong><p class="muted">Test faction matchups and learn your Leader without rank pressure.</p><select id="playDeckSelect"></select><select id="opponentSelect"></select><button class="btn primary" id="launchBattle">Launch Battle</button></div><div class="mode"><span class="tag">NEXT NETWORK MILESTONE</span><strong>Casual PvP</strong><p class="muted">Matchmaking using saved decks. This is the first online mode I would build.</p><button class="btn" disabled="">Coming later</button></div><div class="mode"><span class="tag">LATER</span><strong>Ranked</strong><p class="muted">Seasonal ladder, rank rewards, cosmetics and competitive deck stats.</p><button class="btn" disabled="">Coming later</button></div></div><div class="grid cols2" style="margin-top:14px"><div class="panel"><h2>Adventure</h2><p class="muted">Chapter One is playable now: tutorial encounters, faction trials, guaranteed rewards, and a Shard-mutated boss.</p><button class="btn primary" data-go="adventure">Enter Adventure</button></div><div class="panel"><h2>Selected Deck</h2><div id="playDeckInfo"></div></div></div></section>
+<section class="view active" id="view-home">
+<div class="sr-home-hero panel hero" id="homeHero">
+  <div class="sr-home-brand">
+    <div class="sr-brand-kicker">THE</div>
+    <div class="sr-logo-text">SHATTERED REALMS</div>
+    <div class="sr-brand-tag">BEYOND SIGHT LIES PURPOSE</div>
+  </div>
+  <div class="sr-home-continue">
+    <div class="small gold">PVE ADVENTURE • CHAPTER ONE</div>
+    <h1>Continue your journey through Eryndor.</h1>
+    <p class="muted">The Worldshards are stirring. Build your collection, bind a Leader, and decide what the broken realms become.</p>
+    <div class="hero-actions">
+      <button class="btn primary sr-cta" data-go="adventure">Continue Journey <span>›</span></button>
+      <button class="btn" data-go="collection">View Collection</button>
+    </div>
+  </div>
+</div>
+<div class="sr-home-tiles">
+  <button class="sr-destination" data-go="adventure"><span class="sr-dest-icon">✧</span><b>Adventure</b><small>Explore Eryndor</small></button>
+  <button class="sr-destination" data-go="collection"><span class="sr-dest-icon">▦</span><b>Collection</b><small>Discover cards</small></button>
+  <button class="sr-destination" data-go="decks"><span class="sr-dest-icon">♜</span><b>Decks</b><small>Craft your strategy</small></button>
+  <button class="sr-destination" data-go="play"><span class="sr-dest-icon">⚔</span><b>Play</b><small>Enter battle</small></button>
+</div>
+<div class="sr-feature-event panel">
+  <div class="sr-event-art"></div>
+  <div class="sr-event-copy"><div class="small gold">FEATURED EVENT</div><h2>Trial of the Shards</h2><p class="muted">Unique challenges, bonus faction mastery, and additional Aether Cache rewards.</p><button class="btn" data-go="rewards">View Progress</button></div>
+  <div class="sr-event-rewards"><div class="small gold">YOUR COLLECTION</div><strong id="collectionCount">0/108</strong><span class="muted">unique cards discovered</span></div>
+</div>
+<div class="sr-home-lower">
+  <div class="panel"><h2>Daily Quests</h2><div id="homeQuests"></div></div>
+  <div class="panel"><h2>Faction Mastery</h2><div id="homeMastery"></div></div>
+  <div class="panel sr-home-cache"><h2>Aether Cache</h2><p class="muted">Earn packs through play or craft exactly what you need with Shard Dust.</p><button class="btn primary" id="openHomePack">Open Earned Pack</button><button class="btn" data-go="shop">Store & Crafting</button></div>
+</div>
+
+</section>
+<section class="view" id="view-adventure">
+<div class="sr-page-hero sr-adventure-hero">
+  <div><div class="small gold">PVE ADVENTURE • CHAPTER ONE</div><h1>The Shattered Path</h1><p>Travel across Eryndor. Learn each faction. Earn guaranteed rewards. Face encounters that break normal PvP rules.</p></div>
+</div>
+<div class="chapter-progress" id="chapterProgress"></div>
+<div class="sr-adventure-stage">
+  <div class="worldmap sr-concept-map" id="worldMap">
+    <div class="map-title sr-map-caption"><div class="small gold">ERYNDOR</div><h2>Worldshard Trail</h2><div class="small muted">Choose an unlocked path.</div></div>
+    <div id="routeLayer"></div><div id="nodeLayer"></div>
+  </div>
+  <div class="panel encounter-card sr-encounter-detail" id="encounterPanel"></div>
+</div>
+<div class="sr-adventure-tools">
+  <div class="panel sr-deck-selector"><div><div class="small gold">ADVENTURE DECK</div><h2>Choose your deck</h2></div><select id="adventureDeckSelect"></select></div>
+  <div class="panel"><div class="small gold">CHAPTER PROGRESS</div><h2>Rewards</h2><div class="rewardline" id="chapterRewards"></div></div>
+  <div class="panel sr-boss-note"><div class="small gold">DIGITAL-ONLY BOSS RULES</div><h2>Bosses bend the rules.</h2><p class="muted">Worldshard creatures can carry encounter powers such as Shardquake, phase changes, and unusual Health totals.</p></div>
+</div>
+</section>
+<section class="view" id="view-collection">
+<div class="sr-page-hero sr-collection-hero deck-head">
+  <div><div class="small gold">DISCOVER • COLLECT • BELONG</div><h1>Collection</h1><p>Build your arsenal from across the realms. Six factions. Endless strategies.</p></div>
+  <button class="btn gold" data-go="shop">Acquire Cards</button>
+</div>
+<div class="sr-faction-tabs" id="collectionFactionTabs"></div>
+<div class="filters sr-collection-filters">
+  <input id="cardSearch" placeholder="Search cards"/>
+  <select id="factionFilter"><option value="All">All factions</option></select>
+  <select id="typeFilter"><option value="All">All types</option><option>Creature</option><option>Tactic</option><option>Relic</option></select>
+  <select id="rarityFilter"><option value="All">All rarities</option><option>Common</option><option>Rare</option><option>Epic</option><option>Legendary</option></select>
+  <select id="ownedFilter"><option value="All">All cards</option><option value="Owned">Owned</option><option value="Missing">Missing</option></select>
+</div>
+<div class="collection-layout sr-collection-layout"><div class="cardgrid" id="collectionGrid"></div><aside class="panel detail" id="cardDetail"></aside></div>
+</section>
+<section class="view" id="view-decks">
+<div class="sr-page-hero sr-decks-hero deck-head">
+  <div><div class="small gold">CRAFT YOUR STRATEGY</div><h1>Deck Builder</h1><p>30 cards • max 3 copies • one faction • one Shardbound Leader</p></div>
+  <button class="btn primary" id="saveDeck">Save Deck</button>
+</div>
+<div class="filters sr-deck-controls"><select id="deckFaction"></select><input id="deckName" placeholder="Deck name" value="My Deck"/><span class="tag" id="deckStatus">0/30</span></div>
+<div class="deck-layout sr-deck-layout"><div><div class="cardgrid" id="deckPool"></div></div><aside class="panel decklist"><div id="leaderDeck"></div><div class="sr-deck-count"><div><div class="small gold">CURRENT DECK</div><h2>Cards</h2></div><b id="deckCount">0/30</b></div><div id="deckRows"></div><h3>Energy Curve</h3><div class="curve" id="curve"></div><p class="small muted">Only cards you own can be added. Build around your Leader and keep a playable Energy curve.</p></aside></div>
+</section>
+<section class="view" id="view-play">
+<div class="sr-page-hero sr-play-hero"><div><div class="small gold">BATTLE FOR ERYNDOR</div><h1>Play</h1><p>Bring your saved deck into battle. Practice against AI now; online modes come later.</p></div></div>
+<div class="sr-play-grid">
+  <div class="mode sr-mode-live"><span class="tag live">PLAYABLE NOW</span><strong>Practice vs AI</strong><p class="muted">Test decks, learn matchups, and improve without rank pressure.</p><label>Your deck</label><select id="playDeckSelect"></select><label>Opponent</label><select id="opponentSelect"></select><button class="btn primary sr-cta" id="launchBattle">Enter Battle</button></div>
+  <div class="mode"><span class="tag">ADVENTURE</span><strong>Chapter One</strong><p class="muted">Story encounters, faction trials, objectives and the Worldshard Behemoth.</p><button class="btn" data-go="adventure">Continue Adventure</button></div>
+  <div class="mode"><span class="tag">COMING LATER</span><strong>Casual & Ranked PvP</strong><p class="muted">Matchmaking, seasons, ranks, competitive deck stats and cosmetic rewards.</p><button class="btn" disabled>Online services required</button></div>
+</div>
+<div class="panel sr-selected-deck"><div class="small gold">SELECTED DECK</div><div id="playDeckInfo"></div></div>
+</section>
 <section class="view" id="view-rewards"><h1>Progression</h1><p class="muted">The goal: playing should always move your collection forward, even if you lose.</p><h2 style="margin-top:18px">Faction Mastery</h2><div class="mastery-grid" id="masteryGrid"></div><div class="grid cols2" style="margin-top:14px"><div class="panel"><h2>Daily / Weekly Quests</h2><div id="questList"></div></div><div class="panel"><h2>Account Rewards</h2><div class="quest"><div><b>Level 4</b><div class="small muted">Complete 2 more matches</div><div class="bar"><span style="width:60%"></span></div></div><span class="tag">+200 Gold</span></div><div class="quest"><div><b>Next Collection Milestone</b><div class="small muted">Own 30 unique cards</div><div class="bar"><span id="collectionMilestone" style="width:0%"></span></div></div><span class="tag">Rare Wildcard</span></div></div></div></section>
 <section class="view" id="view-shop"><h1>Digital Store &amp; Acquisition</h1><p class="muted">Gameplay cards can be earned without paying. Spending should accelerate collection or buy cosmetics—not create exclusive power.</p><div class="grid cols3" style="margin-top:15px"><div class="panel" style="display:grid;justify-items:center"><div class="pack" style="--pack:#7654cb"><div><div style="font-size:28px">✦</div><b>Aether Cache</b><div class="small muted">5 digital cards<br/>Rare+ guaranteed</div></div></div><div class="hero-actions"><button class="btn primary" id="openEarnedPack">Open 1 Pack</button><button class="btn" id="buyGoldPack">100 Gold</button></div></div><div class="panel"><h2>Craft Exactly What You Need</h2><p class="muted">Duplicates beyond three convert to Shard Dust. Missing cards can be crafted directly from Collection.</p><div class="quest"><div><b>Common</b></div><span>40 Dust</span></div><div class="quest"><div><b>Rare</b></div><span>100 Dust</span></div><div class="quest"><div><b>Epic</b></div><span>250 Dust</span></div><div class="quest"><div><b>Legendary</b></div><span>600 Dust</span></div></div><div class="panel"><h2>Cosmetics</h2><p class="muted">Best long-term monetization lane: Leader skins, Ascension animations, card backs, battlefield themes, animated frames and alternate art.</p><button class="btn" disabled="">Cosmetic Store Concept</button><p class="small muted" style="margin-top:10px">No card should be permanently exclusive to real-money spending.</p></div></div><div class="panel" style="margin-top:15px"><h2>Latest Pack</h2><div class="pack-results" id="packResults"><p class="muted">Open a pack to preview the acquisition loop.</p></div></div></section>
 </div></main></div>
 <div class="modal" id="starterModal"><div class="modal-card starter-modal-card"><div class="small gold">YOUR FIRST ALLEGIANCE</div><h1>Choose your first faction</h1><p class="muted">Every faction can eventually be collected. This choice simply gives you your first complete 30-card deck and Leader.</p><div class="starter-actions"><button class="btn" id="recommendFaction" type="button">Not sure? Recommend one</button></div><div class="starter-grid" id="starterGrid"></div><p class="small muted" style="margin-top:14px">You can build decks for other factions as your collection grows.</p></div></div>
-<div class="modal battle-modal" id="battleModal"><div class="modal-card"><div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 8px"><b>Visual Alpha Battle</b><button class="btn" id="closeBattle">Close</button></div><iframe class="battle-frame" id="battleFrame" title="Shattered Realms battle prototype"></iframe></div></div>
+<div class="modal battle-modal" id="battleModal"><div class="modal-card"><div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 8px"><b>Battle • Eryndor Arena</b><button class="btn" id="closeBattle">Close</button></div><iframe class="battle-frame" id="battleFrame" title="Shattered Realms battle prototype"></iframe></div></div>
 <div class="modal story-modal" id="storyModal"><div class="modal-card"><div class="story-top" id="storyTop"><img alt="" class="story-portrait" id="storyPortrait"/><div class="story-copy"><div class="small gold" id="storyKicker">STORY</div><div class="story-speaker" id="storySpeaker"></div><div class="story-text" id="storyText"></div></div></div><div class="story-actions"><button class="btn gold" id="storyNext">Continue</button></div></div></div>
 <div class="modal result-modal" id="resultModal"><div class="modal-card"><div class="result-hero"><div class="small gold" id="resultKicker">ENCOUNTER COMPLETE</div><h1 id="resultTitle">Victory</h1><div class="result-stars" id="resultStars"></div><div class="muted" id="resultSummary"></div></div><div class="result-grid"><div class="result-box"><h3>Objectives</h3><div class="objective-list" id="resultObjectives"></div></div><div class="result-box"><h3>Rewards</h3><div class="rewardline" id="resultRewards"></div><div class="small muted" id="resultBonus"></div></div></div><div class="story-actions"><button class="btn" id="resultReplay">Replay</button><button class="btn gold" id="resultContinue">Continue</button></div></div></div>
 <div class="modal intro-modal" id="introModal">
@@ -53,4 +132,5 @@
 <script src="js/mobile-shell.js"></script>
 <script src="js/app.js"></script>
 <script src="js/premium-v091.js"></script>
+<script src="js/concept-v092.js"></script>
 </body></html>

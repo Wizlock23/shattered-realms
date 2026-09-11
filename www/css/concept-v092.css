@@ -1,0 +1,88 @@
+
+/* SHATTERED REALMS v0.9.2 — Concept Match
+   Rebuilds the app around the approved cinematic mobile concepts instead of skinning the old prototype layout. */
+:root{
+ --v92-ink:#020813;--v92-blue:#087cff;--v92-blue2:#59b4ff;--v92-gold:#d9ac59;
+ --v92-gold2:#f4d58c;--v92-ivory:#f8ecd1;--v92-panel:rgba(4,15,29,.94);
+ --v92-line:rgba(217,172,89,.58);--v92-shadow:0 20px 55px rgba(0,0,0,.48);
+}
+html,body{background:#020712!important}
+body{background-image:linear-gradient(rgba(1,7,16,.78),rgba(1,7,16,.96)),url('../assets/ui/eryndor-hero-v091.jpg')!important;background-size:cover!important;background-position:center top!important}
+body *{box-sizing:border-box}
+.sidebar{height:88px!important;padding:0 clamp(18px,2vw,38px)!important}
+.brand{min-width:285px!important}.brand-title{font:700 19px Georgia,serif!important}.brand small{font-size:8px!important}
+.nav button{font-size:13px!important;padding:10px 13px!important}.profile{min-width:215px!important}
+.main{padding-top:88px!important}.topbar{top:88px!important;height:64px!important}.content{padding:22px clamp(18px,2.4vw,42px)!important;max-width:1740px!important;margin-inline:auto!important}
+.view{animation:srV92In .22s ease both}@keyframes srV92In{from{opacity:.15;transform:translateY(5px)}to{opacity:1;transform:none}}
+.panel,.mode{border:1px solid var(--v92-line)!important;box-shadow:inset 0 0 0 1px rgba(72,133,201,.08),var(--v92-shadow)!important}
+.btn{font-weight:800!important;letter-spacing:.02em}.sr-cta{min-height:54px!important;font-size:17px!important}
+.small.gold{color:#f1c96f!important;letter-spacing:.12em!important}
+h1,h2,h3,.sr-logo-text{font-family:Georgia,'Times New Roman',serif!important}
+
+/* ---- HOME: same hierarchy as approved mobile concept ---- */
+#view-home{max-width:1500px;margin:auto}
+.sr-home-hero{position:relative;min-height:650px!important;padding:0!important;overflow:hidden!important;background:url('../assets/ui/eryndor-hero-v091.jpg') center/cover no-repeat!important}
+.sr-home-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,7,16,.06) 25%,rgba(2,7,16,.12) 53%,rgba(2,7,16,.92) 100%),linear-gradient(90deg,rgba(2,7,16,.28),transparent 55%);z-index:0!important}
+.sr-home-brand{position:absolute;top:8%;left:50%;transform:translateX(-50%);width:min(900px,86%);text-align:center;z-index:1;text-shadow:0 4px 20px #000}
+.sr-brand-kicker{font:700 17px Georgia,serif;letter-spacing:.35em;color:#f3d795}
+.sr-logo-text{font-size:clamp(48px,6vw,92px);line-height:.95;color:#f8e8c7;letter-spacing:.01em;text-shadow:0 2px 0 #69421f,0 0 24px rgba(255,224,170,.3),0 5px 30px #000}
+.sr-brand-tag{margin-top:12px;letter-spacing:.36em;font-size:13px;color:#e4d3b2}
+.sr-home-continue{position:absolute;left:3%;right:3%;bottom:3%;padding:26px 30px;border:1px solid rgba(217,172,89,.7);border-radius:14px;background:linear-gradient(90deg,rgba(3,11,22,.95),rgba(5,20,39,.78),rgba(3,11,22,.58));z-index:2;max-width:900px}
+.sr-home-continue h1{font-size:clamp(34px,4vw,58px)!important;margin:5px 0 10px}.sr-home-continue p{font-size:16px;max-width:740px}
+.sr-home-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px}
+.sr-destination{appearance:none;position:relative;min-height:220px;padding:22px 12px;border:1px solid var(--v92-line);border-radius:13px;color:var(--v92-ivory);background:linear-gradient(180deg,rgba(8,31,55,.82),rgba(3,12,24,.97));display:flex;flex-direction:column;justify-content:flex-end;align-items:center;cursor:pointer;overflow:hidden;box-shadow:var(--v92-shadow)}
+.sr-destination:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 12%,rgba(31,117,255,.24),transparent 45%);opacity:.8}.sr-destination:hover{border-color:#9fcaff;transform:translateY(-2px)}
+.sr-dest-icon{font-size:40px;color:#e8bd67;text-shadow:0 0 20px rgba(34,134,255,.6);z-index:1}.sr-destination b{font:700 25px Georgia,serif;z-index:1}.sr-destination small{color:#adbdcf;z-index:1}
+.sr-feature-event{display:grid;grid-template-columns:280px 1fr 250px;gap:24px;align-items:center;padding:18px!important;margin-top:14px!important;overflow:hidden}.sr-event-art{height:150px;border-radius:10px;background:linear-gradient(90deg,transparent,rgba(6,20,37,.18)),url('../assets/ui/store-hero-v091.jpg') center/cover}.sr-event-copy h2{font-size:30px;margin:2px 0}.sr-event-rewards{display:flex;flex-direction:column;align-items:center;border-left:1px solid rgba(217,172,89,.35);padding:22px}.sr-event-rewards strong{font:700 38px Georgia,serif;color:#fff}.sr-home-lower{display:grid;grid-template-columns:1.1fr 1fr .9fr;gap:14px;margin-top:14px}.sr-home-lower>.panel{padding:20px!important}.sr-home-cache .btn{width:100%;margin-top:8px}.sr-hidden-meter{display:none}
+
+/* ---- PAGE HEROES ---- */
+.sr-page-hero{min-height:280px!important;position:relative;overflow:hidden;border:1px solid rgba(217,172,89,.6);border-radius:16px;padding:32px!important;display:flex!important;align-items:flex-end!important;background-size:cover!important;background-position:center!important;box-shadow:var(--v92-shadow)!important}
+.sr-page-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,9,19,.96),rgba(2,9,19,.46) 48%,rgba(2,9,19,.08));pointer-events:none}.sr-page-hero>*{position:relative;z-index:1}.sr-page-hero h1{font-size:clamp(42px,5vw,74px)!important;margin:2px 0 7px}.sr-page-hero p{font-size:17px;max-width:780px;color:#c7d2df}
+.sr-adventure-hero{background-image:url('../assets/ui/eryndor-hero-v091.jpg')!important}.sr-collection-hero{background-image:url('../assets/ui/collection-hero-v091.jpg')!important}.sr-decks-hero{background-image:url('../assets/ui/decks-hero-v091.jpg')!important}.sr-play-hero{background-image:url('../assets/ui/play-hero-v091.jpg')!important}
+
+/* ---- ADVENTURE: crisp concept map, clickable live hotspots ---- */
+#view-adventure{max-width:1500px;margin:auto}.chapter-progress{margin:14px 0!important}.sr-adventure-stage{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(360px,.62fr);gap:16px;align-items:start}
+.worldmap.sr-concept-map{position:relative;min-height:0!important;aspect-ratio:1200/964!important;background:url('../assets/ui/eryndor-map-concept-v092.jpg') center/cover no-repeat!important;border-radius:16px!important;border:1px solid rgba(217,172,89,.7)!important;box-shadow:var(--v92-shadow)!important;overflow:hidden}
+.worldmap.sr-concept-map:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,4,10,.04),rgba(0,4,10,.12));pointer-events:none}.worldmap.sr-concept-map:after{display:none!important}.sr-map-caption{display:none!important}#routeLayer{display:none!important}
+.sr-concept-map .adventure-node{width:92px!important;height:92px!important;transform:translate(-50%,-50%)!important;z-index:5}
+.sr-concept-map .adventure-node:nth-child(1){left:12.5%!important;top:44.5%!important}.sr-concept-map .adventure-node:nth-child(2){left:35%!important;top:61%!important}.sr-concept-map .adventure-node:nth-child(3){left:37%!important;top:31%!important}.sr-concept-map .adventure-node:nth-child(4){left:54%!important;top:14%!important}.sr-concept-map .adventure-node:nth-child(5){left:86%!important;top:26%!important}.sr-concept-map .adventure-node:nth-child(6){left:63%!important;top:54%!important}.sr-concept-map .adventure-node:nth-child(7){left:88%!important;top:73%!important}
+.sr-concept-map .node-btn{width:92px!important;height:92px!important;background:transparent!important;border:0!important;box-shadow:none!important;color:transparent!important;opacity:.04!important;cursor:pointer}.sr-concept-map .node-btn:disabled{cursor:not-allowed}.sr-concept-map .node-btn.selected{opacity:1!important;border:3px solid #70baff!important;background:rgba(20,114,255,.12)!important;box-shadow:0 0 0 5px rgba(2,10,20,.75),0 0 28px #1683ff!important;border-radius:50%!important}.sr-concept-map .node-label,.sr-concept-map .node-sub,.sr-concept-map .star-summary{display:none!important}
+.sr-encounter-detail{position:sticky;top:172px;padding:18px!important}.sr-encounter-detail .encounter-banner,.sr-encounter-detail .boss-art-banner{height:210px!important}.sr-encounter-detail h2{font-size:31px!important}.sr-encounter-detail #launchEncounter{width:100%;min-height:52px}
+.sr-adventure-tools{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:14px}.sr-adventure-tools>.panel{padding:18px!important}.sr-deck-selector{display:flex;align-items:center;justify-content:space-between;gap:18px}.sr-deck-selector select{max-width:420px}
+
+/* ---- COLLECTION ---- */
+.sr-faction-tabs{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;padding:10px;margin:14px 0;border:1px solid rgba(217,172,89,.3);border-radius:13px;background:rgba(3,13,25,.88)}.sr-faction-tabs button{min-height:70px;border:1px solid rgba(71,111,158,.36);border-radius:10px;background:#071526;color:#d9e1eb;display:grid;place-items:center;gap:2px;cursor:pointer}.sr-faction-tabs button span{font-size:25px;color:#e7bd68}.sr-faction-tabs button.active{border-color:#6eb2ff;background:linear-gradient(180deg,#123b6d,#07172d);box-shadow:0 0 0 1px #2f8fff,0 0 20px rgba(24,128,255,.3);color:#fff}.sr-collection-filters{position:sticky!important;top:160px!important;display:grid!important;grid-template-columns:minmax(220px,1.4fr) repeat(4,minmax(130px,.55fr));gap:9px!important}.sr-collection-layout{grid-template-columns:minmax(0,1fr) minmax(360px,440px)!important}.sr-collection-layout .cardgrid{grid-template-columns:repeat(auto-fill,minmax(175px,1fr))!important;gap:13px!important}.sr-collection-layout .card{min-height:315px!important}.sr-collection-layout .detail{position:sticky!important;top:235px!important;max-height:calc(100vh - 260px);overflow:auto}.detail-art{min-height:360px!important}
+
+/* ---- DECKS ---- */
+.sr-deck-controls{display:grid!important;grid-template-columns:260px minmax(220px,1fr) auto;gap:10px!important}.sr-deck-layout{grid-template-columns:minmax(0,1fr) minmax(360px,430px)!important}.sr-deck-layout .cardgrid{grid-template-columns:repeat(auto-fill,minmax(165px,1fr))!important}.sr-deck-count{display:flex;align-items:end;justify-content:space-between;border-bottom:1px solid rgba(217,172,89,.35);padding:12px 0}.sr-deck-count b{font:700 32px Georgia,serif;color:#f0cf86}
+
+/* ---- PLAY ---- */
+.sr-play-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px;margin-top:14px}.sr-play-grid .mode{min-height:340px;padding:24px!important;display:flex;flex-direction:column;gap:12px}.sr-play-grid .mode strong{font:700 30px Georgia,serif}.sr-play-grid .mode select{min-height:46px}.sr-mode-live{background:linear-gradient(160deg,rgba(11,47,84,.96),rgba(4,15,29,.97))!important;border-color:#5faaff!important}.sr-selected-deck{margin-top:14px;padding:20px!important}
+
+/* ---- BOTTOM / TOP NAV ---- */
+@media(min-width:901px){
+ .sidebar{height:92px!important}.main{padding-top:92px!important}.topbar{top:92px!important}
+ .content{min-height:calc(100vh - 156px)}
+}
+@media(max-width:900px){
+ body{background-attachment:scroll!important}
+ .sidebar{position:fixed!important;left:0!important;right:0!important;top:auto!important;bottom:0!important;height:calc(76px + env(safe-area-inset-bottom))!important;padding:0 6px env(safe-area-inset-bottom)!important;border-top:1px solid rgba(217,172,89,.45)!important;border-bottom:0!important;background:rgba(2,9,18,.96)!important;backdrop-filter:blur(18px)!important}
+ .brand,.profile{display:none!important}.nav{width:100%!important;display:grid!important;grid-template-columns:repeat(5,1fr)!important;gap:0!important}
+ .nav button{min-width:0!important;height:70px!important;flex-direction:column!important;padding:7px 2px!important;border-radius:9px!important;font-size:12px!important;gap:3px!important}.nav button span{font-size:22px!important}.nav button[data-view="rewards"],.nav button[data-view="shop"]{display:none!important}
+ .main{padding-top:0!important}.topbar{position:sticky!important;top:0!important;height:72px!important;padding:calc(8px + env(safe-area-inset-top)) 14px 8px!important;z-index:50!important}.topbar>b{font-size:25px!important}.topbar .currencies{display:none!important}.topbar-actions{margin-left:auto!important}
+ .content{padding:0 12px calc(104px + env(safe-area-inset-bottom))!important;margin:0!important;max-width:none!important}
+ .sr-home-hero{min-height:590px!important;margin:0 -12px!important;border-radius:0 0 18px 18px!important;border-left:0!important;border-right:0!important;background-position:53% center!important}.sr-home-brand{top:7%;width:92%}.sr-logo-text{font-size:46px!important}.sr-brand-tag{font-size:9px;letter-spacing:.25em}.sr-home-continue{left:12px;right:12px;bottom:14px;padding:18px!important}.sr-home-continue h1{font-size:32px!important}.sr-home-continue p{font-size:14px}.sr-home-continue .hero-actions{display:grid;grid-template-columns:1fr 1fr}.sr-home-tiles{grid-template-columns:repeat(2,1fr);gap:9px}.sr-destination{min-height:160px}.sr-destination b{font-size:20px}.sr-feature-event{grid-template-columns:115px 1fr;padding:11px!important}.sr-event-art{height:115px}.sr-event-rewards{display:none}.sr-home-lower{grid-template-columns:1fr}.sr-home-lower>.panel{padding:15px!important}
+ .sr-page-hero{min-height:220px!important;margin:0 -12px 12px!important;border-radius:0 0 18px 18px!important;border-left:0!important;border-right:0!important;padding:20px 18px!important}.sr-page-hero h1{font-size:43px!important}.sr-page-hero p{font-size:14px}.sr-page-hero:before{background:linear-gradient(90deg,rgba(2,9,19,.9),rgba(2,9,19,.22))!important}
+ .chapter-progress{margin:10px 0!important}
+ .sr-adventure-stage{display:block!important}.worldmap.sr-concept-map{width:100%;aspect-ratio:1200/964!important;margin:0!important}.sr-concept-map .node-btn{width:70px!important;height:70px!important}.sr-concept-map .adventure-node{width:70px!important;height:70px!important}.sr-encounter-detail{position:relative!important;top:auto!important;margin-top:10px!important;padding:14px!important}.sr-encounter-detail .encounter-banner,.sr-encounter-detail .boss-art-banner{height:150px!important}.sr-encounter-detail h2{font-size:28px!important}.sr-adventure-tools{grid-template-columns:1fr!important}.sr-boss-note{display:none}.sr-deck-selector{display:block}.sr-deck-selector select{width:100%;max-width:none;margin-top:8px}
+ .sr-faction-tabs{grid-template-columns:repeat(7,minmax(68px,1fr));overflow-x:auto;padding:7px;margin:10px 0}.sr-faction-tabs button{min-height:62px;font-size:10px}.sr-faction-tabs button span{font-size:22px}.sr-collection-filters{top:72px!important;grid-template-columns:1fr 1fr!important;padding:8px!important}.sr-collection-filters input{grid-column:1/-1}.sr-collection-layout{display:block!important}.sr-collection-layout .cardgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}.sr-collection-layout .card{min-height:270px!important}.sr-collection-layout .detail{position:relative!important;top:auto!important;max-height:none!important;margin-top:12px}.detail-art{min-height:320px!important}
+ .sr-deck-controls{grid-template-columns:1fr auto!important}.sr-deck-controls #deckName{grid-column:1/-1}.sr-deck-layout{display:block!important}.sr-deck-layout .cardgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.sr-deck-layout .decklist{position:relative!important;top:auto!important;margin-top:12px}
+ .sr-play-grid{grid-template-columns:1fr!important}.sr-play-grid .mode{min-height:auto}.sr-selected-deck{margin-bottom:10px}
+}
+@media(max-width:480px){
+ .content{padding-inline:8px!important}.sr-home-hero,.sr-page-hero{margin-left:-8px!important;margin-right:-8px!important}
+ .sr-home-hero{min-height:550px!important}.sr-logo-text{font-size:38px!important}.sr-home-continue h1{font-size:27px!important}.sr-home-continue .hero-actions{grid-template-columns:1fr}.sr-home-tiles{gap:7px}.sr-destination{min-height:142px;padding:14px 6px}.sr-dest-icon{font-size:31px}.sr-feature-event{grid-template-columns:90px 1fr}.sr-event-art{height:100px}.sr-event-copy h2{font-size:22px}
+ .sr-page-hero{min-height:190px!important}.sr-page-hero h1{font-size:36px!important}
+ .sr-concept-map .adventure-node{width:60px!important;height:60px!important}.sr-concept-map .node-btn{width:60px!important;height:60px!important}
+ .sr-collection-layout .card{min-height:240px!important}.detail-art{min-height:290px!important}
+}
