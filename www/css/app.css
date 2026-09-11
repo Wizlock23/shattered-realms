@@ -91,3 +91,8 @@ body{background:radial-gradient(circle at 50% -10%,rgba(42,82,134,.24),transpare
   .toast{left:12px;right:12px;bottom:calc(80px + env(safe-area-inset-bottom));text-align:center}
 }
 @media(max-width:420px){.card-art{height:124px}.detail-art{height:250px}.topbar-actions .help-btn{min-height:38px}.feature{height:170px}}
+
+
+/* v0.9.0 — audio + six-faction visual polish + expanded core */
+.audio-btn{min-width:42px;font-size:16px}.set-badge{font-size:9px;letter-spacing:.08em;color:#93a7c3;text-transform:uppercase}.card-art img{transition:transform .28s ease,filter .28s ease}.card:hover .card-art img{transform:scale(1.035);filter:saturate(1.12) contrast(1.04)}.card{transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}.card:active{transform:scale(.985)}
+@media(max-width:800px){.audio-btn{min-width:38px;padding:7px}.topbar-actions{gap:5px}.topbar .currencies{gap:4px}.topbar .currency{font-size:10px;padding:4px 6px}}
