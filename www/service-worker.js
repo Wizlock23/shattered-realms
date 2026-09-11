@@ -1,8 +1,9 @@
-const CACHE_NAME='shattered-realms-v0.16.3';
+const APP_VERSION='0.16.4';
+const CACHE_NAME='shattered-realms-v0.16.4';
 const CORE = [
-  './','./index.html','./manifest.webmanifest','./battle/index.html','./battle/index-v0163.html',
-  './css/app-v0163.css','./css/battle-v0163.css',
-  './js/sound.js','./js/pwa-install.js','./js/mobile-shell.js','./js/game-data-v0133.js','./js/app.js','./js/ui-v0120.js','./js/engagement-v0130.js','./js/battle-core-v0163.js','./js/battle-v0163.js','./js/battle-engagement-v0130.js',
+  './','./index.html','./build.json','./manifest.webmanifest','./battle/index.html','./battle/index-v0164.html',
+  './css/app-v0164.css','./css/battle-v0164.css',
+  './js/sound.js','./js/pwa-install.js','./js/pwa-install-v0164.js','./js/mobile-shell.js','./js/game-data-v0133.js','./js/app.js','./js/ui-v0120.js','./js/engagement-v0130.js','./js/battle-core-v0164.js','./js/battle-v0164.js','./js/battle-engagement-v0130.js',
   './assets/ui/reference-v0120/adventure-tile.png','./assets/ui/reference-v0120/collection-tile.png','./assets/ui/reference-v0120/decks-tile.png','./assets/ui/reference-v0120/play-tile.png','./assets/ui/reference-v0120/featured-event.png',
   './icons/apple-touch-icon.png','./icons/icon-192.png','./icons/icon-512.png',
   './assets/ui/home-hero-target-v094.jpg','./assets/ui/eryndor-map-concept-v092.jpg','./assets/ui/battle-arena-v0163.jpg',
@@ -11,65 +12,62 @@ const CORE = [
   './assets/leaders/alfar.webp','./assets/leaders/dwarves.webp','./assets/leaders/mercians.webp','./assets/leaders/mahirim.webp','./assets/leaders/mirdain.webp','./assets/leaders/orks.webp'
 ];
 
+async function freshFetch(input){
+  return fetch(input,{cache:'no-store'});
+}
+async function cacheResponse(req,res){
+  if(res&&res.ok){const cache=await caches.open(CACHE_NAME);await cache.put(req,res.clone());}
+  return res;
+}
+async function precacheFresh(url){
+  try{const req=new Request(url,{cache:'reload'});const res=await fetch(req);if(res.ok){const cache=await caches.open(CACHE_NAME);await cache.put(url,res.clone());}}
+  catch(e){console.warn('PWA cache skip',url,e);}
+}
+
 self.addEventListener('install', event => {
-  event.waitUntil((async () => {
-    const cache = await caches.open(CACHE_NAME);
-    await Promise.all(CORE.map(async url => {
-      try { await cache.add(url); }
-      catch (e) { console.warn('PWA cache skip', url, e); }
-    }));
-    await self.skipWaiting();
-  })());
+  event.waitUntil((async()=>{await Promise.all(CORE.map(precacheFresh));await self.skipWaiting();})());
 });
 
 self.addEventListener('activate', event => {
-  event.waitUntil((async () => {
-    const keys = await caches.keys();
-    await Promise.all(keys.filter(k => k.startsWith('shattered-realms-') && k !== CACHE_NAME).map(k => caches.delete(k)));
+  event.waitUntil((async()=>{
+    const keys=await caches.keys();
+    await Promise.all(keys.filter(k=>k.startsWith('shattered-realms-')&&k!==CACHE_NAME).map(k=>caches.delete(k)));
     await self.clients.claim();
+    const clients=await self.clients.matchAll({type:'window',includeUncontrolled:true});
+    for(const client of clients) client.postMessage({type:'SR_UPDATE_READY',version:APP_VERSION});
   })());
 });
 
-async function cacheFresh(req, res){
-  if (res && res.ok) {
-    const cache = await caches.open(CACHE_NAME);
-    await cache.put(req, res.clone());
-  }
-  return res;
-}
+self.addEventListener('message', event => {
+  if(event.data?.type==='SKIP_WAITING') self.skipWaiting();
+  if(event.data?.type==='CLEAR_OLD_CACHES') event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE_NAME).map(k=>caches.delete(k)))));
+});
 
-async function networkFirst(req, fallback){
-  try { return await cacheFresh(req, await fetch(req)); }
-  catch { return (await caches.match(req)) || (fallback ? await caches.match(fallback) : null) || new Response('Shattered Realms is offline and this asset was not cached yet.', {status:503, headers:{'Content-Type':'text/plain'}}); }
+async function networkFirstFresh(req,fallback){
+  try{return await cacheResponse(req,await freshFetch(req));}
+  catch{
+    return (await caches.match(req)) || (fallback?await caches.match(fallback):null) || new Response('Shattered Realms is offline and this asset was not cached yet.',{status:503,headers:{'Content-Type':'text/plain'}});
+  }
 }
 
 self.addEventListener('fetch', event => {
-  const req = event.request;
-  if (req.method !== 'GET') return;
-  const url = new URL(req.url);
-  if (url.origin !== self.location.origin) return;
+  const req=event.request;
+  if(req.method!=='GET') return;
+  const url=new URL(req.url);
+  if(url.origin!==self.location.origin) return;
+  const isCode=/\.(?:js|css|html|json|webmanifest)$/.test(url.pathname);
 
-  // HTML/navigation and executable styles/scripts are network-first so a freshly
-  // deployed GitHub Pages build cannot remain visually stuck on an older bundle.
-  const isCode = /\.(?:js|css|html|webmanifest)$/.test(url.pathname);
-  if (req.mode === 'navigate') {
-    const fallback = url.pathname.includes('/battle/') ? './battle/index-v0163.html' : './index.html';
-    event.respondWith(networkFirst(req, fallback));
+  if(req.mode==='navigate'){
+    const fallback=url.pathname.includes('/battle/')?'./battle/index-v0164.html':'./index.html';
+    event.respondWith(networkFirstFresh(req,fallback));
     return;
   }
-  if (isCode) {
-    event.respondWith(networkFirst(req));
-    return;
-  }
+  if(isCode){event.respondWith(networkFirstFresh(req));return;}
 
-  // Large artwork stays cache-first with background refresh for fast PWA loads.
-  event.respondWith((async () => {
-    const cached = await caches.match(req);
-    if (cached) {
-      event.waitUntil(fetch(req).then(res => cacheFresh(req,res)).catch(()=>{}));
-      return cached;
-    }
-    try { return await cacheFresh(req, await fetch(req)); }
-    catch { return new Response('Shattered Realms is offline and this asset was not cached yet.', {status:503, headers:{'Content-Type':'text/plain'}}); }
+  event.respondWith((async()=>{
+    const cached=await caches.match(req);
+    if(cached){event.waitUntil(fetch(req,{cache:'no-cache'}).then(res=>cacheResponse(req,res)).catch(()=>{}));return cached;}
+    try{return await cacheResponse(req,await fetch(req,{cache:'no-cache'}));}
+    catch{return new Response('Shattered Realms is offline and this asset was not cached yet.',{status:503,headers:{'Content-Type':'text/plain'}});}
   })());
 });
