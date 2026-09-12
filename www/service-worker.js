@@ -1,8 +1,8 @@
-const APP_VERSION='0.17.5';
-const CACHE_NAME='shattered-realms-v0.17.5';
+const APP_VERSION='0.17.8';
+const CACHE_NAME='shattered-realms-v0.17.8';
 const CRITICAL=[
-  './','./index.html','./build.json','./manifest.webmanifest','./battle/index.html','./battle/index-v0175.html',
-  './css/app-v0166.css','./js/app.js','./js/mobile-shell.js','./js/pwa-install-v0175.js','./js/game-data-v0133.js'
+  './','./index.html','./build.json','./manifest.webmanifest','./battle/index.html','./battle/index-v0178.html',
+  './css/app-v0166.css','./js/app.js','./js/mobile-shell.js','./js/pwa-install-v0177.js','./js/game-data-v0133.js'
 ];
 const OPTIONAL=[
   './js/sound.js','./js/battle-engagement-v0130.js',
@@ -17,4 +17,4 @@ self.addEventListener('install',event=>{event.waitUntil((async()=>{const cache=a
 self.addEventListener('activate',event=>{event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(k=>k.startsWith('shattered-realms-')&&k!==CACHE_NAME).map(k=>caches.delete(k)));await self.clients.claim();const clients=await self.clients.matchAll({type:'window',includeUncontrolled:true});for(const client of clients)client.postMessage({type:'SR_UPDATE_READY',version:APP_VERSION})})())});
 self.addEventListener('message',event=>{if(event.data?.type==='SKIP_WAITING')self.skipWaiting()});
 async function networkFirst(req,fallback){try{const res=await fetch(req,{cache:'no-store'});if(res.ok){const cache=await caches.open(CACHE_NAME);await cache.put(req,res.clone());return res}throw new Error(String(res.status))}catch{return (await caches.match(req))||(fallback?await caches.match(fallback):null)||new Response('Offline',{status:503})}}
-self.addEventListener('fetch',event=>{const req=event.request;if(req.method!=='GET')return;const url=new URL(req.url);if(url.origin!==self.location.origin)return;if(req.mode==='navigate'){event.respondWith(networkFirst(req,url.pathname.includes('/battle/')?'./battle/index-v0175.html':'./index.html'));return}if(/\.(?:js|css|html|json|webmanifest)$/.test(url.pathname)){event.respondWith(networkFirst(req));return}event.respondWith((async()=>{const cached=await caches.match(req);if(cached){event.waitUntil(fetch(req,{cache:'no-cache'}).then(async r=>{if(r.ok){const c=await caches.open(CACHE_NAME);await c.put(req,r.clone())}}).catch(()=>{}));return cached}try{return await fetch(req,{cache:'no-cache'})}catch{return new Response('',{status:503})}})())});
+self.addEventListener('fetch',event=>{const req=event.request;if(req.method!=='GET')return;const url=new URL(req.url);if(url.origin!==self.location.origin)return;if(req.mode==='navigate'){event.respondWith(networkFirst(req,url.pathname.includes('/battle/')?'./battle/index-v0178.html':'./index.html'));return}if(/\.(?:js|css|html|json|webmanifest)$/.test(url.pathname)){event.respondWith(networkFirst(req));return}event.respondWith((async()=>{const cached=await caches.match(req);if(cached){event.waitUntil(fetch(req,{cache:'no-cache'}).then(async r=>{if(r.ok){const c=await caches.open(CACHE_NAME);await c.put(req,r.clone())}}).catch(()=>{}));return cached}try{return await fetch(req,{cache:'no-cache'})}catch{return new Response('',{status:503})}})())});
