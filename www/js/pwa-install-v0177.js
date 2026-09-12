@@ -1,5 +1,5 @@
 (() => {
-  const APP_VERSION='0.18.5';
+  const APP_VERSION='0.18.6';
   const BUILD_URL='./build.json';
   const SW_URL='./service-worker.js';
   const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true || document.body.classList.contains('sr-native');
@@ -80,7 +80,7 @@
     if (isIOS) setTimeout(addBanner, 900);
   });
 
-  // From v0.18.5 forward the app checks for a release whenever the user comes
+  // From v0.18.6 forward the app checks for a release whenever the user comes
   // back to the tab/app, so normal reopening replaces hard-refresh instructions.
   window.addEventListener('pageshow',()=>checkForUpdate(true));
   window.addEventListener('focus',()=>checkForUpdate(false));
