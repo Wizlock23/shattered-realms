@@ -1,11 +1,11 @@
-const APP_VERSION='0.19.0';
-const CACHE_NAME='shattered-realms-v0.19.0';
+const APP_VERSION='0.19.2';
+const CACHE_NAME='shattered-realms-v0.19.2';
 const CRITICAL=[
   './','./index.html','./build.json','./manifest.webmanifest','./battle/index.html','./battle/index-v0190.html',
   './css/app-v0166.css','./js/app.js','./js/mobile-shell.js','./js/pwa-install-v0177.js','./js/game-data-v0133.js'
 ];
 const OPTIONAL=[
-  './assets/card-art/manifest-v0190.json',
+  './assets/card-art/manifest-v0192.json',
   './js/sound.js','./js/battle-engagement-v0130.js',
   './assets/ui/battle-bg-v0165-1.jpg','./assets/ui/battle-bg-v0165-2.jpg','./assets/ui/battle-bg-v0165-3.jpg','./assets/ui/battle-bg-v0165-4.jpg',
   './assets/ui/battle-arena-alfar-v0168.jpg','./assets/ui/battle-arena-dwarves-v0168.jpg','./assets/ui/battle-arena-mahirim-v0168.jpg','./assets/ui/battle-arena-mercians-v0168.jpg','./assets/ui/battle-arena-mirdain-v0168.jpg','./assets/ui/battle-arena-orks-v0168.jpg','./assets/ui/battle-arena-worldshard-v0168.jpg',
