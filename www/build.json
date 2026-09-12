@@ -1,6 +1,6 @@
 {
-  "version": "0.18.1",
-  "build": "0181",
+  "version": "0.18.2",
+  "build": "0182",
   "released": "2026-09-11",
   "cachePolicy": "all-card-frame-rollout"
 }

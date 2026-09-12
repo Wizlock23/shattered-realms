@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>The Shattered Realms — Battle v0.18.1</title>
+<title>The Shattered Realms — Battle v0.18.2</title>
 <style id="srBattleEmbeddedCss">
 /* v0.13.3 consolidated battle base */
 
@@ -2579,6 +2579,21 @@ html[data-sr-battle-release="0178"] .creature.ready{box-shadow:0 0 0 1px rgba(12
   .card.is-playable:not(:disabled){animation:none;box-shadow:0 0 0 1px rgba(121,193,255,.4),0 0 20px rgba(58,131,255,.24),0 10px 22px rgba(0,0,0,.32)!important}
 }
 
+
+
+/* v0.18.2 — smarter battle flow + player safeguard polish */
+#endTurnBtn.sr-end-warn{background:linear-gradient(180deg,#c56f27,#7b3517)!important;border-color:#ffd187!important;box-shadow:0 0 0 2px rgba(255,207,125,.20),0 0 24px rgba(231,126,41,.24)!important;color:#fff8e6!important}
+#endTurnBtn.sr-end-warn::after{content:' • confirm';font-size:.68em;opacity:.86;letter-spacing:.03em}
+body.sr-enemy-thinking .center{box-shadow:0 0 0 1px rgba(255,122,141,.15),0 14px 34px rgba(76,12,25,.18)!important}
+body.sr-enemy-thinking #turnLabel::after{content:'  ·  thinking';font-family:Inter,system-ui,sans-serif;font-size:.62em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f4bdc5}
+body.sr-player-action .center{box-shadow:0 0 0 1px rgba(118,190,255,.14),0 14px 34px rgba(24,82,164,.17)!important}
+@media(min-width:901px){
+  #endTurnBtn{transition:filter .16s ease,transform .16s ease,box-shadow .16s ease,background .16s ease}
+  #endTurnBtn:not(:disabled):hover{filter:brightness(1.08);transform:translateY(-1px)}
+  .card.is-playable:not(:disabled):hover{transform:translateY(-9px) scale(1.035)!important;z-index:12!important}
+  .creature.attackable.ready:hover{transform:translateY(-7px) scale(1.02)!important;z-index:12!important}
+}
+
 </style>
 <style id="srBattleCriticalFallback">html,body{margin:0;min-height:100%;background:#030914;color:#f7f0df;font-family:Inter,system-ui,sans-serif}.hidden{display:none!important}.battle-shell{min-height:100vh;background:#030914}.setup{max-width:440px;margin:90px auto;padding:24px;background:#08162a;border:1px solid #8c6b32;border-radius:20px}.setup label{display:grid;gap:6px;margin:10px 0}.setup select,.setup button{min-height:44px}.battle-topbar{position:relative;z-index:10;display:grid;grid-template-columns:44px 1fr 44px;align-items:center;padding:10px}.battle-brand{text-align:center}.battle-brand span,.battle-brand small{display:block;font-size:10px}.battle-brand b{font-family:Georgia,serif;font-size:24px}
 
@@ -2733,8 +2748,8 @@ html[data-sr-battle-release="0178"] .card-preview-sheet{width:min(540px,100%)!im
 <script>
 (()=>{
 document.documentElement.dataset.srBattleBuild='0165';
-document.documentElement.dataset.srBattleRelease='0181';
-window.__SR_BATTLE_BUILD='0.18.1';
+document.documentElement.dataset.srBattleRelease='0182';
+window.__SR_BATTLE_BUILD='0.18.2';
 const $=id=>document.getElementById(id);
 function sfx(n){try{window.SRAudio?.play(n)}catch(e){}}
 function battleImpact(kind='clash',text=''){const fx=$('impactFx');if(!fx)return;fx.className='impact-fx '+kind;fx.innerHTML=text?`<span>${text}</span>`:'';void fx.offsetWidth;fx.classList.add('show');setTimeout(()=>fx.classList.remove('show'),420)}
@@ -2810,6 +2825,49 @@ if(p.bossPower==='songroot'&&G.round>1&&G.round%3===0){const before=G.enemy.hp;G
 if(p.bossPower==='bloodfury'&&G.round>1&&G.round%3===0){for(const x of [...G.enemy.field]){dealDamage(x,G.enemy,1,'enemy');if(currentHp(x,G.enemy)>0)x.tempAtk+=1}checkDeaths(G.enemy);battleImpact('leaderHit','BLOODFURY');log('BLOODFURY: the Ork line wounds itself and gains +1 Attack this turn.');}
 }
 
+
+let endTurnConfirmUntil=0;
+function battleDelay(base){
+  if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)return Math.max(70,Math.round(base*.35));
+  const mobile=window.matchMedia?.('(max-width:700px)').matches;
+  return Math.max(90,Math.round(base*(mobile?.86:.70)));
+}
+function unusedPlayerActions(){
+  if(!G||G.over||G.turn!=='player'||G.mulliganActive||pending)return{playable:0,attackers:0};
+  const p=G.player;
+  return{playable:p.hand.filter(c=>canPlay(c,p)).length,attackers:p.field.filter(x=>x.ready).length};
+}
+function clearEndTurnWarning(){endTurnConfirmUntil=0;const btn=$('endTurnBtn');btn?.classList.remove('sr-end-warn')}
+function requestEndTurn(force=false){
+  if(!G||G.over||G.turn!=='player'||G.mulliganActive||pending)return;
+  const actions=unusedPlayerActions();
+  const now=Date.now();
+  if(!force&&(actions.playable||actions.attackers)&&now>endTurnConfirmUntil){
+    endTurnConfirmUntil=now+1900;
+    const parts=[];
+    if(actions.playable)parts.push(`${actions.playable} playable card${actions.playable===1?'':'s'}`);
+    if(actions.attackers)parts.push(`${actions.attackers} ready attacker${actions.attackers===1?'':'s'}`);
+    const btn=$('endTurnBtn');if(btn){btn.classList.add('sr-end-warn');btn.textContent='End Anyway'}
+    render(`You still have ${parts.join(' and ')}. Press End Turn again to confirm.`);
+    setTimeout(()=>{if(G&&G.turn==='player'&&Date.now()>endTurnConfirmUntil){clearEndTurnWarning();render()}},2050);
+    return;
+  }
+  clearEndTurnWarning();buzz(8);endTurnCleanup(G.player);startTurn('enemy');
+}
+function aiTradeScore(attacker,target,s,opp){
+  const ad=currentAtk(attacker,s)+(attacker.attackRelicBonus&&s.relic?attacker.attackRelicBonus:0);
+  const td=currentAtk(target,opp),ah=currentHp(attacker,s),th=currentHp(target,opp);
+  let score=target.atk*3+target.cost*1.5+Math.max(0,6-th);
+  if(ad>=th)score+=55;
+  else score+=ad*2;
+  if(td<ah)score+=22;
+  else score-=22;
+  if(ad>=th&&td>=ah)score+=6; // acceptable trade
+  if(target.ascended)score+=18;
+  if(target.ready)score+=8;
+  return score;
+}
+
 let enemyAiRunning=false,enemyAiTimer=0,enemyAiWatchdog=0;
 function finishEnemyTurnSafely(reason='Enemy AI fallback'){
   if(!G||G.over||G.turn!=='enemy')return;
@@ -2826,14 +2884,14 @@ async function runEnemyAITurn(){
 }
 function scheduleEnemyAITurn(){
   clearTimeout(enemyAiTimer);clearTimeout(enemyAiWatchdog);const matchRef=G;
-  enemyAiTimer=setTimeout(()=>{if(G===matchRef&&!G.over&&G.turn==='enemy')runEnemyAITurn()},450);
+  enemyAiTimer=setTimeout(()=>{if(G===matchRef&&!G.over&&G.turn==='enemy')runEnemyAITurn()},battleDelay(430));
   enemyAiWatchdog=setTimeout(()=>{
     if(G!==matchRef||G.over||G.turn!=='enemy')return;
     if(!enemyAiRunning){console.warn('Enemy AI watchdog retry');runEnemyAITurn();return}
     finishEnemyTurnSafely('Enemy AI watchdog timeout');
   },10000);
 }
-function startTurn(who,initial=false){if(G.over)return;G.turn=who;if(who==='player'){for(const z of [...G.player.field,...G.enemy.field])z.armorUsedThisRound=false;for(const side of [G.player,G.enemy]){side.warDrumUsed=false;side.resonanceGainedThisRound=false}}for(const side of [G.player,G.enemy])side.firstDamageLeaderBuffUsed=false;for(const z of [...G.player.field,...G.enemy.field]){if(z.hexClearOn===who){z.hexMod=0;z.hexClearOn=null}}const s=G[who];s.maxEnergy=Math.min(8,s.maxEnergy+1);s.energy=s.maxEnergy;if(who==='enemy'&&G.round===1&&!G.enemySparkUsed){s.energy+=1;G.enemySparkUsed=true;log('Enemy receives a Shard Spark: +1 Energy this turn.')}s.playedThisTurn=0;s.tacticsThisTurn=0;s.creaturesThisTurn=0;s.mahPlayedThisTurn=0;s.mercPlayedThisTurn=0;s.dwarfArmorBuffUsed=false;s.leaderPassiveUsed=false;s.discountTactic=0;s.discountMercian=0;s.field.forEach(x=>{x.ready=true;x.attackedThisTurn=false;x.tempAtk=0;x.tempHp=0;x.armorTemp=0;x.healedPulseUsed=false;x.bannerUsedThisTurn=false;if(x.bound){x.ready=false;x.bound=false}});processStartTurn(s);if(!(initial&&who==='player'))draw(s,1);if(who==='enemy'){applyPveTurnPower(who);if(G.over)return;render('Enemy turn…');window.SRMatchPresentation?.showTurn('enemy',G.round,G.enemy.faction);scheduleEnemyAITurn()}else{sfx('turn');battleImpact('clash','YOUR TURN');if(!initial)window.SRMatchPresentation?.showTurn('player',G.round,G.player.faction);render('Your turn.');if(G.pve?.guidedTutorial&&G.round>=2&&!G.tutorialFlags.attack&&s.field.some(x=>x.ready)){G.tutorialFlags.attack=true;setTimeout(()=>guidedHint('Ready means action',`A Ready creature can attack. Leaving it Ready also lets it protect your Leader as part of the Frontline. Attacking Exhausts it, so every attack is also a defensive choice.`),220)}}}
+function startTurn(who,initial=false){if(G.over)return;clearEndTurnWarning();G.turn=who;document.body.classList.toggle('sr-enemy-thinking',who==='enemy');document.body.classList.toggle('sr-player-action',who==='player');if(who==='player'){for(const z of [...G.player.field,...G.enemy.field])z.armorUsedThisRound=false;for(const side of [G.player,G.enemy]){side.warDrumUsed=false;side.resonanceGainedThisRound=false}}for(const side of [G.player,G.enemy])side.firstDamageLeaderBuffUsed=false;for(const z of [...G.player.field,...G.enemy.field]){if(z.hexClearOn===who){z.hexMod=0;z.hexClearOn=null}}const s=G[who];s.maxEnergy=Math.min(8,s.maxEnergy+1);s.energy=s.maxEnergy;if(who==='enemy'&&G.round===1&&!G.enemySparkUsed){s.energy+=1;G.enemySparkUsed=true;log('Enemy receives a Shard Spark: +1 Energy this turn.')}s.playedThisTurn=0;s.tacticsThisTurn=0;s.creaturesThisTurn=0;s.mahPlayedThisTurn=0;s.mercPlayedThisTurn=0;s.dwarfArmorBuffUsed=false;s.leaderPassiveUsed=false;s.discountTactic=0;s.discountMercian=0;s.field.forEach(x=>{x.ready=true;x.attackedThisTurn=false;x.tempAtk=0;x.tempHp=0;x.armorTemp=0;x.healedPulseUsed=false;x.bannerUsedThisTurn=false;if(x.bound){x.ready=false;x.bound=false}});processStartTurn(s);if(!(initial&&who==='player'))draw(s,1);if(who==='enemy'){applyPveTurnPower(who);if(G.over)return;render('Enemy turn…');window.SRMatchPresentation?.showTurn('enemy',G.round,G.enemy.faction);scheduleEnemyAITurn()}else{sfx('turn');battleImpact('clash','YOUR TURN');if(!initial)window.SRMatchPresentation?.showTurn('player',G.round,G.player.faction);render('Your turn.');if(G.pve?.guidedTutorial&&G.round>=2&&!G.tutorialFlags.attack&&s.field.some(x=>x.ready)){G.tutorialFlags.attack=true;setTimeout(()=>guidedHint('Ready means action',`A Ready creature can attack. Leaving it Ready also lets it protect your Leader as part of the Frontline. Attacking Exhausts it, so every attack is also a defensive choice.`),220)}}}
 function gainResonance(s,reason){if(s.leaderAscended||s.resonanceGainedThisRound)return;s.resonance=Math.min(3,s.resonance+1);s.resonanceGainedThisRound=true;log(`${s.faction} Leader gained Resonance (${s.resonance}/3): ${reason}.`)}
 function maybeGainResonance(s,event){if(s.leaderAscended||s.resonanceGainedThisRound)return;const f=s.faction;if(f==='Alfar'&&event==='tactic')gainResonance(s,'arcane tactic');if(f==='Dwarves'&&(event==='armor'||event==='armorPlayed'))gainResonance(s,event==='armorPlayed'?'armored ally deployed':'Armor held');if(f==='Mercians'&&event==='formation')gainResonance(s,'Formation established');if(f==='Mahirim'&&event==='packAttack')gainResonance(s,'Pack attack');if(f==='Mirdain'&&(event==='bloom'||event==='ascend'))gainResonance(s,event==='bloom'?'the Grove bloomed':'a creature Ascended');if(f==='Orks'&&event==='surviveDamage')gainResonance(s,'an Ork endured pain')}
 function factionTheme(el,faction){const f=factions[faction];if(!el||!f)return;el.style.setProperty('--f1',f.colors[0]);el.style.setProperty('--f2',f.colors[2])}
@@ -2895,7 +2953,7 @@ function checkDeaths(s){let changed=false;do{changed=false;for(let i=s.field.len
 
 function attack(attackerId,targetId){if(G.over||G.turn!=='player')return;buzz(14);const s=G.player,opp=G.enemy,a=s.field.find(x=>x.id===attackerId);if(!a||!a.ready)return;if(s.faction==='Mahirim'&&packActive(s))maybeGainResonance(s,'packAttack');const attackerEl=creatureEl(a,s);if(targetId==='LEADER'){if(opp.field.some(x=>x.ready)){render('Enemy Frontline is protecting the Leader.');if(G.pve?.guidedTutorial&&!G.tutorialFlags.frontline){G.tutorialFlags.frontline=true;setTimeout(()=>guidedHint('Frontline protects the Leader','At least one enemy creature is Ready, so the Leader cannot be attacked directly. Fight a Ready defender or use an effect to Exhaust it first.'),120)}return}showAttackFx(attackerEl,leaderEl(opp),s,'LEADER');a.ready=false;a.attackedThisTurn=true;let dmg=currentAtk(a,s)+(a.attackRelicBonus&&s.relic?a.attackRelicBonus:0);opp.hp-=dmg;sfx('leaderHit');floatText(leaderEl(opp),`-${dmg}`,'damage');battleImpact('leaderHit',`-${dmg}`);log(`${a.name} hit the enemy Leader for ${dmg}.`);checkWin();render();return}const t=opp.field.find(x=>x.id===targetId);if(!t)return;showAttackFx(attackerEl,creatureEl(t,opp),s,t.id);a.ready=false;a.attackedThisTurn=true;t.ready=false;let ad=currentAtk(a,s)+(a.attackRelicBonus&&s.relic?a.attackRelicBonus:0),td=currentAtk(t,opp);dealDamage(t,opp,ad,'player');dealDamage(a,s,td,'enemy');sfx('clash');battleImpact('clash','⚔');log(`${a.name} (${ad}) battled ${t.name} (${td}).`);checkDeaths(s);checkDeaths(opp);checkWin();render()}
 function aiPlayable(card,s,opp){if(costFor(card,s)>s.energy)return false;if(card.type==='Creature'&&s.field.length>=4)return false;if(card.type==='Relic'&&s.relic)return false;if(card.effect==='ready')return false;if(card.target&&!targetAvailable(card.target,s,opp,card))return false;if(card.targetOnPlay&&!targetAvailable(card.targetOnPlay,s,opp,card))return false;return true}
-function aiCardScore(c,s,opp){let score=c.cost*5;if(c.type==='Creature')score+=30+c.atk+c.hp*.4;if(c.type==='Relic')score+=27;if(c.effect==='damage'&&opp.field.some(x=>currentHp(x,opp)<=c.amount))score+=24;if(c.effect==='bind'&&opp.field.some(x=>x.ready))score+=18;if((c.effect==='rally'||c.effect==='packRush'||c.effect==='predator'||c.effect==='bloodmoon'||c.effect==='breakThem')&&s.field.some(x=>x.ready))score+=12;if(c.effect==='massHex'||c.effect==='eclipse')score+=opp.field.length*6;if(c.effect==='draw1')score+=8;if(c.effect==='draw2')score+=15;if(c.effect==='massTempAtk'&&s.field.length>=2)score+=12;if(c.effect==='advanceAscend'&&s.field.some(x=>x.ascend&&!x.ascended))score+=14;
+function aiCardScore(c,s,opp){let score=c.cost*5;const damagedAllies=s.field.filter(x=>x.damage>0);if(c.effect==='damage'&&c.amount&&opp.hp<=c.amount)score+=110;if(c.effect==='heal'&&damagedAllies.length)score+=16+Math.max(...damagedAllies.map(x=>x.damage));if((c.effect==='draw1'||c.effect==='draw2')&&s.hand.length<=3)score+=10;if((c.effect==='draw1'||c.effect==='draw2')&&s.hand.length>=7)score-=8;if(c.type==='Creature'&&s.field.length===0)score+=12;if(c.type==='Relic'&&!s.relic&&G.round<=4)score+=8;if(c.type==='Creature')score+=30+c.atk+c.hp*.4;if(c.type==='Relic')score+=27;if(c.effect==='damage'&&opp.field.some(x=>currentHp(x,opp)<=c.amount))score+=24;if(c.effect==='bind'&&opp.field.some(x=>x.ready))score+=18;if((c.effect==='rally'||c.effect==='packRush'||c.effect==='predator'||c.effect==='bloodmoon'||c.effect==='breakThem')&&s.field.some(x=>x.ready))score+=12;if(c.effect==='massHex'||c.effect==='eclipse')score+=opp.field.length*6;if(c.effect==='draw1')score+=8;if(c.effect==='draw2')score+=15;if(c.effect==='massTempAtk'&&s.field.length>=2)score+=12;if(c.effect==='advanceAscend'&&s.field.some(x=>x.ascend&&!x.ascended))score+=14;
 if(s.faction==='Alfar'){if(c.type==='Tactic')score+=10;if(c.effect==='bind'||c.effect==='massHex'||c.effect==='eclipse'||c.effect==='veilControl')score+=10;if(c.effect==='draw2')score+=5}
 if(s.faction==='Dwarves'){if(c.type==='Relic')score+=9;if(c.armor)score+=8;if(c.effect==='permHp'||c.effect==='bulwark')score+=7}
 if(s.faction==='Mercians'){if(c.type==='Creature'&&c.cost<=3)score+=6;if(s.field.length===2&&c.type==='Creature')score+=12;if(c.effect==='rally'||c.effect==='ready')score+=8}
@@ -2904,14 +2962,14 @@ if(s.faction==='Mirdain'){if(c.ascend)score+=9;if(c.effect==='advanceAscend'||c.
 if(s.faction==='Orks'){if(c.rage)score+=8;if(c.effect==='breakThem'||c.effect==='grahkChallenge')score+=12;if(c.effect==='damage')score+=5}
 return score}
 
-function aiAttack(a,s,opp){if(s.faction==='Mahirim'&&packActive(s))maybeGainResonance(s,'packAttack');const fronts=opp.field.filter(x=>x.ready);const attackerEl=creatureEl(a,s);if(fronts.length){const target=fronts.sort((x,y)=>currentHp(x,opp)-currentHp(y,opp))[0];showAttackFx(attackerEl,creatureEl(target,opp),s,target.id);a.ready=false;a.attackedThisTurn=true;target.ready=false;const ad=currentAtk(a,s)+(a.attackRelicBonus&&s.relic?a.attackRelicBonus:0),td=currentAtk(target,opp);dealDamage(target,opp,ad,'enemy');dealDamage(a,s,td,'player');sfx('clash');battleImpact('clash','⚔');log(`Enemy ${a.name} battled ${target.name}.`);checkDeaths(s);checkDeaths(opp);return checkWin()}showAttackFx(attackerEl,leaderEl(opp),s,'LEADER');a.ready=false;a.attackedThisTurn=true;const d=currentAtk(a,s)+(a.attackRelicBonus&&s.relic?a.attackRelicBonus:0);opp.hp-=d;sfx('leaderHit');floatText(leaderEl(opp),`-${d}`,'damage');battleImpact('leaderHit',`-${d}`);log(`Enemy ${a.name} hit your Leader for ${d}.`);return checkWin()}
+function aiAttack(a,s,opp){if(s.faction==='Mahirim'&&packActive(s))maybeGainResonance(s,'packAttack');const fronts=opp.field.filter(x=>x.ready);const attackerEl=creatureEl(a,s);if(fronts.length){const ranked=fronts.map(target=>({target,score:aiTradeScore(a,target,s,opp)})).sort((x,y)=>y.score-x.score);const best=ranked[0];const aggressive=s.faction==='Orks'||s.faction==='Mahirim';if(best&&best.score<18&&!aggressive&&currentHp(a,s)>2){log(`Enemy ${a.name} holds the line rather than take a poor trade.`);return false}const target=best?.target||fronts[0];showAttackFx(attackerEl,creatureEl(target,opp),s,target.id);a.ready=false;a.attackedThisTurn=true;target.ready=false;const ad=currentAtk(a,s)+(a.attackRelicBonus&&s.relic?a.attackRelicBonus:0),td=currentAtk(target,opp);dealDamage(target,opp,ad,'enemy');dealDamage(a,s,td,'player');sfx('clash');battleImpact('clash','⚔');log(`Enemy ${a.name} battled ${target.name}.`);checkDeaths(s);checkDeaths(opp);return checkWin()}showAttackFx(attackerEl,leaderEl(opp),s,'LEADER');a.ready=false;a.attackedThisTurn=true;const d=currentAtk(a,s)+(a.attackRelicBonus&&s.relic?a.attackRelicBonus:0);opp.hp-=d;sfx('leaderHit');floatText(leaderEl(opp),`-${d}`,'damage');battleImpact('leaderHit',`-${d}`);log(`Enemy ${a.name} hit your Leader for ${d}.`);return checkWin()}
 async function enemyAI(){if(!G||G.over)return;const matchRef=G,s=G.enemy,opp=G.player;let guard=30;
-while(guard-->0&&G===matchRef&&!G.over){const playable=s.hand.map((c,i)=>({c,i,cost:costFor(c,s),score:aiCardScore(c,s,opp)})).filter(x=>aiPlayable(x.c,s,opp)).sort((a,b)=>b.score-a.score);if(!playable.length)break;playFromHand(playable[0].i,'enemy');await wait(520)}
-if(G!==matchRef||G.over)return;if(s.resonance>=3&&!s.leaderAscended){activateLeaderPower(s,opp,'enemy');await wait(650)}
+while(guard-->0&&G===matchRef&&!G.over){const playable=s.hand.map((c,i)=>({c,i,cost:costFor(c,s),score:aiCardScore(c,s,opp)})).filter(x=>aiPlayable(x.c,s,opp)).sort((a,b)=>b.score-a.score);if(!playable.length)break;render(`Enemy plays ${playable[0].c.name}…`);await wait(battleDelay(120));playFromHand(playable[0].i,'enemy');await wait(battleDelay(500))}
+if(G!==matchRef||G.over)return;if(s.resonance>=3&&!s.leaderAscended){render('Enemy Leader is Ascending…');await wait(battleDelay(150));activateLeaderPower(s,opp,'enemy');await wait(battleDelay(620))}
 const attackers=s.field.filter(x=>x.ready);let reserve=null;const potential=attackers.reduce((n,x)=>n+currentAtk(x,s)+(x.attackRelicBonus&&s.relic?x.attackRelicBonus:0),0);const lethal=!opp.field.some(x=>x.ready)&&potential>=opp.hp;
 if(!lethal&&attackers.length){if(s.faction==='Dwarves')reserve=attackers.slice().sort((a,b)=>currentHp(b,s)-currentHp(a,s))[0];else if(s.faction==='Mirdain')reserve=attackers.filter(x=>x.ascend&&!x.ascended).sort((a,b)=>(b.ascCount/(b.ascend?.n||9))-(a.ascCount/(a.ascend?.n||9)))[0]||null;else if(s.faction==='Alfar'&&opp.field.length&&attackers.length>=2)reserve=attackers.slice().sort((a,b)=>currentHp(b,s)-currentHp(a,s))[0];else if(s.faction==='Mercians'&&opp.field.length&&attackers.length>=3)reserve=attackers.slice().sort((a,b)=>currentHp(b,s)-currentHp(a,s))[0];}
-for(const a of [...s.field]){if(G!==matchRef||G.over)break;if(!a.ready||a===reserve)continue;if(aiAttack(a,s,opp))break;await wait(s.faction==='Mahirim'||s.faction==='Orks'?300:420)}
-if(!G.over){const io=s.hand.findIndex(c=>c.effect==='ready'&&costFor(c,s)<=s.energy&&s.field.some(x=>x.attackedThisTurn));if(io>=0){playFromHand(io,'enemy');await wait(420);const extra=s.field.filter(x=>x.ready&&x!==reserve).sort((a,b)=>currentAtk(b,s)-currentAtk(a,s))[0];if(extra){aiAttack(extra,s,opp);await wait(360)}}}
+for(const a of [...s.field]){if(G!==matchRef||G.over)break;if(!a.ready||a===reserve)continue;if(aiAttack(a,s,opp))break;await wait(battleDelay(s.faction==='Mahirim'||s.faction==='Orks'?300:420))}
+if(!G.over){const io=s.hand.findIndex(c=>c.effect==='ready'&&costFor(c,s)<=s.energy&&s.field.some(x=>x.attackedThisTurn));if(io>=0){render(`Enemy plays ${s.hand[io]?.name||'a follow-up card'}…`);await wait(battleDelay(110));playFromHand(io,'enemy');await wait(battleDelay(400));const extra=s.field.filter(x=>x.ready&&x!==reserve).sort((a,b)=>currentAtk(b,s)-currentAtk(a,s))[0];if(extra){aiAttack(extra,s,opp);await wait(battleDelay(340))}}}
 if(!G.over){endTurnCleanup(s);G.round++;startTurn('player')}render()}
 function aiTarget(type,s,opp,card=null){if(type==='enemyCreature')return opp.field.slice().sort((a,b)=>currentHp(a,opp)-currentHp(b,opp))[0]||null;if(type==='otherAlly')return s.field.filter(x=>x!==card).sort((a,b)=>currentHp(a,s)-currentHp(b,s))[0]||null;if(type==='allyCreature'){if(card?.effect==='heal')return s.field.filter(x=>x.damage>0).sort((a,b)=>currentHp(a,s)-currentHp(b,s))[0]||null;if(card?.effect==='advanceAscend')return s.field.filter(x=>x.ascend&&!x.ascended).sort((a,b)=>(b.ascCount/(b.ascend?.n||9))-(a.ascCount/(a.ascend?.n||9)))[0]||null;return s.field[0]||null}if(type==='allyMahirim'||type==='allyOrk'||type==='allyAttackedMercian')return s.field.find(x=>type!=='allyAttackedMercian'||x.attackedThisTurn)||s.field[0]||null;if(type==='enemyAny'){const amount=Number(card?.amount||0);if(amount>0&&opp.hp<=amount)return 'LEADER';const kill=opp.field.filter(x=>amount>0&&currentHp(x,opp)<=amount).sort((a,b)=>currentHp(a,opp)-currentHp(b,opp))[0];return kill||opp.field.slice().sort((a,b)=>currentHp(a,opp)-currentHp(b,opp))[0]||'LEADER'}return null}
 function chooseTarget(title,type,cb,meta={}){pending={cb,type,...meta};$('targetTitle').textContent=title;const list=$('targetList');list.innerHTML='';let targets=[];if(type==='enemyCreature')targets=G.enemy.field.map(x=>({label:`${x.name} (${currentHp(x,G.enemy)} HP)`,value:x}));if(type==='allyCreature'){let pool=G.player.field;if(meta.card?.effect==='heal')pool=pool.filter(x=>x.damage>0);if(meta.card?.effect==='advanceAscend')pool=pool.filter(x=>x.ascend&&!x.ascended);targets=pool.map(x=>({label:`${x.name} (${currentHp(x,G.player)} HP)`,value:x}))}if(type==='otherAlly')targets=G.player.field.slice(0,-1).map(x=>({label:x.name,value:x}));if(type==='allyMahirim'||type==='allyOrk')targets=G.player.field.map(x=>({label:x.name,value:x}));if(type==='allyAttackedMercian')targets=G.player.field.filter(x=>x.attackedThisTurn).map(x=>({label:x.name,value:x}));if(type==='enemyAny'){targets=G.enemy.field.map(x=>({label:x.name,value:x}));targets.push({label:'Enemy Leader',value:'LEADER'})}if(type==='attackTarget'){targets=G.enemy.field.map(x=>({label:`${x.name} ${x.ready?'[Frontline]':''}`,value:x}));if(!G.enemy.field.some(x=>x.ready))targets.push({label:'Enemy Leader',value:'LEADER'})}if(meta.card?.effect==='heal')targets=targets.filter(t=>t.value!=='LEADER'&&t.value&&t.value.damage>0);
@@ -2924,7 +2982,7 @@ function checkWin(){if(!G)return false;if(G.over)return true;if(G.enemy.hp>0)che
 let battleLogIndex=0;function log(msg){battleLogIndex++;const div=document.createElement('div');const kicker=document.createElement('span');kicker.className='log-kicker';kicker.textContent=G?`Round ${G.round} • ${G.turn==='player'?'PLAYER':'ENEMY'} • #${battleLogIndex}`:`Battle Log • #${battleLogIndex}`;const body=document.createElement('span');body.className='log-body';body.textContent=msg;div.appendChild(kicker);div.appendChild(body);$('log').prepend(div)}
 
 function confirmMulligan(){if(!G||!G.mulliganActive)return;const keep=[],replace=[];for(const c of G.player.hand){(mulliganSelected.has(c.id)?replace:keep).push(c)}G.player.hand=keep;G.player.deck.push(...replace);shuffle(G.player.deck);draw(G.player,replace.length);G.mulliganActive=false;mulliganSelected.clear();log(`Mulligan complete: replaced ${replace.length} card${replace.length===1?'':'s'}.`);render('Opening hand locked. Your turn.');if(G.pve?.guidedTutorial&&!G.tutorialFlags.energy){G.tutorialFlags.energy=true;setTimeout(()=>guidedHint('Energy fuels every play',`You have ${G.player.energy} Energy. The number on a card is its cost. Your maximum Energy increases and refills at the start of each turn. Play Aurel River Scout first.`),180)}}
-function resetMatch(){clearTimeout(enemyAiTimer);clearTimeout(enemyAiWatchdog);enemyAiRunning=false;G=null;pending=null;mulliganSelected.clear();$('tutorialCoach').classList.add('hidden');$('bossPhaseBadge').classList.add('hidden');$('enemyLeaderPanel').classList.remove('boss-hud');$('targetPanel').classList.add('hidden');$('game').classList.add('hidden');$('setup').classList.remove('hidden');battleLogIndex=0;$('log').innerHTML='';$('status').textContent='';}
+function resetMatch(){clearTimeout(enemyAiTimer);clearTimeout(enemyAiWatchdog);enemyAiRunning=false;G=null;pending=null;mulliganSelected.clear();$('tutorialCoach').classList.add('hidden');$('bossPhaseBadge').classList.add('hidden');$('enemyLeaderPanel').classList.remove('boss-hud');$('targetPanel').classList.add('hidden');$('game').classList.add('hidden');$('setup').classList.remove('hidden');document.body.classList.remove('sr-enemy-thinking','sr-player-action');clearEndTurnWarning();battleLogIndex=0;$('log').innerHTML='';$('status').textContent='';}
 
 function cardColor(f){return factions[f].colors[0]}
 function renderResonance(id,s){const box=$(id);box.innerHTML='';for(let i=1;i<=3;i++){const pip=document.createElement('span');pip.className='respip '+(s.resonance>=i?'on':'');box.appendChild(pip)}const text=document.createElement('span');text.className='small';text.textContent=s.leaderAscended?'ASCENDED':`${s.resonance}/3 Resonance`;box.appendChild(text)}
@@ -2942,7 +3000,17 @@ function renderRelic(which,s){const box=$(which+'Relic');factionTheme(box,s.fact
 
 function syncHandViewportLayout(handEl,count){if(!handEl)return;const compact=window.matchMedia('(max-width:600px)').matches;handEl.classList.toggle('compact-hand',compact);if(!compact){handEl.style.removeProperty('--fan-card-width');handEl.style.removeProperty('--fan-overlap');return}const total=Math.max(1,Number(count)||0);let width=70;if(total<=3)width=86;else if(total===4)width=78;else if(total===5)width=70;else if(total===6)width=64;else width=58;const vw=Math.max(320,window.innerWidth||0);const usable=Math.max(270,vw-24);let overlap=0;const spread=total*width-usable;if(spread>0&&total>1){overlap=Math.min(18,Math.max(6,Math.ceil(spread/(total-1))+2))}else if(total>=5){overlap=6}handEl.style.setProperty('--fan-card-width',width+'px');handEl.style.setProperty('--fan-overlap',`-${overlap}px`)}
 function renderHand(s){const h=$('hand');h.innerHTML='';s.hand.forEach((card,i)=>{const b=document.createElement('button');const isCreature=card.type==='Creature';const playable=!G.mulliganActive&&!pending&&canPlay(card,s);b.type='button';b.className='card '+(isCreature?'is-creature':'is-noncreature')+(playable?' is-playable':'')+(G.mulliganActive&&mulliganSelected.has(card.id)?' mulligan-selected':'');b.disabled=(!G.mulliganActive&&(!canPlay(card,s)||!!pending));factionTheme(b,s.faction);const ff=factions[s.faction];const topRibbon=card.ascend&&isCreature?`<div class="sr172-top-ribbon">EVOLVE • ${card.ascend.n}</div>`:(!isCreature?`<div class="sr172-top-ribbon">${card.type.toUpperCase()}</div>`:'');const footer=isCreature?`<div class="mini"><span class="atk"><b>${card.atk}</b></span><span class="chp"><b>${card.hp}</b></span></div>`:`<div class="mini tactic-mini"><span>${card.type.toUpperCase()}</span></div>`;b.innerHTML=`<div class="card-frame-glow"></div><div class="mini-art" aria-hidden="true"><img src="${cardArt(card)}" alt=""></div><div class="cost">${costFor(card,s)}</div><span class="inspect-chip" role="button" aria-label="Inspect ${card.name}">ⓘ</span>${topRibbon}<span class="mini-sigil">${ff.sigil}</span><div class="name-plaque"><div class="name">${card.name}</div></div>${footer}<div class="type">${(card.rarity||card.type).toUpperCase()} • ${card.faction.toUpperCase()}${isCreature?' • CREATURE':''}</div><div class="desc">${card.desc}</div>`;b.title=`${card.name} — ${card.desc}`;b.querySelector('.inspect-chip').addEventListener('click',ev=>{ev.stopPropagation();showCardPreview(card,s.faction)});b.addEventListener('click',()=>{if(G.mulliganActive){if(mulliganSelected.has(card.id))mulliganSelected.delete(card.id);else mulliganSelected.add(card.id);render('Select opening cards to replace, then confirm.')}else playFromHand(i,'player')});h.appendChild(b)});syncHandViewportLayout(h,s.hand.length);const mb=$('mulliganBtn');if(mb&&G.mulliganActive){const n=mulliganSelected.size;mb.textContent=n?`Confirm • Replace ${n}`:'Keep Hand'}}
-const ba=$('battleAudio');function syncBattleAudio(){if(ba)ba.textContent=window.SRAudio?.isEnabled()?'🔊':'🔇'}if(ba){syncBattleAudio();ba.addEventListener('click',()=>{window.SRAudio?.toggle();syncBattleAudio();sfx('click')})}$('previewClose').addEventListener('click',closeCardPreview);$('cardPreview').addEventListener('click',e=>{if(e.target===$('cardPreview'))closeCardPreview()});$('tutorialNext').addEventListener('click',nextTutorialCoach);$('startBtn').addEventListener('click',startMatch);$('resetBtn').addEventListener('click',resetMatch);$('endTurnBtn').addEventListener('click',()=>{if(!G||G.over||G.turn!=='player'||G.mulliganActive)return;buzz(8);endTurnCleanup(G.player);startTurn('enemy')});$('cancelTarget').addEventListener('click',()=>{if(pending?.mandatory)return;pending=null;$('targetPanel').classList.add('hidden');$('cancelTarget').classList.remove('hidden');document.querySelectorAll('.targetable,.targetable-leader').forEach(el=>el.classList.remove('targetable','targetable-leader'));window.SRMatchPresentation?.clearTargeting();render('Targeting cancelled.')});$('mulliganBtn').addEventListener('click',confirmMulligan);$('leaderAscendBtn').addEventListener('click',()=>{if(G&&G.turn==='player'&&!G.over&&!G.mulliganActive)activateLeaderPower(G.player,G.enemy,'player')});
+const ba=$('battleAudio');function syncBattleAudio(){if(ba)ba.textContent=window.SRAudio?.isEnabled()?'🔊':'🔇'}if(ba){syncBattleAudio();ba.addEventListener('click',()=>{window.SRAudio?.toggle();syncBattleAudio();sfx('click')})}$('previewClose').addEventListener('click',closeCardPreview);$('cardPreview').addEventListener('click',e=>{if(e.target===$('cardPreview'))closeCardPreview()});$('tutorialNext').addEventListener('click',nextTutorialCoach);$('startBtn').addEventListener('click',startMatch);$('resetBtn').addEventListener('click',resetMatch);$('endTurnBtn').addEventListener('click',()=>requestEndTurn(false));$('cancelTarget').addEventListener('click',()=>{if(pending?.mandatory)return;pending=null;$('targetPanel').classList.add('hidden');$('cancelTarget').classList.remove('hidden');document.querySelectorAll('.targetable,.targetable-leader').forEach(el=>el.classList.remove('targetable','targetable-leader'));window.SRMatchPresentation?.clearTargeting();render('Targeting cancelled.')});$('mulliganBtn').addEventListener('click',confirmMulligan);$('leaderAscendBtn').addEventListener('click',()=>{if(G&&G.turn==='player'&&!G.over&&!G.mulliganActive)activateLeaderPower(G.player,G.enemy,'player')});
+
+document.addEventListener('keydown',e=>{
+  const tag=(e.target?.tagName||'').toLowerCase();if(tag==='input'||tag==='select'||tag==='textarea')return;
+  if(e.key==='Escape'){
+    if(!$('cardPreview').classList.contains('hidden')){closeCardPreview();return}
+    if(pending&&!pending.mandatory){$('cancelTarget').click();return}
+  }
+  if((e.key==='e'||e.key==='E')&&G&&!G.over&&G.turn==='player'&&!G.mulliganActive){e.preventDefault();requestEndTurn(false)}
+});
+
 for(const name of Object.keys(factions)){for(const id of ['playerFaction','enemyFaction']){const o=document.createElement('option');o.value=name;o.textContent=name;$(id).appendChild(o)}}$('playerFaction').value='Mercians';$('enemyFaction').value='Orks';
 })();
 
