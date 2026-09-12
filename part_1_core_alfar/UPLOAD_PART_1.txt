@@ -1,0 +1,5 @@
+Shattered Realms v0.19.1 — GitHub Upload Part 1 of 2
+
+Upload/merge this package first.
+It contains the v0.19.1 core update files plus the approved Alfar live card art.
+Do not delete your existing www folder; merge these files into it.

@@ -1,0 +1,200 @@
+{
+  "version": "0.19.1",
+  "build": "0191",
+  "status": "approved-art-wave-1",
+  "activeCardArtCount": 19,
+  "approvedFullCardDesignCount": 20,
+  "cards": [
+    {
+      "id": "alfar_0",
+      "name": "Veilborn Adept",
+      "source": "veilborn_adept_alfar_void_mage.png",
+      "sha256": "03f4cdd06096ec8b",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_1",
+      "name": "Umbral Familiar",
+      "source": "umbral_familiar_eclipse_of_ruins.png",
+      "sha256": "0b103d72a2049ef4",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_2",
+      "name": "Vael'Nyr Spellblade",
+      "source": "vael_nyr_spellblade_card.png",
+      "sha256": "35208200f2f70f28",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_3",
+      "name": "Hexweaver",
+      "source": "hexweaver_threads_of_shadow.png",
+      "sha256": "64005c1298adbb94",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_4",
+      "name": "Rift Seer",
+      "source": "rift_seer_void_oracle.png",
+      "sha256": "af997a36de90cefd",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_5",
+      "name": "Nightglass Arcanist",
+      "source": "nightglass_arcanist_trading_card.png",
+      "sha256": "bf844e31c66b2e55",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_6",
+      "name": "Shadow Bind",
+      "source": "shadow_bind_eclipsebound_wraith.png",
+      "sha256": "791c2750572a72c2",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_7",
+      "name": "Arcane Surge",
+      "source": "arcane_surge_alfar_tactic_card.png",
+      "sha256": "cdec5ba31fa85ee2",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_8",
+      "name": "Obsidian Codex",
+      "source": "obsidian_codex_arcane_eclipse.png",
+      "sha256": "a83dfdf996d8a5a8",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_9",
+      "name": "Seralyth's Veil",
+      "source": "seralyth_s_veil_legendary_tactic_card.png",
+      "sha256": "4237e0101ee49452",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_11",
+      "name": "Gloam Stalker",
+      "source": "void_stalker_eclipse_of_ruins.png",
+      "sha256": "0ae56e94476cc8b4",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_13",
+      "name": "Crystal Golem",
+      "source": "crystal_golem_of_the_shattered_valley.png",
+      "sha256": "01376cac2f84ce6c",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_1",
+      "name": "Legion Spearman",
+      "source": "legion_spearman_card.png",
+      "sha256": "09d7ca026386bc3a",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_8",
+      "name": "Standard of Aurel",
+      "source": "standard_of_aurel.png",
+      "sha256": "4209de159360959d",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mahirim_12",
+      "name": "Bloodmoon Cub",
+      "source": "ember_cub_volcanic_flameborn.png",
+      "sha256": "0e3ee95edad8e5f6",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mirdain_3",
+      "name": "Moonleaf Stag",
+      "source": "moonleaf_stag_enchanted_card.png",
+      "sha256": "148a1b6b972f3a90",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mirdain_7",
+      "name": "Wild Growth",
+      "source": "wild_growth_enchanted_forest_magic.png",
+      "sha256": "973e2f28b24614bf",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mirdain_8",
+      "name": "Songroot Grove",
+      "source": "songroot_grove_relic_card.png",
+      "sha256": "524cfbc566f2ced2",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mirdain_12",
+      "name": "Rootbound Guardian",
+      "source": "moss_guardian_of_the_ancient_ruins.png",
+      "sha256": "9f4b4f58e306dbd0",
+      "size": [
+        768,
+        1024
+      ]
+    }
+  ],
+  "notes": "Full approved card renders are archived under assets/card-designs-v0191. Live game uses illustration-only crops so canonical stats and rules remain authoritative."
+}
