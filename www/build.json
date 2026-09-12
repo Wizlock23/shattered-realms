@@ -1,6 +1,6 @@
 {
-  "version": "0.16.8",
-  "build": "0168",
+  "version": "0.16.9",
+  "build": "0169",
   "released": "2026-09-11",
-  "cachePolicy": "self-contained-battle-safe-dynamic-arenas"
+  "cachePolicy": "self-contained-battle-combat-spectacle"
 }
