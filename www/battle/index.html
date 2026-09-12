@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>The Shattered Realms — Battle v0.17.8</title>
+<title>The Shattered Realms — Battle v0.17.9</title>
 <style id="srBattleEmbeddedCss">
 /* v0.13.3 consolidated battle base */
 
@@ -2343,6 +2343,73 @@ html[data-sr-battle-release="0178"] .preview-stats .hp{width:52px!important;heig
 html[data-sr-battle-release="0178"] .preview-stats .spell{padding:8px 16px!important;border-radius:999px!important;border:2px solid #a8894a!important;background:linear-gradient(180deg,rgba(17,22,36,.98),rgba(4,7,13,.99))!important;color:#f5e0ae!important}
 @media(max-width:600px){html[data-sr-battle-release="0178"] .hand .card{flex-basis:min(53vw,178px)!important;min-height:176px!important}html[data-sr-battle-release="0178"] .hand .card .mini-art{height:176px!important}html[data-sr-battle-release="0178"] .creature{min-height:118px!important}html[data-sr-battle-release="0178"] .creature .mini-art{height:118px!important}html[data-sr-battle-release="0178"] .preview-art{height:270px!important}}
 
+
+
+/* v0.17.9 — battle card polish: readable text, mobile hand fit, richer stat emblems, desktop field centering */
+html[data-sr-battle-release="0178"] .hand .card .mini,
+html[data-sr-battle-release="0178"] .creature .stats{pointer-events:none!important}
+html[data-sr-battle-release="0178"] .hand .card .mini .atk,
+html[data-sr-battle-release="0178"] .creature .stats .atk,
+html[data-sr-battle-release="0178"] .hand .card .mini .chp,
+html[data-sr-battle-release="0178"] .creature .stats .chp{position:relative!important;overflow:visible!important}
+html[data-sr-battle-release="0178"] .hand .card .mini .atk:before,
+html[data-sr-battle-release="0178"] .creature .stats .atk:before{content:"";position:absolute;inset:4px;border:1px solid rgba(245,226,183,.7);transform:rotate(45deg);border-radius:3px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+html[data-sr-battle-release="0178"] .hand .card .mini .atk:after,
+html[data-sr-battle-release="0178"] .creature .stats .atk:after{content:"⚔";position:absolute;left:50%;top:4px;transform:translateX(-50%) rotate(-45deg);font-size:7px;line-height:1;color:rgba(247,227,184,.92);text-shadow:0 1px 3px rgba(0,0,0,.6);opacity:.88}
+html[data-sr-battle-release="0178"] .hand .card .mini .chp:before,
+html[data-sr-battle-release="0178"] .creature .stats .chp:before{content:"";position:absolute;inset:4px;border:1px solid rgba(255,225,201,.78);clip-path:polygon(50% 0%,88% 12%,97% 46%,86% 81%,50% 100%,14% 81%,3% 46%,12% 12%);opacity:.9}
+html[data-sr-battle-release="0178"] .hand .card .mini .chp:after,
+html[data-sr-battle-release="0178"] .creature .stats .chp:after{content:"♥";position:absolute;left:50%;top:3px;transform:translateX(-50%);font-size:7px;line-height:1;color:rgba(255,231,216,.96);text-shadow:0 1px 3px rgba(0,0,0,.55);opacity:.86}
+html[data-sr-battle-release="0178"] .hand .card .mini .atk b,
+html[data-sr-battle-release="0178"] .hand .card .mini .chp b,
+html[data-sr-battle-release="0178"] .creature .stats .atk b,
+html[data-sr-battle-release="0178"] .creature .stats .chp b{position:relative!important;z-index:2!important}
+html[data-sr-battle-release="0178"] .hand .card{padding:0 6px 10px!important;min-height:212px!important;flex:0 0 110px!important;transition:transform .2s ease,filter .2s ease,box-shadow .2s ease!important}
+html[data-sr-battle-release="0178"] .hand .card .mini-art{height:148px!important;margin:0 -6px 0!important}
+html[data-sr-battle-release="0178"] .hand .card .name-plaque{bottom:40px!important;left:19px!important;right:19px!important;min-height:28px!important}
+html[data-sr-battle-release="0178"] .hand .card .mini{bottom:22px!important;left:-2px!important;right:-2px!important}
+html[data-sr-battle-release="0178"] .hand .card .type{display:block!important;position:relative!important;z-index:3!important;margin:9px 2px 0!important;color:#b9c5d8!important;font:800 6.2px/1.15 Inter,system-ui,sans-serif!important;letter-spacing:.13em!important;text-transform:uppercase!important;text-align:center!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+html[data-sr-battle-release="0178"] .hand .card .desc{display:block!important;position:relative!important;z-index:3!important;margin:3px 2px 0!important;min-height:28px!important;color:#dee7f3!important;font:600 7.2px/1.2 Inter,system-ui,sans-serif!important;text-align:center!important;text-wrap:balance!important;display:-webkit-box!important;-webkit-line-clamp:3!important;-webkit-box-orient:vertical!important;overflow:hidden!important;text-shadow:0 1px 3px rgba(0,0,0,.52)!important}
+html[data-sr-battle-release="0178"] .hand .card.is-playable{filter:brightness(1.06) saturate(1.08)!important;box-shadow:0 0 0 1px rgba(118,193,255,.36),0 0 24px rgba(74,161,255,.2),0 18px 28px rgba(0,0,0,.38)!important;animation:sr179PlayablePulse 1.9s ease-in-out infinite}
+html[data-sr-battle-release="0178"] .hand .card.is-playable .mini-art{box-shadow:0 12px 22px rgba(0,0,0,.38),0 0 0 2px rgba(5,8,14,.9),0 0 0 3px rgba(196,163,94,.28),0 0 18px rgba(84,161,255,.24)!important}
+html[data-sr-battle-release="0178"] .hand .card.is-playable .cost{box-shadow:0 0 0 3px rgba(5,8,14,.88),0 8px 16px rgba(0,0,0,.42),0 0 18px rgba(80,164,255,.34)!important}
+html[data-sr-battle-release="0178"] .hand .card.is-playable:not(:disabled){cursor:pointer!important}
+html[data-sr-battle-release="0178"] .hand .card:disabled{filter:saturate(.7) brightness(.84)!important;opacity:.94!important}
+html[data-sr-battle-release="0178"] .creature{min-height:178px!important;padding:0 6px 36px!important}
+html[data-sr-battle-release="0178"] .creature .mini-art{height:178px!important;margin:0 -6px 0!important}
+html[data-sr-battle-release="0178"] .creature .name-plaque{bottom:40px!important;left:19px!important;right:19px!important;min-height:28px!important}
+html[data-sr-battle-release="0178"] .creature .stats{bottom:22px!important;left:-2px!important;right:-2px!important;top:auto!important}
+html[data-sr-battle-release="0178"] .creature.ready{box-shadow:0 0 0 1px rgba(124,198,255,.42),0 0 28px rgba(69,157,255,.26),0 20px 32px rgba(0,0,0,.44)!important}
+@media(min-width:1000px){
+  html[data-sr-battle-release="0178"] #game.battle-game{grid-template-rows:calc(58px + env(safe-area-inset-top)) 76px 210px 64px 210px 76px minmax(150px,1fr) calc(72px + env(safe-area-inset-bottom))!important;padding-left:18px!important;padding-right:18px!important}
+  html[data-sr-battle-release="0178"] .field-zone{width:min(94vw,1020px)!important;justify-self:center!important;align-self:center!important;padding:0 8px!important}
+  html[data-sr-battle-release="0178"] .enemy-zone{margin-top:18px!important}
+  html[data-sr-battle-release="0178"] .player-zone{margin-top:-18px!important}
+  html[data-sr-battle-release="0178"] .slots{grid-template-columns:repeat(4,minmax(126px,152px))!important;justify-content:center!important;gap:18px!important}
+  html[data-sr-battle-release="0178"] .turn-banner{align-self:center!important}
+  html[data-sr-battle-release="0178"] .hand-zone,html[data-sr-battle-release="0178"] .battle-controls{width:min(94vw,980px)!important;justify-self:center!important}
+}
+@media(max-width:600px){
+  html[data-sr-battle-release="0178"] .hand-wrap{overflow:visible!important}
+  html[data-sr-battle-release="0178"] .hand.compact-hand{justify-content:center!important;align-items:flex-end!important;overflow:visible!important;gap:0!important;padding:6px 8px 10px!important;scroll-snap-type:none!important}
+  html[data-sr-battle-release="0178"] .hand.compact-hand .card{flex:0 0 var(--fan-card-width,68px)!important;min-width:var(--fan-card-width,68px)!important;max-width:var(--fan-card-width,68px)!important;min-height:142px!important;margin-left:var(--fan-overlap,-10px)!important}
+  html[data-sr-battle-release="0178"] .hand.compact-hand .card:first-child{margin-left:0!important}
+  html[data-sr-battle-release="0178"] .hand.compact-hand .card .mini-art{height:102px!important}
+  html[data-sr-battle-release="0178"] .hand.compact-hand .card .name-plaque{left:14px!important;right:14px!important;bottom:34px!important;min-height:24px!important;padding:4px 5px 4px!important}
+  html[data-sr-battle-release="0178"] .hand.compact-hand .card .name-plaque .name{font-size:7px!important}
+  html[data-sr-battle-release="0178"] .hand.compact-hand .card .mini-sigil{bottom:28px!important;width:20px!important;height:20px!important;font-size:10px!important}
+  html[data-sr-battle-release="0178"] .hand.compact-hand .card .mini{bottom:18px!important}
+  html[data-sr-battle-release="0178"] .hand.compact-hand .card .mini .atk{width:26px!important;min-width:26px!important;height:26px!important}
+  html[data-sr-battle-release="0178"] .hand.compact-hand .card .mini .chp{width:28px!important;min-width:28px!important;height:28px!important}
+  html[data-sr-battle-release="0178"] .hand.compact-hand .card .mini .atk b,html[data-sr-battle-release="0178"] .hand.compact-hand .card .mini .chp b{font-size:11px!important}
+  html[data-sr-battle-release="0178"] .hand.compact-hand .card .type{font-size:4.6px!important;margin-top:5px!important}
+  html[data-sr-battle-release="0178"] .hand.compact-hand .card .desc{font-size:5.2px!important;min-height:18px!important;-webkit-line-clamp:2!important;margin-top:2px!important}
+  html[data-sr-battle-release="0178"] .creature{min-height:146px!important;padding-bottom:32px!important}
+  html[data-sr-battle-release="0178"] .creature .mini-art{height:146px!important}
+  html[data-sr-battle-release="0178"] .creature .name-plaque{bottom:35px!important;left:15px!important;right:15px!important;min-height:24px!important}
+  html[data-sr-battle-release="0178"] .creature .stats{bottom:18px!important}
+}
+@keyframes sr179PlayablePulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 </style>
 <style id="srBattleCriticalFallback">html,body{margin:0;min-height:100%;background:#030914;color:#f7f0df;font-family:Inter,system-ui,sans-serif}.hidden{display:none!important}.battle-shell{min-height:100vh;background:#030914}.setup{max-width:440px;margin:90px auto;padding:24px;background:#08162a;border:1px solid #8c6b32;border-radius:20px}.setup label{display:grid;gap:6px;margin:10px 0}.setup select,.setup button{min-height:44px}.battle-topbar{position:relative;z-index:10;display:grid;grid-template-columns:44px 1fr 44px;align-items:center;padding:10px}.battle-brand{text-align:center}.battle-brand span,.battle-brand small{display:block;font-size:10px}.battle-brand b{font-family:Georgia,serif;font-size:24px}
 
@@ -2498,7 +2565,7 @@ html[data-sr-battle-release="0178"] .card-preview-sheet{width:min(540px,100%)!im
 (()=>{
 document.documentElement.dataset.srBattleBuild='0165';
 document.documentElement.dataset.srBattleRelease='0178';
-window.__SR_BATTLE_BUILD='0.17.7';
+window.__SR_BATTLE_BUILD='0.17.9';
 const $=id=>document.getElementById(id);
 function sfx(n){try{window.SRAudio?.play(n)}catch(e){}}
 function battleImpact(kind='clash',text=''){const fx=$('impactFx');if(!fx)return;fx.className='impact-fx '+kind;fx.innerHTML=text?`<span>${text}</span>`:'';void fx.offsetWidth;fx.classList.add('show');setTimeout(()=>fx.classList.remove('show'),420)}
@@ -2704,7 +2771,8 @@ if(which==='player'&&G.turn==='player'&&!G.over&&!pending){const a=document.crea
 function chooseAttackTarget(a){document.querySelectorAll('.attack-selected').forEach(el=>el.classList.remove('attack-selected'));creatureEl(a,G.player)?.classList.add('attack-selected');window.SRMatchPresentation?.setTargeting(true);chooseTarget(`${a.name}: choose attack target`,'attackTarget',t=>{window.SRMatchPresentation?.clearTargeting();attack(a.id,t==='LEADER'?'LEADER':t.id)},{label:'Attack'})}
 function renderRelic(which,s){const box=$(which+'Relic');factionTheme(box,s.faction);box.style.borderColor=factions[s.faction].colors[0];box.innerHTML=s.relic?`<b>${factions[s.faction].sigil} ${s.relic.name}</b><div class="small">${s.relic.desc}</div>`:'<span class="small">No relic in play</span>'}
 
-function renderHand(s){const h=$('hand');h.innerHTML='';s.hand.forEach((card,i)=>{const b=document.createElement('button');const isCreature=card.type==='Creature';b.type='button';b.className='card '+(isCreature?'is-creature':'is-noncreature')+(G.mulliganActive&&mulliganSelected.has(card.id)?' mulligan-selected':'');b.disabled=(!G.mulliganActive&&(!canPlay(card,s)||!!pending));factionTheme(b,s.faction);const ff=factions[s.faction];const topRibbon=card.ascend&&isCreature?`<div class="sr172-top-ribbon">EVOLVE • ${card.ascend.n}</div>`:(!isCreature?`<div class="sr172-top-ribbon">${card.type.toUpperCase()}</div>`:'');const footer=isCreature?`<div class="mini"><span class="atk"><b>${card.atk}</b></span><span class="chp"><b>${card.hp}</b></span></div>`:`<div class="mini tactic-mini"><span>${card.type.toUpperCase()}</span></div>`;b.innerHTML=`<div class="card-frame-glow"></div><div class="mini-art" aria-hidden="true"><img src="${cardArt(card)}" alt=""></div><div class="cost">${costFor(card,s)}</div><span class="inspect-chip" role="button" aria-label="Inspect ${card.name}">ⓘ</span>${topRibbon}<span class="mini-sigil">${ff.sigil}</span><div class="name-plaque"><div class="name">${card.name}</div></div>${footer}<div class="type">${(card.rarity||card.type).toUpperCase()} • ${card.faction.toUpperCase()}${isCreature?' • CREATURE':''}</div><div class="desc">${card.desc}</div>`;b.querySelector('.inspect-chip').addEventListener('click',ev=>{ev.stopPropagation();showCardPreview(card,s.faction)});b.addEventListener('click',()=>{if(G.mulliganActive){if(mulliganSelected.has(card.id))mulliganSelected.delete(card.id);else mulliganSelected.add(card.id);render('Select opening cards to replace, then confirm.')}else playFromHand(i,'player')});h.appendChild(b)});const mb=$('mulliganBtn');if(mb&&G.mulliganActive){const n=mulliganSelected.size;mb.textContent=n?`Confirm • Replace ${n}`:'Keep Hand'}}
+function syncHandViewportLayout(handEl,count){if(!handEl)return;const compact=window.matchMedia('(max-width:600px)').matches;handEl.classList.toggle('compact-hand',compact);if(!compact){handEl.style.removeProperty('--fan-card-width');handEl.style.removeProperty('--fan-overlap');return}const total=Math.max(1,Number(count)||0);const vw=Math.max(320,window.innerWidth||0);const usable=Math.max(270,vw-28);let width=Math.floor((usable+Math.max(0,total-1)*10)/total);width=Math.max(56,Math.min(76,width));let overlap=0;const raw=total*width;if(raw>usable&&total>1){overlap=Math.min(20,Math.max(0,Math.ceil((raw-usable)/(total-1))+2))}else if(total>=5){overlap=8}handEl.style.setProperty('--fan-card-width',width+'px');handEl.style.setProperty('--fan-overlap',`-${overlap}px`)}
+function renderHand(s){const h=$('hand');h.innerHTML='';s.hand.forEach((card,i)=>{const b=document.createElement('button');const isCreature=card.type==='Creature';const playable=!G.mulliganActive&&!pending&&canPlay(card,s);b.type='button';b.className='card '+(isCreature?'is-creature':'is-noncreature')+(playable?' is-playable':'')+(G.mulliganActive&&mulliganSelected.has(card.id)?' mulligan-selected':'');b.disabled=(!G.mulliganActive&&(!canPlay(card,s)||!!pending));factionTheme(b,s.faction);const ff=factions[s.faction];const topRibbon=card.ascend&&isCreature?`<div class="sr172-top-ribbon">EVOLVE • ${card.ascend.n}</div>`:(!isCreature?`<div class="sr172-top-ribbon">${card.type.toUpperCase()}</div>`:'');const footer=isCreature?`<div class="mini"><span class="atk"><b>${card.atk}</b></span><span class="chp"><b>${card.hp}</b></span></div>`:`<div class="mini tactic-mini"><span>${card.type.toUpperCase()}</span></div>`;b.innerHTML=`<div class="card-frame-glow"></div><div class="mini-art" aria-hidden="true"><img src="${cardArt(card)}" alt=""></div><div class="cost">${costFor(card,s)}</div><span class="inspect-chip" role="button" aria-label="Inspect ${card.name}">ⓘ</span>${topRibbon}<span class="mini-sigil">${ff.sigil}</span><div class="name-plaque"><div class="name">${card.name}</div></div>${footer}<div class="type">${(card.rarity||card.type).toUpperCase()} • ${card.faction.toUpperCase()}${isCreature?' • CREATURE':''}</div><div class="desc">${card.desc}</div>`;b.querySelector('.inspect-chip').addEventListener('click',ev=>{ev.stopPropagation();showCardPreview(card,s.faction)});b.addEventListener('click',()=>{if(G.mulliganActive){if(mulliganSelected.has(card.id))mulliganSelected.delete(card.id);else mulliganSelected.add(card.id);render('Select opening cards to replace, then confirm.')}else playFromHand(i,'player')});h.appendChild(b)});syncHandViewportLayout(h,s.hand.length);const mb=$('mulliganBtn');if(mb&&G.mulliganActive){const n=mulliganSelected.size;mb.textContent=n?`Confirm • Replace ${n}`:'Keep Hand'}}
 const ba=$('battleAudio');function syncBattleAudio(){if(ba)ba.textContent=window.SRAudio?.isEnabled()?'🔊':'🔇'}if(ba){syncBattleAudio();ba.addEventListener('click',()=>{window.SRAudio?.toggle();syncBattleAudio();sfx('click')})}$('previewClose').addEventListener('click',closeCardPreview);$('cardPreview').addEventListener('click',e=>{if(e.target===$('cardPreview'))closeCardPreview()});$('tutorialNext').addEventListener('click',nextTutorialCoach);$('startBtn').addEventListener('click',startMatch);$('resetBtn').addEventListener('click',resetMatch);$('endTurnBtn').addEventListener('click',()=>{if(!G||G.over||G.turn!=='player'||G.mulliganActive)return;buzz(8);endTurnCleanup(G.player);startTurn('enemy')});$('cancelTarget').addEventListener('click',()=>{if(pending?.mandatory)return;pending=null;$('targetPanel').classList.add('hidden');$('cancelTarget').classList.remove('hidden');document.querySelectorAll('.targetable,.targetable-leader').forEach(el=>el.classList.remove('targetable','targetable-leader'));window.SRMatchPresentation?.clearTargeting();render('Targeting cancelled.')});$('mulliganBtn').addEventListener('click',confirmMulligan);$('leaderAscendBtn').addEventListener('click',()=>{if(G&&G.turn==='player'&&!G.over&&!G.mulliganActive)activateLeaderPower(G.player,G.enemy,'player')});
 for(const name of Object.keys(factions)){for(const id of ['playerFaction','enemyFaction']){const o=document.createElement('option');o.value=name;o.textContent=name;$(id).appendChild(o)}}$('playerFaction').value='Mercians';$('enemyFaction').value='Orks';
 })();
@@ -2792,7 +2860,7 @@ for(const name of Object.keys(factions)){for(const id of ['playerFaction','enemy
     }catch{}
   }
   function syncViewport(){forceHostFullscreen()}
-  window.addEventListener('resize',()=>{syncViewport();setTimeout(forceHostFullscreen,40)});
+  window.addEventListener('resize',()=>{syncViewport();setTimeout(forceHostFullscreen,40);if(typeof G!=='undefined'&&G)setTimeout(()=>render(),50)});
   window.addEventListener('load',()=>{applyBattleBackground(true);syncViewport();forceHostFullscreen();setTimeout(forceHostFullscreen,60);setTimeout(forceHostFullscreen,250);
     $('battleBack')?.addEventListener('click',()=>{const target=(location.origin&&location.origin!=='null')?location.origin:'*';try{window.parent?.postMessage({type:'sr-close-battle'},target)}catch{history.back?.()}});
     $('startBtn')?.addEventListener('click',()=>applyBattleBackground(true),true);
