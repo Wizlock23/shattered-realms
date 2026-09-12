@@ -1,0 +1,600 @@
+{
+  "version": "0.19.5",
+  "build": "0195",
+  "status": "approved-art-wave-5",
+  "activeCardArtCount": 59,
+  "approvedFullCardDesignCount": 20,
+  "cards": [
+    {
+      "id": "alfar_0",
+      "name": "Veilborn Adept",
+      "source": "veilborn_adept_alfar_void_mage.png",
+      "sha256": "03f4cdd06096ec8b",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_1",
+      "name": "Umbral Familiar",
+      "source": "umbral_familiar_eclipse_of_ruins.png",
+      "sha256": "0b103d72a2049ef4",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_2",
+      "name": "Vael'Nyr Spellblade",
+      "source": "vael_nyr_spellblade_card.png",
+      "sha256": "35208200f2f70f28",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_3",
+      "name": "Hexweaver",
+      "source": "hexweaver_threads_of_shadow.png",
+      "sha256": "64005c1298adbb94",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_4",
+      "name": "Rift Seer",
+      "source": "rift_seer_void_oracle.png",
+      "sha256": "af997a36de90cefd",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_5",
+      "name": "Nightglass Arcanist",
+      "source": "nightglass_arcanist_trading_card.png",
+      "sha256": "bf844e31c66b2e55",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_6",
+      "name": "Shadow Bind",
+      "source": "shadow_bind_eclipsebound_wraith.png",
+      "sha256": "791c2750572a72c2",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_7",
+      "name": "Arcane Surge",
+      "source": "arcane_surge_alfar_tactic_card.png",
+      "sha256": "cdec5ba31fa85ee2",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_8",
+      "name": "Obsidian Codex",
+      "source": "obsidian_codex_arcane_eclipse.png",
+      "sha256": "a83dfdf996d8a5a8",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_9",
+      "name": "Seralyth's Veil",
+      "source": "seralyth_s_veil_legendary_tactic_card.png",
+      "sha256": "4237e0101ee49452",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_11",
+      "name": "Gloam Stalker",
+      "source": "void_stalker_eclipse_of_ruins.png",
+      "sha256": "0ae56e94476cc8b4",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_13",
+      "name": "Crystal Golem",
+      "source": "crystal_golem_of_the_shattered_valley.png",
+      "sha256": "01376cac2f84ce6c",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_1",
+      "name": "Legion Spearman",
+      "source": "legion_spearman_card.png",
+      "sha256": "09d7ca026386bc3a",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_8",
+      "name": "Standard of Aurel",
+      "source": "standard_of_aurel.png",
+      "sha256": "4209de159360959d",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mahirim_12",
+      "name": "Bloodmoon Cub",
+      "source": "ember_cub_volcanic_flameborn.png",
+      "sha256": "0e3ee95edad8e5f6",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mirdain_3",
+      "name": "Moonleaf Stag",
+      "source": "moonleaf_stag_enchanted_card.png",
+      "sha256": "148a1b6b972f3a90",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mirdain_7",
+      "name": "Wild Growth",
+      "source": "wild_growth_enchanted_forest_magic.png",
+      "sha256": "973e2f28b24614bf",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mirdain_8",
+      "name": "Songroot Grove",
+      "source": "songroot_grove_relic_card.png",
+      "sha256": "524cfbc566f2ced2",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mirdain_12",
+      "name": "Rootbound Guardian",
+      "source": "moss_guardian_of_the_ancient_ruins.png",
+      "sha256": "9f4b4f58e306dbd0",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_10",
+      "name": "Veil Initiate",
+      "source": "wave2-concept-art",
+      "sha256": "d7cde589447efff7",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_12",
+      "name": "Null Archivist",
+      "source": "wave2-concept-art",
+      "sha256": "7e437a179acf2ecf",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_13",
+      "name": "Rift Warden",
+      "source": "wave2-concept-art",
+      "sha256": "99ac1ef0cf7fe963",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_14",
+      "name": "Mirror Shade",
+      "source": "wave2-concept-art",
+      "sha256": "97906daa6ae9e4f0",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_15",
+      "name": "Veil Snare",
+      "source": "wave2-concept-art",
+      "sha256": "fece1335ea428244",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_16",
+      "name": "Forbidden Insight",
+      "source": "wave2-concept-art",
+      "sha256": "dd8d4d295428a4b7",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "alfar_17",
+      "name": "Eclipse Decree",
+      "source": "wave2-concept-art",
+      "sha256": "91973721013ec80c",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_0",
+      "name": "Stonehall Miner",
+      "source": "wave2-concept-art",
+      "sha256": "8056bda4c2ef8d2b",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_1",
+      "name": "Ironspine Defender",
+      "source": "wave2-concept-art",
+      "sha256": "21bc760844c24984",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_2",
+      "name": "Forgehand Smith",
+      "source": "wave2-concept-art",
+      "sha256": "e044341263635f42",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_3",
+      "name": "Shardforged Automaton",
+      "source": "v0.19.3 generated dwarf art wave",
+      "sha256": "2f8c6d23da386f07",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_4",
+      "name": "Runebreaker Ram",
+      "source": "v0.19.3 generated dwarf art wave",
+      "sha256": "b482beb40cac36ef",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_5",
+      "name": "Deepcore Colossus",
+      "source": "v0.19.3 generated dwarf art wave",
+      "sha256": "217dc4b896e5d9e1",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_6",
+      "name": "Reinforce",
+      "source": "v0.19.3 generated dwarf art wave",
+      "sha256": "6bdf1aaa302c889e",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_7",
+      "name": "Hammerfall",
+      "source": "v0.19.3 generated dwarf art wave",
+      "sha256": "7275110f714aacd9",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_8",
+      "name": "Forge of Kharad",
+      "source": "v0.19.3 generated dwarf art wave",
+      "sha256": "73c46dcb5c60351f",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_9",
+      "name": "Bromm's Bulwark",
+      "source": "v0.19.3 generated dwarf art wave",
+      "sha256": "8f9c0b35ad14ee10",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_10",
+      "name": "Tunnel Sentry",
+      "source": "v0.19.3 generated dwarf art wave",
+      "sha256": "a3f42cee364dc890",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_11",
+      "name": "Copperhand Engineer",
+      "source": "v0.19.3 generated dwarf art wave",
+      "sha256": "2fd7359d4d294c74",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_12",
+      "name": "Runic Bulwark",
+      "source": "v0.19.3 generated dwarf art wave",
+      "sha256": "ad567c2b83d45209",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_14",
+      "name": "Deepforge Master",
+      "source": "v0.19.4 faction-accurate art wave",
+      "sha256": "9fdaf933efb61f26",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_15",
+      "name": "Fortify",
+      "source": "v0.19.4 faction-accurate art wave",
+      "sha256": "9a85d2688075177c",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_16",
+      "name": "Shatterbolt",
+      "source": "v0.19.4 faction-accurate art wave",
+      "sha256": "cea7f1f18d637e05",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "dwarves_17",
+      "name": "Anvil of Echoes",
+      "source": "v0.19.4 faction-accurate art wave",
+      "sha256": "47201b10797de7a7",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_0",
+      "name": "Aurel River Scout",
+      "source": "v0.19.4 faction-accurate art wave",
+      "sha256": "45f290713271137e",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_2",
+      "name": "Banner Squire",
+      "source": "v0.19.4 faction-accurate art wave",
+      "sha256": "bbd2475b508c50b8",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_3",
+      "name": "Imperial Longbow",
+      "source": "v0.19.4 faction-accurate art wave",
+      "sha256": "568fc63aa2d0ffc5",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_4",
+      "name": "Mercian Captain",
+      "source": "v0.19.4 faction-accurate art wave",
+      "sha256": "fbd3516e6ec9a9b3",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_5",
+      "name": "Aurel Vanguard",
+      "source": "v0.19.4 faction-accurate art wave",
+      "sha256": "69399b4b33f2fce2",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_6",
+      "name": "Rally the Line",
+      "source": "v0.19.4 faction-accurate art wave",
+      "sha256": "6a5994d9265b779c",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_7",
+      "name": "Imperial Orders",
+      "source": "v0.19.5 faction-accurate art wave",
+      "sha256": "f3135695d23d8b10",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_9",
+      "name": "River Marshal's Command",
+      "source": "v0.19.5 faction-accurate art wave",
+      "sha256": "66d0bb097781083d",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_10",
+      "name": "Aurel Militia",
+      "source": "v0.19.5 faction-accurate art wave",
+      "sha256": "5751d0a9220f5210",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_11",
+      "name": "Riverblade Duelist",
+      "source": "v0.19.5 faction-accurate art wave",
+      "sha256": "a2bb7d7c594a93f8",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_12",
+      "name": "Standard Bearer",
+      "source": "v0.19.5 faction-accurate art wave",
+      "sha256": "634a81b207a228e1",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_13",
+      "name": "Aurel Strategist",
+      "source": "v0.19.5 faction-accurate art wave",
+      "sha256": "8ee40d1badf6b597",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_14",
+      "name": "Royal Guard",
+      "source": "v0.19.5 faction-accurate art wave",
+      "sha256": "fdc0ad3013efd767",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_15",
+      "name": "Coordinated Strike",
+      "source": "v0.19.5 faction-accurate art wave",
+      "sha256": "99be67218c1e19c9",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_16",
+      "name": "Tactical Recall",
+      "source": "v0.19.5 faction-accurate art wave",
+      "sha256": "8a60f3680ae7f5c8",
+      "size": [
+        768,
+        1024
+      ]
+    },
+    {
+      "id": "mercians_17",
+      "name": "Crown Standard",
+      "source": "v0.19.5 faction-accurate art wave",
+      "sha256": "3d845e95e52997ca",
+      "size": [
+        768,
+        1024
+      ]
+    }
+  ],
+  "notes": "Wave 5 replaces the remaining Mercian placeholder art with faction-accurate live illustrations while preserving canonical card stats, abilities, and the approved in-app card frame treatment."
+}
