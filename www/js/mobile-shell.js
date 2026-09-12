@@ -1,5 +1,5 @@
 (() => {
-  const VERSION = '0.17.9';
+  const VERSION = '0.18.0';
   const STATE_KEY = 'sr_v050_state'; // intentionally preserved for prototype migration compatibility
   const isNative = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
   document.documentElement.dataset.srVersion = VERSION;
