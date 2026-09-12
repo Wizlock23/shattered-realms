@@ -1115,3 +1115,11 @@ button,[role="button"],select,input{touch-action:manipulation}
 #collectionGrid .card-body .owned,#deckCards .card-body .owned,#packResults .card-body .owned{font-size:8.5px!important}
 @media(max-width:860px){.cardgrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}.sr110-deck-layout .cardgrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 @media(max-width:640px){.cardgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}.card-body{margin-top:18px!important}.pack-reveal-card .card{max-width:168px!important}}
+
+
+/* v0.19.0 — content-complete art & Shard Gauntlet polish */
+.card .card-art img,.detail-art img,.pack-reveal-card .card-art img{object-position:center 32%!important;filter:saturate(1.06) contrast(1.04)!important}
+.sr190-gauntlet{position:relative;overflow:hidden;border-color:rgba(205,165,83,.55)!important;background:radial-gradient(circle at 85% 12%,rgba(93,55,163,.18),transparent 36%),linear-gradient(160deg,rgba(20,30,52,.96),rgba(8,13,24,.98))!important}
+.sr190-gauntlet:after{content:'◆';position:absolute;right:16px;bottom:-18px;font:900 92px/1 Georgia,serif;color:rgba(191,147,255,.06);pointer-events:none}
+.sr110-chapter-tabs button.active{min-width:min(100%,330px)}
+@media(max-width:640px){.card .card-art img,.detail-art img{object-position:center 28%!important}}
