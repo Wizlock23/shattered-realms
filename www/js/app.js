@@ -2,7 +2,7 @@
 const FACTIONS=window.SRGameData.FACTIONS; const LEADER_ART={"Alfar":"assets/leaders/alfar.webp","Dwarves":"assets/leaders/dwarves.webp","Mercians":"assets/leaders/mercians.webp","Mahirim":"assets/leaders/mahirim.webp","Mirdain":"assets/leaders/mirdain.webp","Orks":"assets/leaders/orks.webp"};
 const allCards=Object.values(FACTIONS).flatMap(f=>f.cards);
 const CARD_ART=Object.fromEntries(allCards.map(c=>[c.id,`assets/card-art/${c.id}.jpg`]));
-const BATTLE_URL='battle/index-v0173.html?v=0173';
+const BATTLE_URL='battle/index-v0174.html?v=0174';
 const TEST_OPEN_ACCESS=true;
 function quickTestDeck(faction){const cards={};for(const c of FACTIONS[faction].cards.slice(0,10))cards[c.id]=3;return {id:`__test__${faction}`,name:`Quick Test • ${faction}`,faction,cards,__test:true}}
 function isQuickTestDeckId(id){return typeof id==='string'&&id.startsWith('__test__')&&FACTIONS[id.slice(8)]}
